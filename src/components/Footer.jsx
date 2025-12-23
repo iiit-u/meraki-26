@@ -1,94 +1,111 @@
+/**
+ * @fileoverview Site footer with coordinators, links, and social media.
+ * 
+ * Features a Minecraft-styled footer with two-tone background, coordinator
+ * contact info, institutional logos, and navigation links. Includes
+ * configurable decorative block squares.
+ * 
+ * @see DOCS.md#animation-system for fadeIn and zoomIn animations
+ * @component
+ */
+
 import React from "react";
 import { motion } from "framer-motion";
-import iiituLogo from "../assets/iiitu-logo.png";
-import merakiLogo from "../assets/meraki-minecraft.png";
+import { Link } from "react-router-dom";
+import iiituLogo from "../assets/iiitu_logo.webp";
+import merakiLogo from "../assets/meraki_minecraft.webp";
+import {
+  footerSocialLinks as socialLinks,
+  otherFests,
+  footerQuickLinks as quickLinks,
+  footerCoordinators as coordinators,
+} from "../constants";
+import { fadeIn, staggerContainer, zoomIn } from "../utils/motion";
 
+/**
+ * Site footer component.
+ * 
+ * @returns {JSX.Element} Footer with coordinators, logos, and links
+ * 
+ * @layout
+ * - Coordinators section (top)
+ * - Logo section with IIIT Una and Meraki logos
+ * - Three-column grid: Other Fests | Social Links | Quick Links
+ * - Credits row (bottom)
+ * 
+ * @background Two-tone with configurable decorative blocks
+ */
 const Footer = () => {
-  const blockSize = 25; // Base block size in pixels
+  /**
+   * Base block size for decorative squares.
+   * @constant {number}
+   */
+  const blockSize = 25;
 
   /**
-   * HOW TO ADD COLORED SQUARES TO THE FOOTER BACKGROUND
-   *
-   * The fixedSquares array allows you to place decorative colored blocks
-   * on the footer background. Each square object has the following properties:
-   *
+   * Decorative colored squares for footer background.
+   * 
+   * @type {Array<{x: number, y: number, color: string}>}
+   * 
+   * HOW TO ADD COLORED SQUARES:
+   * 
    * @property {number} x - Horizontal position (0-40 scale, where 40 = 100% width)
-   *                        Example: x: 5 places the square at ~12.5% from the left
-   *                                 x: 20 places it at center (50%)
-   *                                 x: 35 places it at ~87.5% from the left
-   *
-   * @property {number} y - Vertical position (in blocks from the top of the dark section)
-   *                        Each unit = 25px (blockSize). y: 0 is right at the 30% mark
-   *                        Example: y: 0 = at the transition line
-   *                                 y: 2 = 50px below the transition
-   *                                 y: 4 = 100px below the transition
-   *
-   * @property {string} color - CSS color value for the square
-   *                            Example: "#C4A962" (gold)
-   *                                     "#FF0000" (red)
-   *                                     "rgba(255, 255, 255, 0.3)" (transparent white)
-   *
-   * EXAMPLE USAGE:
-   *
+   *   - x: 5 places at ~12.5% from left
+   *   - x: 20 places at center (50%)
+   *   - x: 35 places at ~87.5% from left
+   * 
+   * @property {number} y - Vertical position (blocks from 38% line)
+   *   - Each unit = 25px (blockSize)
+   *   - y: 0 = at color transition
+   *   - y: 4 = 100px below transition
+   * 
+   * @property {string} color - CSS color value
+   *   - "#C4A962" (gold)
+   *   - "rgba(255, 255, 255, 0.3)" (transparent)
+   * 
+   * @example
    * const fixedSquares = [
-   *   { x: 5, y: 2, color: "#C4A962" },     // Gold square at left, 50px down
-   *   { x: 20, y: 4, color: "#FF5733" },    // Orange square at center, 100px down
-   *   { x: 35, y: 1, color: "#6C6A6A" },    // Gray square at right, 25px down
-   *   { x: 10, y: 6, color: "rgba(255, 255, 255, 0.2)" }, // Transparent white
+   *   { x: 5, y: 2, color: "#C4A962" },
+   *   { x: 20, y: 4, color: "#FF5733" },
    * ];
-   *
-   * TIPS:
-   * - Keep x values between 0-40 to stay within viewport
-   * - Use y values carefully to avoid overlapping with content
-   * - The blockSize is 25px, so each block is a 25x25 pixel square
-   * - Squares appear below the 30% gray section (in the dark #242424 area)
    */
   const fixedSquares = [];
-
-  const coordinators = [
-    {
-      name: "Pranav Garg",
-      email: "23346@iiitu.ac.in",
-      phone: "+91XXXXXXXXX",
-    },
-    {
-      name: "Pranav Garg",
-      email: "23346@iiitu.ac.in",
-      phone: "+91XXXXXXXXX",
-    },
-  ];
-
-  const otherFests = [
-    { name: "MRIDANG", url: "https://mridang.iiitu.ac.in" },
-    { name: "ESUMMIT", url: "https://esummit.iiitu.ac.in" },
-  ];
-  const quickLinks = ["HOW TO REACH", "COORDINATING TEAM"];
 
   return (
     <footer
       className="relative w-full overflow-hidden"
       style={{ fontFamily: "'Press Start 2P', cursive" }}
     >
-      {/* Background layers */}
+      {/* 
+       * Background Layers
+       * 
+       * Two-tone split: lighter gray (38% top), darker gray (62% bottom)
+       * Mimics Minecraft block transition effect.
+       */}
       <div className="absolute inset-0">
-        {/* Top */}
+        {/* Top section - lighter gray */}
         <div
           className="absolute top-0 left-0 right-0"
           style={{
-            height: "30%",
+            height: "38%",
             backgroundColor: "#303030",
           }}
         />
-        {/* Bottom */}
+        {/* Bottom section - darker gray */}
         <div
           className="absolute bottom-0 left-0 right-0"
           style={{
-            height: "70%",
+            height: "62%",
             backgroundColor: "#242424",
           }}
         />
 
-        {/* Fixed blocks rendering*/}
+        {/* 
+         * Decorative Block Rendering
+         * 
+         * Positions each square based on x (percentage) and y (pixels).
+         * Squares appear in the dark bottom section.
+         */}
         {fixedSquares.map((square, idx) => (
           <div
             key={idx}
@@ -97,21 +114,30 @@ const Footer = () => {
               width: `${blockSize}px`,
               height: `${blockSize}px`,
               left: `calc(${(square.x / 40) * 100}%)`,
-              top: `calc(30% + ${square.y * blockSize}px)`,
+              top: `calc(38% + ${square.y * blockSize}px)`,
               backgroundColor: square.color,
             }}
           />
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 px-4 sm:px-8 md:px-16 py-8 md:py-12">
-        {/* Coordinators Section */}
+      {/* Content Container with stagger animation */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+        className="relative z-10 px-4 sm:px-8 md:px-16 pt-8 md:pt-10 pb-6 md:pb-9"
+      >
+        {/* 
+         * Coordinators Section
+         * 
+         * Displays event coordinator contact information.
+         * Animations: fadeIn("down") with staggered delays.
+         */}
         <motion.div
-          className="text-center mb-8 md:mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeIn("down", "tween", 0.2, 0.6)}
+          className="text-center mb-2 md:mb-3"
         >
           <h2
             className="text-white text-lg sm:text-xl md:text-2xl mb-6 md:mb-8 tracking-[0.2em] sm:tracking-[0.3em]"
@@ -125,9 +151,7 @@ const Footer = () => {
               <motion.div
                 key={idx}
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                variants={fadeIn("down", "spring", idx * 0.2 + 0.3, 0.75)}
               >
                 <h3
                   className="text-white text-sm sm:text-base md:text-lg mb-2"
@@ -161,12 +185,14 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Logo Section */}
+        {/* 
+         * Logo Section
+         * 
+         * Displays IIIT Una and Meraki logos with zoomIn animation.
+         */}
         <motion.div
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 mb-8 md:mb-12 py-6 md:py-8"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
+          variants={zoomIn(0.4, 0.6)}
+          className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 mt-3 md:mt-4 mb-3 md:mb-4 py-2 md:py-3"
         >
           {/* IIIT Una Logo + Text */}
           <div className="flex items-center justify-center gap-3 md:gap-4 w-56 sm:w-64">
@@ -197,7 +223,7 @@ const Footer = () => {
             />
           </div>
 
-          {/* Dotted Divider */}
+          {/* Vertical dashed divider (desktop only) */}
           <div
             className="hidden sm:block h-16 md:h-20 mx-4 md:mx-8"
             style={{
@@ -215,17 +241,20 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Divider below logos */}
-        <div className="w-full max-w-4xl mx-auto h-px bg-gray-500/60 mb-8 md:mb-12" />
+        {/* Horizontal divider */}
+        <div className="w-full max-w-4xl mx-auto h-px bg-gray-500/60 mb-3 md:mb-4" />
 
-        {/* Three Sections Row */}
+        {/* 
+         * Three-Column Navigation Grid
+         * 
+         * Other Fests | Connect With Us | Quick Links
+         * Responsive: stacked on mobile, grid on sm+
+         */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 md:mb-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeIn("up", "tween", 0.5, 0.5)}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-4 md:mb-6 text-center"
         >
-          {/* Other Fests */}
+          {/* Other Fests Column */}
           <div>
             <h4
               className="text-white text-xs sm:text-sm mb-3 md:mb-4 tracking-wider"
@@ -253,7 +282,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Connect With Us */}
+          {/* Social Links Column */}
           <div>
             <h4
               className="text-white text-xs sm:text-sm mb-3 md:mb-4 tracking-wider"
@@ -262,9 +291,11 @@ const Footer = () => {
               CONNECT WITH US
             </h4>
             <div className="flex justify-center gap-3 md:gap-4">
-              {/* Social Icons */}
+              {/* Instagram */}
               <a
-                href="#"
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-[#C4A962] transition-colors duration-300"
                 aria-label="Instagram"
               >
@@ -276,8 +307,11 @@ const Footer = () => {
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
+              {/* Twitter/X */}
               <a
-                href="#"
+                href={socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-[#C4A962] transition-colors duration-300"
                 aria-label="Twitter"
               >
@@ -289,8 +323,11 @@ const Footer = () => {
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
+              {/* LinkedIn */}
               <a
-                href="#"
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-[#C4A962] transition-colors duration-300"
                 aria-label="LinkedIn"
               >
@@ -305,7 +342,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links Column */}
           <div>
             <h4
               className="text-white text-xs sm:text-sm mb-3 md:mb-4 tracking-wider"
@@ -316,28 +353,41 @@ const Footer = () => {
             <ul className="space-y-1 md:space-y-2">
               {quickLinks.map((link, idx) => (
                 <li key={idx}>
-                  <a
-                    href="#"
-                    className="text-gray-400 text-[8px] sm:text-[10px] hover:text-[#C4A962] transition-colors duration-300"
-                    style={{
-                      fontFamily: "'VT323', monospace",
-                      fontSize: "clamp(11px, 2vw, 14px)",
-                    }}
-                  >
-                    {link}
-                  </a>
+                  {link.external ? (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 text-[8px] sm:text-[10px] hover:text-[#C4A962] transition-colors duration-300"
+                      style={{
+                        fontFamily: "'VT323', monospace",
+                        fontSize: "clamp(11px, 2vw, 14px)",
+                      }}
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.url}
+                      className="text-gray-400 text-[8px] sm:text-[10px] hover:text-[#C4A962] transition-colors duration-300"
+                      style={{
+                        fontFamily: "'VT323', monospace",
+                        fontSize: "clamp(11px, 2vw, 14px)",
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
         </motion.div>
 
-        {/* Credits Section */}
+        {/* Credits Row */}
         <motion.div
-          className="flex flex-col sm:flex-row justify-between items-center pt-4 md:pt-6 border-t border-gray-700/50 gap-3 sm:gap-0"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col sm:flex-row justify-between items-center pt-2 md:pt-3 pb-1 border-t border-gray-700/50 gap-2 sm:gap-0"
+          variants={fadeIn("up", "tween", 0.6, 0.5)}
         >
           <p
             className="text-gray-400 text-[8px] sm:text-[10px] order-2 sm:order-1"
@@ -355,10 +405,16 @@ const Footer = () => {
               fontSize: "clamp(10px, 2vw, 14px)",
             }}
           >
-            Developed by <span className="text-[#C4A962]">© DEVTEAM</span>
+            Developed by{" "}
+            <Link
+              to="/devteam"
+              className="text-[#C4A962] hover:text-cyan-400 transition-colors duration-300"
+            >
+              DEVTEAM
+            </Link>
           </p>
         </motion.div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

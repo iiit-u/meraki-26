@@ -1,127 +1,257 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+/**
+ * @fileoverview Photo gallery page with collection-based organization.
+ * 
+ * Displays photo collections in a responsive grid with modal viewer.
+ * Uses Vite's import.meta.glob for dynamic image loading.
+ * 
+ * @see DOCS.md#animation-system for staggered grid animations
+ * @page /gallery
+ */
+
+import React, { useState, useRef, useMemo } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import galleryBg from "../assets/gallery.webp";
 import { galleryCollections } from "../constants";
 
+/**
+ * Gallery page component with photo collections.
+ * 
+ * @returns {JSX.Element} Gallery page with collection grid and modal
+ * 
+ * @state selectedCollection - Currently open collection (null = grid view)
+ * 
+ * @features
+ * - Dynamic image loading via import.meta.glob
+ * - Modal lightbox for collection viewing
+ * - Responsive grid (1→2→3 columns)
+ * - Scroll-linked content animations
+ */
 const Gallery = () => {
   const [selectedCollection, setSelectedCollection] = useState(null);
 
+  /**
+   * Dynamically load and organize images by folder.
+   * 
+   * @algorithm
+   * 1. Use Vite's import.meta.glob to find all images
+   * 2. Parse paths to extract folder names
+   * 3. Group images by folder
+   * 4. Merge with galleryCollections metadata
+   * 
+   * @memoized Expensive glob operation cached until collections change
+   */
+  const populatedCollections = useMemo(() => {
+    // Glob all images from gallery subdirectories
+    const glob = import.meta.glob('../assets/gallery/**/*.{png,jpg,jpeg,webp,svg}', { eager: true });
+    const imagesByFolder = {};
+
+    // Parse paths and group by folder
+    for (const path in glob) {
+      const parts = path.split('/');
+      // Expected: ../assets/gallery/<folder>/<image>
+      const folder = parts[parts.length - 2];
+      const imgUrl = glob[path].default;
+
+      if (!imagesByFolder[folder]) {
+        imagesByFolder[folder] = [];
+      }
+      imagesByFolder[folder].push(imgUrl);
+    }
+
+    // Merge with collection metadata
+    return galleryCollections.map(col => ({
+      ...col,
+      images: imagesByFolder[col.folder] || [],
+      count: (imagesByFolder[col.folder] || []).length
+    }));
+  }, []);
+
+  /**
+   * Animation variants for staggered grid entrance.
+   * @physics Spring-based with reduced stiffness for smooth animation
+   */
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 60,
+        damping: 25
+      }
+    }
+  };
+
+  // Scroll-based animations
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.2], [60, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.2], [0.98, 1]);
+
   return (
     <div
-      className="min-h-screen relative text-white pt-24 pb-16"
+      ref={containerRef}
+      className="min-h-screen relative text-white pt-20 sm:pt-24 pb-12 sm:pb-16"
       style={{
         backgroundImage: `url(${galleryBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: "scroll",  // Fixed for mobile performance
       }}
     >
-      {}
+      {/* Dark overlay for contrast */}
       <div className="absolute inset-0 bg-black/60"></div>
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[14px] border-t-transparent border-b-transparent border-l-cyan-400"></div>
-            <h2 className="font-terminal text-cyan-400 text-sm md:text-base tracking-[0.3em] uppercase">
+
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10"
+        style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
+      >
+        {/* Page Header */}
+        <motion.div
+          className="text-center mb-8 sm:mb-12 md:mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div className="w-0 h-0 border-t-[6px] sm:border-t-[10px] border-b-[6px] sm:border-b-[10px] border-l-[8px] sm:border-l-[14px] border-t-transparent border-b-transparent border-l-cyan-400"></div>
+            <h2 className="font-terminal text-cyan-400 text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.3em] uppercase">
               EVENT MEMORIES
             </h2>
-            <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-r-[14px] border-t-transparent border-b-transparent border-r-cyan-400"></div>
+            <div className="w-0 h-0 border-t-[6px] sm:border-t-[10px] border-b-[6px] sm:border-b-[10px] border-r-[8px] sm:border-r-[14px] border-t-transparent border-b-transparent border-r-cyan-400"></div>
           </div>
           <h1
-            className="font-minecraft text-5xl md:text-7xl text-white mb-4 tracking-wider"
+            className="font-minecraft text-3xl sm:text-5xl md:text-7xl text-white mb-3 sm:mb-4 tracking-wider"
             style={{
               textShadow:
-                "4px 4px 0px #000, 2px 2px 0px rgba(6, 182, 212, 0.5)",
+                "3px 3px 0px #000, 2px 2px 0px rgba(6, 182, 212, 0.5)",
             }}
           >
             GALLERY
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto"></div>
-        </div>
+          <div className="w-20 sm:w-32 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto"></div>
+        </motion.div>
 
-        {}
-        <div className="border-8 border-black border-dotted p-8 bg-white">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {}
-            {galleryCollections.map((collection, index) => (
-              <div
+        {/* 
+         * Gallery Grid Container
+         * 
+         * White background "paper" frame with dotted border.
+         * Contains responsive masonry-style grid of collection cards.
+         */}
+        <motion.div
+          className="border-4 sm:border-8 border-black border-dotted p-4 sm:p-6 md:p-8 bg-white"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+          >
+            {populatedCollections.map((collection, index) => (
+              <motion.div
                 key={collection.id}
+                variants={itemVariants}
                 onClick={() => setSelectedCollection(collection)}
-                className={`border-4 border-black bg-gray-100 cursor-pointer hover:bg-gray-200 transition-all flex flex-col items-center justify-center p-6
-                                    ${
-                                      index === 0
-                                        ? "md:row-span-2 min-h-[400px]"
-                                        : ""
-                                    }
-                                    ${
-                                      index === 3
-                                        ? "md:col-span-2 min-h-[190px]"
-                                        : "min-h-[190px]"
-                                    }
-                                    ${index === 5 ? "md:col-span-2" : ""}
-                                `}
+                whileHover={{ scale: 1.02, y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                className={`border-3 sm:border-4 border-black bg-gray-100 cursor-pointer 
+                  hover:bg-gray-200 active:bg-gray-300 transition-colors
+                  flex flex-col items-center justify-center p-4 sm:p-6
+                  ${index === 0 ? "sm:row-span-2 min-h-[160px] sm:min-h-[300px] md:min-h-[400px]" : "min-h-[140px] sm:min-h-[190px]"}
+                  ${index === 3 ? "sm:col-span-2" : ""}
+                  ${index === 5 ? "sm:col-span-2" : ""}
+                `}
               >
-                <div className="text-6xl mb-4">📁</div>
-                <h3 className="font-pixel text-lg text-black mb-2">
+                <div className="text-4xl sm:text-5xl md:text-6xl mb-2 sm:mb-4">📁</div>
+                <h3 className="font-pixel text-sm sm:text-base md:text-lg text-black mb-1 sm:mb-2 text-center">
                   {collection.title}
                 </h3>
-                <p className="font-terminal text-sm text-gray-600">
+                <p className="font-terminal text-xs sm:text-sm text-gray-600">
                   {collection.count} images
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </div>
-      {}
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* 
+       * Collection Modal
+       * 
+       * Full-screen overlay with image grid.
+       * Uses AnimatePresence for enter/exit transitions.
+       */}
       <AnimatePresence>
         {selectedCollection && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-black/95 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto"
             onClick={() => setSelectedCollection(null)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white border-8 border-black p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              className="bg-white border-4 sm:border-8 border-black p-4 sm:p-6 md:p-8 w-full max-w-6xl my-4 sm:my-0 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              {}
-              <div className="flex justify-between items-center mb-6 border-b-4 border-black pb-4">
-                <div>
-                  <h2 className="font-minecraft text-3xl text-black">
+              {/* Modal Header */}
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-4 border-b-2 sm:border-b-4 border-black pb-3 sm:pb-4">
+                <div className="w-full sm:w-auto">
+                  <h2 className="font-minecraft text-xl sm:text-2xl md:text-3xl text-black">
                     {selectedCollection.title}
                   </h2>
-                  <p className="font-terminal text-sm text-gray-600 mt-2">
+                  <p className="font-terminal text-xs sm:text-sm text-gray-600 mt-1">
                     {selectedCollection.count} images in this collection
                   </p>
                 </div>
                 <button
                   onClick={() => setSelectedCollection(null)}
-                  className="bg-red-600 text-white font-pixel px-6 py-3 border-4 border-red-800 hover:bg-red-700 transition-all"
+                  className="bg-red-600 text-white font-pixel px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm md:text-base border-2 sm:border-4 border-red-800 hover:bg-red-700 active:bg-red-800 transition-all w-full sm:w-auto min-h-[44px] flex items-center justify-center gap-2"
                 >
-                  ✕ CLOSE
+                  <span className="text-base sm:text-lg">✕</span> CLOSE
                 </button>
               </div>
 
-              {}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Image Grid with staggered entrance */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                 {selectedCollection.images.map((image, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="border-4 border-black bg-gray-100 overflow-hidden"
+                    transition={{ delay: Math.min(index * 0.05, 0.3) }}
+                    className="border-2 sm:border-4 border-black bg-gray-100 overflow-hidden"
                   >
                     <img
                       src={image}
                       alt={`${selectedCollection.title} - Image ${index + 1}`}
-                      className="w-full h-64 object-contain"
+                      className="w-full h-48 sm:h-56 md:h-64 object-contain"
+                      loading="lazy"
                     />
                   </motion.div>
                 ))}
