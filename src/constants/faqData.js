@@ -26,12 +26,12 @@ export const faqData = [
     {
         id: 2,
         question: "When is MERAKI 2026?",
-        answer: "MERAKI 2026 will be held from February 5-7, 2026 at IIIT Una campus."
+        answer: "MERAKI 2026 will be held from February 5-7, 2026 at IIIT Una's Salohcampus."
     },
     {
         id: 3,
         question: "How do I register for events?",
-        answer: "You can register for events through our website by clicking on the 'Register Now' button for your desired event. Payment can be made online."
+        answer: "You can register for events through our website by clicking on the 'Register Now' button for your desired event."
     },
     {
         id: 4,
@@ -50,8 +50,8 @@ export const faqData = [
     },
     {
         id: 7,
-        question: "What are the prize amounts?",
-        answer: "Prize pools vary by event, with major competitions offering prizes up to ₹50,000. Check individual event pages for specific prize breakdowns."
+        question: "How does Meraki impact the community?",
+        answer: "Meraki provides a platform for students to showcase their technical skills, learn new technologies, and connect with like-minded individuals. It also helps in building a community of technical enthusiasts."
     },
     {
         id: 8,
@@ -61,12 +61,12 @@ export const faqData = [
     {
         id: 9,
         question: "How do I reach IIIT Una campus?",
-        answer: "IIIT Una is located in Saloh, Himachal Pradesh. The nearest railway station is Una Himachal and the nearest airport is Gaggal Airport, Dharamshala. We will provide pickup services from major transit points."
+        answer: "IIIT Una is located in Saloh, Himachal Pradesh. The nearest railway station is Una Himachal and there is good connectivity by road from Chandigarh."
     },
     {
         id: 10,
         question: "Is food provided during the fest?",
-        answer: "Yes, food stalls and a festival canteen will be operational throughout the event. Meal passes can be purchased separately during registration."
+        answer: "Yes, food stalls and a festival canteen will be operational throughout the event."
     },
     {
         id: 11,
