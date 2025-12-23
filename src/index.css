@@ -1,45 +1,197 @@
+/**
+ * @fileoverview Global CSS styles and design tokens.
+ * 
+ * Defines CSS custom properties (variables), typography imports,
+ * scrollbar theming, GPU optimization classes, and accessibility settings.
+ * 
+ * @see DOCS.md#css-architecture
+ */
+
+/* ============================================
+ * Typography Imports
+ * 
+ * - Inter: Modern sans-serif for body text
+ * - Press Start 2P: 8-bit pixel font for Minecraft aesthetic
+ * - VT323: Monospace terminal font for secondary text
+ * - Silkscreen: Pixel font for headings
+ * ============================================ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap');
 
+/* Tailwind CSS base layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling */
+/* ============================================
+ * Scroll Behavior
+ * 
+ * CSS scroll-behavior: smooth enables native smooth scrolling
+ * for anchor links and scrollIntoView() calls.
+ * ============================================ */
 html {
     scroll-behavior: smooth;
 }
 
-/* Reset body and html margins/padding to prevent gaps */
+/* ============================================
+ * Base Reset
+ * 
+ * Removes default margins/padding to prevent layout gaps.
+ * Sets dark theme background color.
+ * ============================================ */
 body,
 html {
     margin: 0 !important;
     padding: 0 !important;
+    background-color: #050505;  /* Near-black for deep contrast */
+    color: white;
 }
 
-/* Custom Scrollbar - Minecraft Theme */
+/* ============================================
+ * Custom Scrollbar - Minecraft Theme
+ * 
+ * WebKit-based browsers (Chrome, Safari, Edge)
+ * Uses pixelated, blocky appearance matching Minecraft UI.
+ * 
+ * @see DOCS.md#minecraft-bevel-borders for styling rationale
+ * ============================================ */
 ::-webkit-scrollbar {
     width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;
-    border-left: 2px solid #333;
+    background: #1a1a1a;           /* Dark track background */
+    border-left: 2px solid #333;   /* Subtle left border */
 }
 
 ::-webkit-scrollbar-thumb {
+    /* Vertical gradient simulates 3D bevel effect */
     background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
     border: 2px solid #1a1a1a;
-    border-radius: 0;
+    border-radius: 0;              /* Square corners for pixel aesthetic */
 }
 
 ::-webkit-scrollbar-thumb:hover {
+    /* Cyan accent on hover matches site theme */
     background: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);
-    box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
 }
 
-/* Firefox scrollbar */
+/* Firefox Scrollbar (scrollbar-width/scrollbar-color) */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #4a4a4a #1a1a1a;
+    scrollbar-color: #4a4a4a #1a1a1a;  /* thumb track */
+}
+
+/* ============================================
+ * CSS Custom Properties (Variables)
+ * 
+ * Design tokens for consistent theming across components.
+ * Variables are scoped to :root for global access.
+ * 
+ * @see DOCS.md#design-tokens
+ * ============================================ */
+:root {
+    /* 
+     * Section Background Colors
+     * Used for gradient blending between sections.
+     * Each section's bottom gradient fades to next section's top.
+     */
+    --bg-hero: #050505;      /* Darkest - night sky */
+    --bg-about: #4a4a4a;     /* Gray - underground stone */
+    --bg-elite: #080808;     /* Near-black */
+    --bg-sponsors: #0c0c0c;  /* Slightly lighter */
+    --bg-faq: #0a0a0a;       /* Match sponsors */
+    --bg-footer: #242424;    /* Lighter gray for contrast */
+
+    /* 
+     * Easing Functions
+     * Custom cubic-bezier curves for refined motion.
+     * 
+     * smooth: Apple-style subtle easing
+     * spring: Bounce effect for interactive elements
+     */
+    --transition-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* 
+     * Layout Measurements
+     * Navbar height varies by viewport for touch accessibility.
+     */
+    --navbar-height: 5rem;   /* 80px on desktop */
+}
+
+/* ============================================
+ * GPU Compositing Optimization
+ * 
+ * Forces browser to create new compositing layer,
+ * enabling GPU-accelerated transforms and preventing
+ * paint thrashing during animations.
+ * 
+ * translateZ(0): Creates 3D context, promotes to GPU layer
+ * backface-visibility: hidden: Prevents repaint during transforms
+ * perspective: Optional, can improve transform quality
+ * 
+ * @caution Use sparingly - too many layers degrade performance
+ * @see DOCS.md#gpu-compositing
+ * ============================================ */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 
+ * will-change Optimization
+ * 
+ * Hints browser to pre-allocate resources for animated properties.
+ * Applied to all sections for smooth scroll-linked animations.
+ */
+section {
+    will-change: transform, opacity;
+}
+
+/* ============================================
+ * Accessibility: Reduced Motion
+ * 
+ * Respects user's OS-level preference for reduced motion.
+ * Disables all animations for users with vestibular disorders.
+ * 
+ * @media prefers-reduced-motion: reduce
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+ * ============================================ */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;  /* Disable smooth scrolling */
+    }
+}
+
+/* ============================================
+ * Responsive Breakpoints - Navbar Height
+ * 
+ * Reduces navbar height on smaller viewports for
+ * better content visibility and touch targets.
+ * 
+ * Matches Tailwind breakpoints:
+ * - md: 768px (tablets)
+ * - sm: 480px (mobile)
+ * ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 4rem;   /* 64px on tablet */
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: 3.5rem; /* 56px on mobile */
+    }
 }

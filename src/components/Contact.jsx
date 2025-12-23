@@ -1,19 +1,47 @@
+/**
+ * @fileoverview Contact page with Minecraft-styled form and EmailJS integration.
+ * 
+ * Features a contact form with react-hook-form validation, EmailJS for email
+ * sending, and localStorage backup. Includes an embedded Google Maps iframe.
+ * 
+ * @see DOCS.md#animation-system for slide animations
+ * @component
+ */
+
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
+import { externalLinks } from "../constants";
+import { slideIn, staggerContainer } from "../utils/motion";
 
-import steveRun from "../assets/about_image2.webp";
-import addonImage from "../assets/spn.webp";
 import pageBackground from "../assets/faq_section_bg.webp";
-import qrPlaceholder from "../assets/qr_placeholder.webp";
-import avatarPixel from "../assets/iiitu.webp";
-import motionimg from "../assets/collab.webp";
+import avatarPixel from "../assets/hero.webp";
 
+/**
+ * Contact page component with form and location info.
+ * 
+ * @returns {JSX.Element} Contact page with form and sidebar
+ * 
+ * @form Fields: name, email, subject, message
+ * @validation Uses react-hook-form with onTouched mode
+ * @submission Sends via EmailJS and stores in localStorage
+ * 
+ * @layout
+ * - Desktop: Two-column (form left, sidebar right)
+ * - Mobile: Stacked vertically
+ */
 export default function ContactMinecraft() {
   const containerRef = useRef(null);
   const formRef = useRef(null);
 
+  /**
+   * React Hook Form configuration.
+   * 
+   * @mode "onTouched" - Validates on first blur, then on every change
+   * @register Provides input props for validation
+   * @handleSubmit Triggers onSubmit with validated data
+   */
   const {
     register,
     handleSubmit,
@@ -21,17 +49,39 @@ export default function ContactMinecraft() {
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onTouched" });
 
+  // Success state for UI feedback
   const [isSent, setIsSent] = useState(false);
 
+  /**
+   * EmailJS credentials from environment variables.
+   * @see https://www.emailjs.com/docs/
+   */
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+  /**
+   * Form submission handler.
+   * 
+   * @param {Object} data - Validated form data
+   * @param {string} data.name - User's name
+   * @param {string} data.email - User's email
+   * @param {string} data.subject - Message subject
+   * @param {string} data.message - Message body
+   * 
+   * @process
+   * 1. Validate all fields present
+   * 2. Set success UI state
+   * 3. Send via EmailJS (if credentials available)
+   * 4. Store in localStorage as backup
+   * 5. Reset form after delay
+   */
   const onSubmit = async (data) => {
     if (!data.name || !data.email || !data.subject || !data.message) return;
 
     setIsSent(true);
     try {
+      // EmailJS integration
       if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
         console.warn("EmailJS: missing env vars. Skipping sendForm.");
       } else {
@@ -43,27 +93,38 @@ export default function ContactMinecraft() {
         );
       }
 
+      // LocalStorage backup
       const existing = JSON.parse(localStorage.getItem("contacts") || "[]");
       existing.push({ ...data, createdAt: new Date().toISOString() });
       localStorage.setItem("contacts", JSON.stringify(existing));
 
+      // Simulated processing delay for UX
       await new Promise((r) => setTimeout(r, 700));
       reset();
     } catch (e) {
       console.error(e);
       alert("Failed to send — check console.");
     } finally {
+      // Reset success state after feedback shown
       setTimeout(() => setIsSent(false), 1100);
     }
   };
 
-  const dragConstraintsSteve = { left: -120, right: 120, top: -40, bottom: 60 };
-
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden text-white"
+      className="relative min-h-screen w-full overflow-hidden text-white pb-8 sm:pb-0"
     >
+      {/* 
+       * Fixed Background Layer
+       * 
+       * Uses Minecraft-themed background with subtle filters
+       * for visual consistency with other pages.
+       * 
+       * @filter grayscale(20%) - Slight desaturation
+       * @filter brightness(0.90) - Darker for text contrast
+       * @filter contrast(1.05) - Enhanced definition
+       */}
       <div
         aria-hidden="true"
         className="fixed inset-0 -z-30"
@@ -76,6 +137,7 @@ export default function ContactMinecraft() {
         }}
       />
 
+      {/* Radial gradient vignette overlay */}
       <div
         aria-hidden="true"
         className="fixed inset-0 -z-28 pointer-events-none"
@@ -85,60 +147,55 @@ export default function ContactMinecraft() {
         }}
       />
 
-      <motion.img
-        src={steveRun}
-        alt="Steve"
-        className="hidden md:block pointer-events-auto absolute left-6 bottom-6 md:left-10 md:bottom-12 w-28 md:w-40 z-20"
-        drag
-        dragConstraints={dragConstraintsSteve}
-        dragElastic={0.12}
-        whileTap={{ scale: 0.95 }}
-        initial={{ x: -30, opacity: 0 }}
-        animate={{
-          x: [0, 18, 0, -18, 0],
-          y: [0, -4, 0, 4, 0],
-          opacity: [0, 1, 1],
-        }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        style={{
-          imageRendering: "pixelated",
-          filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.45))",
-        }}
-      />
-
-      <div className="relative z-40 pt-28 pb-12 px-4 md:px-8 max-w-6xl mx-auto flex flex-col items-center">
-        <div className="relative w-full mb-4 flex items-start justify-center">
-          <div className="text-center">
-            <h1
-              className="text-3xl md:text-4xl lg:text-5xl font-minecraft text-[#ffeb3b]"
-              style={{ textShadow: "3px 3px 0 #2b2b2b" }}
-            >
-              MERAKI <span className="text-white">• CONTACT</span>
-            </h1>
-            <p className="mt-2 text-gray-200 font-minecraft text-xs md:text-sm bg-black/30 inline-block px-3 py-1 rounded">
-              Msg Meraki — let&apos;s build something awesome
-            </p>
+      {/* Content Container with stagger animation */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+        className="relative z-40 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto flex flex-col"
+      >
+        {/* Page Header */}
+        <motion.div
+          className="text-center mb-8 sm:mb-12 md:mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Decorative arrows */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div className="w-0 h-0 border-t-[6px] sm:border-t-[10px] border-b-[6px] sm:border-b-[10px] border-l-[8px] sm:border-l-[14px] border-t-transparent border-b-transparent border-l-cyan-400"></div>
+            <h2 className="font-terminal text-cyan-400 text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.3em] uppercase">
+              GET IN TOUCH
+            </h2>
+            <div className="w-0 h-0 border-t-[6px] sm:border-t-[10px] border-b-[6px] sm:border-b-[10px] border-r-[8px] sm:border-r-[14px] border-t-transparent border-b-transparent border-r-cyan-400"></div>
           </div>
 
-          <motion.img
-            src={motionimg}
-            alt="decor addon"
-            className="hidden md:block pointer-events-none absolute -right-6 -top-6 w-24 md:w-32 z-30 rounded-md"
-            initial={{ scale: 0.95, rotate: -3, opacity: 0 }}
-            animate={{ scale: 1, rotate: [-3, 3, -2], opacity: 1 }}
-            transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+          {/* Main title with text shadow */}
+          <h1
+            className="font-minecraft text-3xl sm:text-5xl md:text-7xl text-white mb-3 sm:mb-4 tracking-wider"
             style={{
-              imageRendering: "pixelated",
-              boxShadow: "0 6px 18px rgba(0,0,0,0.32)",
+              textShadow:
+                "3px 3px 0px #000, 2px 2px 0px rgba(6, 182, 212, 0.5)",
             }}
-          />
-        </div>
+          >
+            CONTACT US
+          </h1>
 
+          {/* Decorative divider */}
+          <div className="w-20 sm:w-32 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto"></div>
+        </motion.div>
+
+        {/* Two-column layout */}
         <div className="w-full flex flex-col lg:flex-row gap-6 items-start">
+          {/* 
+           * Form Card
+           * 
+           * Slides in from left with tween animation.
+           * Minecraft-styled with layered borders.
+           */}
           <motion.div
-            initial={{ y: 8, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.45 }}
+            variants={slideIn("left", "tween", 0.2, 0.6)}
             className="w-full lg:flex-1 rounded"
             style={{ boxShadow: "0 12px 28px rgba(0,0,0,0.28)" }}
           >
@@ -154,24 +211,26 @@ export default function ContactMinecraft() {
                   Write to Admin
                 </h2>
 
-                {}
+                {/* Contact Form */}
                 <form
                   ref={formRef}
                   onSubmit={handleSubmit(onSubmit)}
                   className="space-y-3"
                   noValidate
                 >
-                  {}
+                  {/* Hidden timestamp for email template */}
                   <input
                     type="hidden"
                     name="time"
                     value={new Date().toLocaleString()}
                   />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {/* Name and Email row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                    {/* Name Field */}
                     <div>
-                      <label className="block text-[11px] font-minecraft text-[#ccc] mb-1">
-                        Username (Name)
+                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                        Username
                       </label>
                       <input
                         {...register("name", {
@@ -179,7 +238,7 @@ export default function ContactMinecraft() {
                           minLength: { value: 2, message: "Too short" },
                         })}
                         placeholder="Steve"
-                        className="w-full p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:shadow-[0_0_12px_rgba(6,182,212,0.4)] focus:bg-[rgba(0,0,0,0.8)]"
+                        className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] min-h-[44px]"
                         name="name"
                       />
                       {errors.name && (
@@ -189,9 +248,10 @@ export default function ContactMinecraft() {
                       )}
                     </div>
 
+                    {/* Email Field */}
                     <div>
-                      <label className="block text-[11px] font-minecraft text-[#ccc] mb-1">
-                        Redstone Address (Email)
+                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                        Email
                       </label>
                       <input
                         {...register("email", {
@@ -202,7 +262,7 @@ export default function ContactMinecraft() {
                           },
                         })}
                         placeholder="steve@minecraft.net"
-                        className="w-full p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:shadow-[0_0_12px_rgba(6,182,212,0.4)] focus:bg-[rgba(0,0,0,0.8)]"
+                        className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] min-h-[44px]"
                         name="email"
                       />
                       {errors.email && (
@@ -213,9 +273,10 @@ export default function ContactMinecraft() {
                     </div>
                   </div>
 
+                  {/* Subject Field */}
                   <div>
-                    <label className="block text-[11px] font-minecraft text-[#ccc] mb-1">
-                      Quest Title (Subject)
+                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                      Subject
                     </label>
                     <input
                       {...register("subject", {
@@ -223,7 +284,7 @@ export default function ContactMinecraft() {
                         minLength: { value: 3, message: "Too short" },
                       })}
                       placeholder="Collab Request"
-                      className="w-full p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:shadow-[0_0_12px_rgba(6,182,212,0.4)] focus:bg-[rgba(0,0,0,0.8)]"
+                      className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] min-h-[44px]"
                       name="subject"
                     />
                     {errors.subject && (
@@ -233,18 +294,19 @@ export default function ContactMinecraft() {
                     )}
                   </div>
 
+                  {/* Message Field */}
                   <div>
-                    <label className="block text-[11px] font-minecraft text-[#ccc] mb-1">
-                      Chat Log (Message)
+                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                      Message
                     </label>
                     <textarea
                       {...register("message", {
                         required: "Message is required",
                         minLength: { value: 8, message: "Too short" },
                       })}
-                      rows={5}
+                      rows={4}
                       placeholder="Type your message here..."
-                      className="w-full p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:shadow-[0_0_12px_rgba(6,182,212,0.4)] focus:bg-[rgba(0,0,0,0.8)] resize-none"
+                      className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] resize-none"
                       name="message"
                     />
                     {errors.message && (
@@ -254,21 +316,21 @@ export default function ContactMinecraft() {
                     )}
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between">
-                    <p className="text-[rgba(255,255,255,0.7)] text-xs font-minecraft max-w-[60%]">
-                      *Creepers may explode if fields are left empty.
+                  {/* Submit Button */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                    <p className="text-[rgba(255,255,255,0.6)] text-[9px] sm:text-[10px] font-minecraft w-full sm:max-w-[55%] text-center sm:text-left hidden sm:block">
+                      *All fields required
                     </p>
-                    <div className="w-40">
+                    <div className="w-full sm:w-auto">
                       <button
                         type="submit"
                         disabled={isSubmitting || isSent}
-                        className={`w-full px-3 py-2.5 rounded font-minecraft text-sm transition-all duration-300 ${
-                          isSent
-                            ? "bg-green-600 shadow-[0_0_20px_rgba(34,197,94,0.6)]"
-                            : "bg-gradient-to-b from-gray-500 to-gray-700 hover:from-gray-400 hover:to-gray-600 hover:shadow-[0_0_16px_rgba(6,182,212,0.5)] border-2 border-gray-800 hover:border-cyan-500"
-                        } text-white disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95`}
+                        className={`w-full sm:w-auto px-4 sm:px-6 py-3 rounded font-minecraft text-xs sm:text-sm transition-all duration-300 min-h-[48px] ${isSent
+                          ? "bg-green-600"
+                          : "bg-gradient-to-b from-gray-500 to-gray-700 hover:from-gray-400 hover:to-gray-600 active:from-gray-600 active:to-gray-800 border-2 border-gray-800 hover:border-cyan-500"
+                          } text-white disabled:opacity-70 disabled:cursor-not-allowed`}
                       >
-                        {isSent ? "✓ Command Sent!" : "▶ Send Packet"}
+                        {isSent ? "✓ Sent!" : "▶ Send Message"}
                       </button>
                     </div>
                   </div>
@@ -277,12 +339,17 @@ export default function ContactMinecraft() {
             </div>
           </motion.div>
 
+          {/* 
+           * Sidebar
+           * 
+           * Contains Google Maps embed and contact info.
+           * Slides in from right.
+           */}
           <motion.aside
-            initial={{ x: 10, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.08 }}
+            variants={slideIn("right", "tween", 0.08, 1)}
             className="w-full lg:w-80 flex flex-col gap-4"
           >
+            {/* Map Card */}
             <div
               className="bg-black/40 backdrop-blur-sm border-4 border-gray-600 p-2 rounded"
               style={{
@@ -295,6 +362,7 @@ export default function ContactMinecraft() {
                   VISIT: IIIT UNA
                 </p>
 
+                {/* Google Maps embed */}
                 <div className="w-full aspect-[4/3] overflow-hidden rounded">
                   <iframe
                     title="IIIT Una Map"
@@ -308,7 +376,7 @@ export default function ContactMinecraft() {
 
                 <div className="mt-1 text-xs font-minecraft text-[rgba(255,255,255,0.85)]">
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=IIIT+Una+Saloh+Himachal+Pradesh"
+                    href={externalLinks.googleMapsLocation}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline"
@@ -319,6 +387,7 @@ export default function ContactMinecraft() {
               </div>
             </div>
 
+            {/* Contact Info Card */}
             <div
               className="bg-black/40 backdrop-blur-sm border-4 border-gray-600 p-2 rounded"
               style={{
@@ -326,53 +395,24 @@ export default function ContactMinecraft() {
                   "0 0 0 2px rgba(0,0,0,0.6), 0 8px 18px rgba(0,0,0,0.45)",
               }}
             >
-              <div className="p-4 flex flex-col items-center text-center rounded border border-gray-700 bg-black/30">
-                <img
-                  src={avatarPixel}
-                  alt="Avatar"
-                  className="w-16 h-16 mb-2 object-cover rounded"
-                  style={{ imageRendering: "pixelated" }}
-                />
-                <h3 className="text-[#c9a8ff] font-minecraft text-base mb-1">
-                  Server Info
-                </h3>
-
-                <ul className="text-xs font-minecraft text-gray-300 space-y-2 text-left w-full">
-                  <li className="flex items-center gap-2 p-1 rounded bg-[rgba(0,0,0,0.12)]">
-                    📍 IIIT UNA, Saloh, Hamirpur Rd, Una, HP
+              <div className="bg-black/30 p-4 rounded border border-gray-700">
+                <ul className="text-xs font-minecraft text-gray-300 space-y-2">
+                  <li className="flex items-start gap-2 p-2 rounded bg-[rgba(0,0,0,0.2)]">
+                    <span className="text-green-400">📍</span>
+                    <span>IIIT Una, Saloh, Una, H.P. 177209</span>
                   </li>
-                  <li className="flex items-center gap-2 p-1 rounded bg-[rgba(0,0,0,0.12)]">
-                    ✉️ hello@meraki.ex
-                  </li>
-                  <li className="flex items-center gap-2 p-1 rounded bg-[rgba(0,0,0,0.12)]">
-                    ⌚ Office: 10:00 - 18:00
+                  <li className="flex items-start gap-2 p-2 rounded bg-[rgba(0,0,0,0.2)]">
+                    <span className="text-purple-400">✉️</span>
+                    <span>meraki@iiitu.ac.in</span>
                   </li>
                 </ul>
               </div>
             </div>
           </motion.aside>
         </div>
+      </motion.div>
 
-        <motion.div
-          initial={{ y: 40 }}
-          animate={{ y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-8 bg-[rgba(0,0,0,0.36)] border-2 border-[rgba(255,255,255,0.03)] text-white p-3 flex items-center gap-3 max-w-sm rounded"
-        >
-          <div className="w-8 h-8 bg-green-600 border-2 border-[rgba(255,255,255,0.06)] flex items-center justify-center font-bold text-lg">
-            !
-          </div>
-          <div>
-            <h4 className="text-[#ffeb3b] font-minecraft text-xs">
-              Achievement Unlocked
-            </h4>
-            <p className="text-white text-xs font-minecraft">
-              Visited the Contact Page
-            </p>
-          </div>
-        </motion.div>
-      </div>
-
+      {/* Font override for Minecraft styling */}
       <style>{`
   .font-minecraft {
   font-family: 'Press Start 2P', 'VT323', monospace;

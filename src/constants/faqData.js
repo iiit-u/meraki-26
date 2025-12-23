@@ -1,4 +1,22 @@
+/**
+ * @fileoverview FAQ content data for FAQ section flip cards.
+ * 
+ * Contains question and answer pairs displayed in the FAQ section.
+ * Each item renders as a flippable card using the Box component.
+ * 
+ * @module constants/faqData
+ */
 
+/**
+ * FAQ data array for homepage FAQ section.
+ * 
+ * @constant
+ * @type {Array<Object>}
+ * 
+ * @property {number} id - Unique FAQ identifier
+ * @property {string} question - Question text (displayed on front of card)
+ * @property {string} answer - Answer text (revealed on hover/flip)
+ */
 export const faqData = [
     {
         id: 1,
@@ -29,5 +47,35 @@ export const faqData = [
         id: 6,
         question: "Are there any workshops?",
         answer: "Yes, we conduct multiple technical and non-technical workshops throughout the fest. Workshop details will be updated on the schedule page."
+    },
+    {
+        id: 7,
+        question: "What are the prize amounts?",
+        answer: "Prize pools vary by event, with major competitions offering prizes up to ₹50,000. Check individual event pages for specific prize breakdowns."
+    },
+    {
+        id: 8,
+        question: "Can students from other colleges participate?",
+        answer: "Absolutely! MERAKI welcomes students from all colleges and universities across India. Registration is open to everyone."
+    },
+    {
+        id: 9,
+        question: "How do I reach IIIT Una campus?",
+        answer: "IIIT Una is located in Saloh, Himachal Pradesh. The nearest railway station is Una Himachal and the nearest airport is Gaggal Airport, Dharamshala. We will provide pickup services from major transit points."
+    },
+    {
+        id: 10,
+        question: "Is food provided during the fest?",
+        answer: "Yes, food stalls and a festival canteen will be operational throughout the event. Meal passes can be purchased separately during registration."
+    },
+    {
+        id: 11,
+        question: "Can I participate in multiple events?",
+        answer: "Yes, you can participate in multiple events as long as their schedules don't overlap. Check the schedule page to plan your participation accordingly."
+    },
+    {
+        id: 12,
+        question: "Who can I contact for sponsorship inquiries?",
+        answer: "For sponsorship and partnership opportunities, please reach out to our sponsorship team at sponsors@meraki.iiitu.ac.in or fill out the contact form on our website."
     }
 ];

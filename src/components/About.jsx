@@ -1,166 +1,289 @@
-import React from "react";
-import { motion } from "framer-motion";
-import aboutImage from "../assets/about_section_bg.webp";
+/**
+ * @fileoverview About section with dual-card layout and draggable characters.
+ * 
+ * Displays information about IIIT Una and Meraki in side-by-side cards
+ * (on desktop) with decorative Minecraft character illustrations.
+ * Characters are interactive and can be dragged within constraints.
+ * 
+ * @see DOCS.md#scroll-linked-animations for parallax transforms
+ * @see DOCS.md#animation-system for spring physics on drag
+ * @component
+ */
+
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import aboutImage from "../assets/about_underground_bg.webp";
 import aboutImage1 from "../assets/about_image1.webp";
 import aboutImage2 from "../assets/about_image2.webp";
-import { ABOUT_IIIT_UNA, ABOUT_MERAKI } from "../constants/AboutData";
+import merakiLogo from "../assets/meraki_minecraft.webp";
+import { ABOUT_IIIT_UNA, ABOUT_MERAKI } from "../constants/aboutData";
+import { appleSlideUp, sectionTransition } from "../utils/motion";
 
+/**
+ * About section with scroll-linked animations and draggable characters.
+ * 
+ * @returns {JSX.Element} About section with two info cards
+ * 
+ * @layout
+ * - Desktop (xl:): Two cards side-by-side (50/50)
+ * - Mobile: Stacked vertically
+ * 
+ * @scrollAnimation
+ * - Cards slide in from left/right (±40px)
+ * - Content opacity fades in/out at section boundaries
+ */
 const About = () => {
-  return (
-    <section
-      id="about"
-      className="relative w-full min-h-screen overflow-x-hidden"
-    >
-      {/* Background Image*/}
-      <div
-        className="absolute inset-0 z-0 w-full h-full"
-        style={{
-          backgroundImage: `url(${aboutImage})`,
-          backgroundSize: "100% auto",
-          backgroundPosition: "top center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+    const sectionRef = useRef(null);
 
-      {/* Content Container*/}
-      <div className="relative z-10 min-h-screen flex flex-col justify-center pt-24 pb-16 px-4 md:px-8 lg:px-16">
-        {/* Stacked Cards Container */}
-        <div className="flex flex-col gap-20 md:gap-24 max-w-5xl mx-auto w-full">
-          {/* About IIIT UNA Card */}
-          <div className="aspect-video w-full">
-            <motion.div
-              className="bg-black/80 backdrop-blur-sm border-4 border-gray-600 shadow-2xl p-8 md:p-10 lg:p-12 relative h-full flex flex-col"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              style={{
-                boxShadow:
-                  "0 0 0 2px rgba(0,0,0,0.8), 0 8px 24px rgba(0,0,0,0.6)",
-              }}
-            >
-              {/* Character Image - Top Right */}
-              <motion.div
-                className="absolute -top-20 -right-4 md:-top-24 md:-right-8 w-32 h-40 md:w-40 md:h-52 z-10"
-                initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <img
-                  src={aboutImage1}
-                  alt="Minecraft Steve"
-                  className="w-full h-full object-contain"
-                  style={{
-                    imageRendering: "pixelated",
-                    filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.8))",
-                  }}
+    /**
+     * Scroll progress tracking for parallax effects.
+     * @offset ["start end", "end start"] - Full viewport traversal
+     */
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    });
+
+    /**
+     * Scroll-linked transform values.
+     * 
+     * @contentOpacity - Fade curve: 0→1 (enter) → 1 (visible) → 1→0 (exit)
+     * @contentY - Slide up: 60px → 0 on enter
+     * @leftCardX - Left card slides from -40px → 0
+     * @rightCardX - Right card slides from +40px → 0
+     */
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+    const contentY = useTransform(scrollYProgress, [0, 0.25], [60, 0]);
+    const leftCardX = useTransform(scrollYProgress, [0, 0.3], [-40, 0]);
+    const rightCardX = useTransform(scrollYProgress, [0, 0.3], [40, 0]);
+
+    return (
+        <section
+            id="about"
+            ref={sectionRef}
+            className="relative w-full min-h-screen overflow-hidden"
+            style={{ paddingTop: "var(--navbar-height, 5rem)" }}
+        >
+            {/* 
+             * Background Layer
+             * 
+             * Underground/cave themed background with gradient overlays
+             * for section blending.
+             */}
+            <motion.div className="absolute inset-0 z-0">
+                <div
+                    className="absolute inset-0 w-full h-full"
+                    style={{
+                        backgroundImage: `url(${aboutImage})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                    }}
                 />
-              </motion.div>
-
-              <motion.h2
-                className="font-terminal text-white tracking-wider uppercase text-center text-2xl md:text-4xl lg:text-5xl mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                ABOUT IIIT UNA
-              </motion.h2>
-              <motion.div
-                className="mt-auto flex-1 flex flex-col justify-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <p className="text-white font-terminal leading-relaxed text-lg md:text-xl lg:text-2xl">
-                  {ABOUT_IIIT_UNA}
-                </p>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* About MERAKI Card */}
-          <div className="aspect-video w-full">
-            <motion.div
-              className="bg-black/80 backdrop-blur-sm border-4 border-gray-600 shadow-2xl p-8 md:p-10 lg:p-12 relative h-full flex flex-col"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              style={{
-                boxShadow:
-                  "0 0 0 2px rgba(0,0,0,0.8), 0 8px 24px rgba(0,0,0,0.6)",
-              }}
-            >
-              {/* Character Image - Top Left */}
-              <motion.div
-                className="absolute -top-20 -left-4 md:-top-24 md:-left-8 w-32 h-40 md:w-40 md:h-52 z-10"
-                initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <img
-                  src={aboutImage2}
-                  alt="Minecraft Creeper"
-                  className="w-full h-full object-contain"
-                  style={{
-                    imageRendering: "pixelated",
-                    filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.8))",
-                  }}
+                {/* 
+                 * Top Gradient Blend
+                 * 
+                 * Creates seamless transition from Hero section.
+                 * Uses rgba black for soft edge.
+                 * 
+                 * @gradient rgba(0,0,0,0.9) → transparent
+                 */}
+                <div
+                    className="absolute top-0 left-0 right-0 h-[20vh] z-[1]"
+                    style={{
+                        background: "linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)",
+                    }}
                 />
-              </motion.div>
-
-              <motion.h2
-                className="font-terminal text-white tracking-wider uppercase text-center text-2xl md:text-4xl lg:text-5xl mb-2"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                ABOUT
-              </motion.h2>
-              <motion.h3
-                className="font-minecraft text-center leading-tight mb-6"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                style={{
-                  fontSize: "clamp(2.5rem, 8vw, 4rem)",
-                  background:
-                    "linear-gradient(180deg, #e0e0e0 0%, #808080 50%, #606060 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter:
-                    "drop-shadow(3px 3px 0px rgba(0,0,0,0.8)) drop-shadow(1px 1px 0px rgba(150,150,150,0.5))",
-                  letterSpacing: "0.05em",
-                  transform: "perspective(500px) rotateX(30deg)",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                MERAKI
-              </motion.h3>
-              <motion.div
-                className="mt-auto flex-1 flex flex-col justify-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <p className="text-white font-terminal leading-relaxed text-lg md:text-xl lg:text-2xl">
-                  {ABOUT_MERAKI}
-                </p>
-              </motion.div>
+                {/* 
+                 * Bottom Gradient Blend
+                 * 
+                 * Transitions to Elite section background color.
+                 * @color #080808 matches --bg-elite
+                 */}
+                <div
+                    className="absolute bottom-0 left-0 right-0 h-[30vh] z-[1]"
+                    style={{
+                        background: "linear-gradient(to top, #080808, transparent)",
+                    }}
+                />
+                {/* Dark overlay for text contrast */}
+                <div className="absolute inset-0 bg-black/40 z-[0]" />
             </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+
+            {/* Content with scroll-linked transforms */}
+            <motion.div
+                style={{ opacity: contentOpacity, y: contentY }}
+                className="relative z-10 min-h-screen flex flex-col justify-center py-8 px-4 md:px-8 lg:px-16"
+            >
+                <motion.div
+                    variants={sectionTransition}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="flex flex-col xl:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto w-full items-stretch"
+                >
+                    {/* 
+                     * IIIT UNA Card
+                     * 
+                     * Slides in from left (-40px → 0)
+                     * Contains draggable Steve character at top-left
+                     */}
+                    <motion.div
+                        className="w-full xl:w-1/2 flex"
+                        style={{ x: leftCardX }}
+                    >
+                        <motion.div
+                            variants={appleSlideUp(0.1)}
+                            className="bg-black/80 backdrop-blur-sm border-4 border-gray-600 shadow-2xl p-6 sm:p-8 md:p-10 lg:p-12 relative h-full flex flex-col group hover:border-cyan-400/60 transition-all duration-500"
+                            style={{
+                                /**
+                                 * Multi-layer box shadow
+                                 * 
+                                 * Inner: 2px solid black border simulation
+                                 * Outer: Large soft shadow for depth
+                                 */
+                                boxShadow: "0 0 0 2px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.6)",
+                            }}
+                        >
+                            {/* 
+                             * Draggable Character - Steve
+                             * 
+                             * @drag Enabled with elastic constraints
+                             * @dragConstraints ±50px in all directions
+                             * @dragElastic 0.1 - Low elasticity for controlled feel
+                             * 
+                             * @hover scale(1.1) with rotation keyframes [0, -5°, 5°, 0]
+                             * @tap scale(0.9) for press feedback
+                             */}
+                            <motion.div
+                                drag
+                                dragConstraints={{ top: -50, left: -50, right: 50, bottom: 50 }}
+                                dragElastic={0.1}
+                                whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                                whileTap={{ scale: 0.9, cursor: "grabbing" }}
+                                initial={{ opacity: 0, y: -30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.3, type: "spring", stiffness: 80 }}
+                                className="absolute -top-16 -left-2 sm:-top-20 sm:-left-4 md:-top-24 md:-left-8 w-20 h-28 sm:w-28 sm:h-36 md:w-36 md:h-48 z-30 cursor-grab"
+                            >
+                                <img
+                                    src={aboutImage1}
+                                    alt="Minecraft Steve"
+                                    className="w-full h-full object-contain pointer-events-none"
+                                    style={{
+                                        /**
+                                         * Pixelated rendering for Minecraft aesthetic.
+                                         * Prevents browser smoothing of pixel art.
+                                         */
+                                        imageRendering: "pixelated",
+                                        filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.8))",
+                                    }}
+                                />
+                            </motion.div>
+
+                            {/* Card Title */}
+                            <motion.h2
+                                variants={appleSlideUp(0.2)}
+                                className="font-terminal text-white tracking-wider uppercase text-center text-lg sm:text-xl md:text-2xl lg:text-3xl mb-6 mt-8 sm:mt-0 relative z-20"
+                            >
+                                ABOUT IIIT UNA
+                            </motion.h2>
+
+                            {/* Card Content */}
+                            <motion.div
+                                variants={appleSlideUp(0.3)}
+                                className="mt-auto flex-1 flex flex-col justify-center"
+                            >
+                                <p className="text-white font-terminal leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl text-justify opacity-90">
+                                    {ABOUT_IIIT_UNA}
+                                </p>
+                            </motion.div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* 
+                     * Meraki Card
+                     * 
+                     * Slides in from right (+40px → 0)
+                     * Contains Meraki logo and draggable character at top-right
+                     */}
+                    <motion.div
+                        className="w-full xl:w-1/2 flex"
+                        style={{ x: rightCardX }}
+                    >
+                        <motion.div
+                            variants={appleSlideUp(0.2)}
+                            className="bg-black/80 backdrop-blur-sm border-4 border-gray-600 shadow-2xl p-6 sm:p-8 md:p-10 lg:p-12 relative h-full flex flex-col group hover:border-cyan-400/60 transition-all duration-500"
+                            style={{
+                                boxShadow: "0 0 0 2px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.6)",
+                            }}
+                        >
+                            {/* 
+                             * Draggable Character - Right side
+                             * 
+                             * Same drag configuration as left character.
+                             * Uses scale-x-[-1] to flip horizontally.
+                             */}
+                            <motion.div
+                                drag
+                                dragConstraints={{ top: -50, left: -50, right: 50, bottom: 50 }}
+                                dragElastic={0.1}
+                                whileHover={{ scale: 1.1, rotate: [0, 5, -5, 0] }}
+                                whileTap={{ scale: 0.9, cursor: "grabbing" }}
+                                initial={{ opacity: 0, y: -30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.4, type: "spring", stiffness: 80 }}
+                                className="absolute -top-16 -right-2 sm:-top-20 sm:-right-4 md:-top-24 md:-right-8 w-20 h-28 sm:w-28 sm:h-36 md:w-36 md:h-48 z-30 cursor-grab"
+                            >
+                                <img
+                                    src={aboutImage2}
+                                    alt="Minecraft Creeper"
+                                    className="w-full h-full object-contain transform scale-x-[-1] pointer-events-none"
+                                    style={{
+                                        imageRendering: "pixelated",
+                                        filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.8))",
+                                    }}
+                                />
+                            </motion.div>
+
+                            {/* Card Title */}
+                            <motion.h2
+                                variants={appleSlideUp(0.3)}
+                                className="font-terminal text-white tracking-wider uppercase text-center text-lg sm:text-xl md:text-2xl lg:text-3xl mb-2 mt-8 sm:mt-0 relative z-20"
+                            >
+                                ABOUT
+                            </motion.h2>
+
+                            {/* Meraki Logo */}
+                            <motion.div
+                                variants={appleSlideUp(0.35)}
+                                className="flex justify-center mb-6 relative z-20"
+                            >
+                                <img
+                                    src={merakiLogo}
+                                    alt="MERAKI"
+                                    className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+                                    style={{ imageRendering: "pixelated" }}
+                                />
+                            </motion.div>
+
+                            {/* Card Content */}
+                            <motion.div
+                                variants={appleSlideUp(0.4)}
+                                className="mt-auto flex-1 flex flex-col justify-center"
+                            >
+                                <p className="text-white font-terminal leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl text-justify opacity-90">
+                                    {ABOUT_MERAKI}
+                                </p>
+                            </motion.div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+        </section>
+    );
 };
 
 export default About;
