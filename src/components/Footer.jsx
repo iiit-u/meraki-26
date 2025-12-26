@@ -78,21 +78,21 @@ const Footer = () => {
    */
   const fixedSquares = [
     // Upper section triangles (in #303030 lighter section - negative y values)
-    // Left triangle pattern (50% from left = x: 10)
-    { x: 6, y: -1, color: "#242424" },
-    { x: 7, y: -2, color: "#242424" },
-    { x: 8, y: -1, color: "#242424" },
+    // Left triangle pattern - with gap on mobile
+    { x: 6, y: -1, color: "#242424", xMobile: 0, xDesktop: 6 },
+    { x: 7, y: -2, color: "#242424", xMobile: 3, xDesktop: 7 },
+    { x: 8, y: -1, color: "#242424", xMobile: 6, xDesktop: 8 },
     
-    // Right triangle pattern (50% from right = x: 30)
-    { x: 30, y: -1, color: "#242424" },
-    { x: 32, y: -2, color: "#242424" },
-    { x: 33, y: -1, color: "#242424" },
+    // Right triangle pattern - with gap on mobile
+    { x: 30, y: -1, color: "#242424", xMobile: 32, xDesktop: 30.5 },
+    { x: 32, y: -2, color: "#242424", xMobile: 35, xDesktop: 32 },
+    { x: 33, y: -1, color: "#242424", xMobile: 38, xDesktop: 33 },
     
-    // Two #303030 colored squares (responsive size)
-    // Square 1 - Adjust position as needed
-    { x: 11, y: 0, color: "#303030", size: 35 }, // Smaller base size
-    // Square 2 - Adjust position as needed
-    { x: 29, y: 0, color: "#303030", size: 35 }, // Smaller base size
+    // Two #303030 colored squares (responsive size with gap on mobile)
+    // Square 1 - More spacing on mobile screens
+    { x: 7, y: 0, color: "#303030", size: 35, xMobile: 9, xDesktop: 10 },
+    // Square 2 - More spacing on mobile screens  
+    { x: 33, y: 0, color: "#303030", size: 35, xMobile: 29, xDesktop: 29.5 },
   ];
 
   // Top border squares - creating a line of squares with gaps
@@ -123,7 +123,7 @@ const Footer = () => {
        * Creates a line of squares at the top with gaps between them
        * Positioned so half the square is above the footer
        */}
-      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-50 overflow-hidden sm:hidden">
+      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-10 overflow-hidden sm:hidden">
         {topBorderSquaresSmall.map((square, idx) => (
           <div
             key={`top-sm-${idx}`}
@@ -141,7 +141,7 @@ const Footer = () => {
       </div>
 
       {/* Top Border Squares - Medium screens */}
-      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-50 overflow-hidden hidden sm:block lg:hidden">
+      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-10 overflow-hidden hidden sm:block lg:hidden">
         {topBorderSquaresMedium.map((square, idx) => (
           <div
             key={`top-md-${idx}`}
@@ -159,7 +159,7 @@ const Footer = () => {
       </div>
 
       {/* Top Border Squares - Large screens */}
-      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-50 overflow-hidden hidden lg:block">
+      <div className="absolute top-[-12.5px] left-0 right-0 h-[25px] pointer-events-none z-10 overflow-hidden hidden lg:block">
         {topBorderSquaresLarge.map((square, idx) => (
           <div
             key={`top-lg-${idx}`}
@@ -183,17 +183,31 @@ const Footer = () => {
        * Mimics Minecraft block transition effect.
        */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Top section - lighter gray */}
+        {/* Top section - lighter gray - 45% on mobile, 38% on desktop */}
         <div
-          className="absolute top-0 left-0 right-0"
+          className="absolute top-0 left-0 right-0 lg:hidden"
+          style={{
+            height: "45%",
+            backgroundColor: "#303030",
+          }}
+        />
+        <div
+          className="absolute top-0 left-0 right-0 hidden lg:block"
           style={{
             height: "38%",
             backgroundColor: "#303030",
           }}
         />
-        {/* Bottom section - darker gray */}
+        {/* Bottom section - darker gray - 55% on mobile, 62% on desktop */}
         <div
-          className="absolute bottom-0 left-0 right-0"
+          className="absolute bottom-0 left-0 right-0 lg:hidden"
+          style={{
+            height: "55%",
+            backgroundColor: "#242424",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 right-0 hidden lg:block"
           style={{
             height: "62%",
             backgroundColor: "#242424",
@@ -213,37 +227,41 @@ const Footer = () => {
           const smSize = baseSize + 5;  // 40px for tablets
           const lgSize = baseSize + 15; // 50px for desktop
           
+          // Use different x positions for mobile vs desktop if specified
+          const xMobile = square.xMobile !== undefined ? square.xMobile : square.x;
+          const xDesktop = square.xDesktop !== undefined ? square.xDesktop : square.x;
+          
           return (
             <React.Fragment key={idx}>
-              {/* Mobile view - 35px */}
+              {/* Mobile view - 35px with 45% split */}
               <div
                 className="absolute sm:hidden"
                 style={{
                   width: `${baseSize}px`,
                   height: `${baseSize}px`,
-                  left: `calc(${(square.x / 40) * 100}%)`,
-                  top: `calc(38% + ${square.y * baseSize}px)`,
+                  left: `calc(${(xMobile / 40) * 100}%)`,
+                  top: `calc(45% + ${square.y * baseSize}px)`,
                   backgroundColor: square.color,
                 }}
               />
-              {/* Tablet view - 40px */}
+              {/* Tablet view - 40px with 45% split */}
               <div
                 className="absolute hidden sm:block lg:hidden"
                 style={{
                   width: `${smSize}px`,
                   height: `${smSize}px`,
-                  left: `calc(${(square.x / 40) * 100}%)`,
-                  top: `calc(38% + ${square.y * smSize}px)`,
+                  left: `calc(${(xMobile / 40) * 100}%)`,
+                  top: `calc(45% + ${square.y * smSize}px)`,
                   backgroundColor: square.color,
                 }}
               />
-              {/* Desktop view - 50px */}
+              {/* Desktop view - 50px with 38% split (unchanged) */}
               <div
                 className="absolute hidden lg:block"
                 style={{
                   width: `${lgSize}px`,
                   height: `${lgSize}px`,
-                  left: `calc(${(square.x / 40) * 100}%)`,
+                  left: `calc(${(xDesktop / 40) * 100}%)`,
                   top: `calc(38% + ${square.y * lgSize}px)`,
                   backgroundColor: square.color,
                 }}
@@ -269,7 +287,7 @@ const Footer = () => {
          */}
         <motion.div
           variants={fadeIn("down", "tween", 0.2, 0.6)}
-          className="text-center mb-2 md:mb-3"
+          className="text-center mb-6 lg:mb-2 md:mb-3"
         >
           <h2
             className="text-white text-lg sm:text-xl md:text-2xl mb-6 md:mb-8 tracking-[0.2em] sm:tracking-[0.3em]"
@@ -328,7 +346,7 @@ const Footer = () => {
         >
           {/* IIIT Una Logo + Text */}
           <div className="flex items-center justify-center gap-3 md:gap-4 w-56 sm:w-64">
-            <div className="text-right hidden sm:block">
+            <div className="text-right">
               <p
                 className="text-white text-[8px] sm:text-[10px] md:text-xs leading-tight"
                 style={{ fontFamily: "'VT323', monospace" }}
@@ -357,7 +375,7 @@ const Footer = () => {
 
           {/* Vertical dashed divider (desktop only) */}
           <div
-            className="hidden sm:block h-16 md:h-20 mx-4 md:mx-1"
+            className="hidden sm:block h-16 md:h-20 mx-4 md:mx-8"
             style={{
               borderLeft: "2px dashed rgba(255, 255, 255, 0.3)",
             }}

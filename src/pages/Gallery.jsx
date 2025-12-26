@@ -8,9 +8,14 @@
  * @page /gallery
  */
 
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import galleryBg from "../assets/gallery.webp";
+import openingPlaceholder from "../assets/gallery/opening/IMG_1212-2.webp";
+import workshopPlaceholder from "../assets/gallery/workshop/IMG_0039.webp";
+import softwarePlaceholder from "../assets/gallery/software/IMG_2418.webp";
+import eliteEventsPlaceholder from "../assets/gallery/elite_events/DSC01962.webp";
+import roboticsPlaceholder from "../assets/gallery/robotics/DSC01465.webp";
 import { galleryCollections } from "../constants";
 
 /**
@@ -28,6 +33,19 @@ import { galleryCollections } from "../constants";
  */
 const Gallery = () => {
   const [selectedCollection, setSelectedCollection] = useState(null);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedCollection) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedCollection]);
 
   /**
    * Dynamically load and organize images by folder.
@@ -153,8 +171,9 @@ const Gallery = () => {
         {/* 
          * Gallery Grid Container
          * 
-         * White background "paper" frame with dotted border.
-         * Contains responsive masonry-style grid of collection cards.
+         * Two-section layout:
+         * - Left: Opening section (vertical, full height)
+         * - Right: 4 other sections in a 2x2 grid
          */}
         <motion.div
           className="border-4 sm:border-8 border-black border-dotted p-4 sm:p-6 md:p-8 bg-white"
@@ -163,35 +182,88 @@ const Gallery = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"
+            className="flex flex-col md:flex-row gap-3 sm:gap-4"
             variants={containerVariants}
             initial="hidden"
             animate="show"
           >
-            {populatedCollections.map((collection, index) => (
-              <motion.div
-                key={collection.id}
-                variants={itemVariants}
-                onClick={() => setSelectedCollection(collection)}
-                whileHover={{ scale: 1.02, y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                className={`border-3 sm:border-4 border-black bg-gray-100 cursor-pointer 
-                  hover:bg-gray-200 active:bg-gray-300 transition-colors
-                  flex flex-col items-center justify-center p-4 sm:p-6
-                  ${index === 0 ? "sm:row-span-2 min-h-[160px] sm:min-h-[300px] md:min-h-[400px]" : "min-h-[140px] sm:min-h-[190px]"}
-                  ${index === 3 ? "sm:col-span-2" : ""}
-                  ${index === 5 ? "sm:col-span-2" : ""}
-                `}
-              >
-                <div className="text-4xl sm:text-5xl md:text-6xl mb-2 sm:mb-4">📁</div>
-                <h3 className="font-pixel text-sm sm:text-base md:text-lg text-black mb-1 sm:mb-2 text-center">
-                  {collection.title}
-                </h3>
-                <p className="font-terminal text-xs sm:text-sm text-gray-600">
-                  {collection.count} images
-                </p>
-              </motion.div>
-            ))}
+            {/* Left Section - Opening (vertical) */}
+            {populatedCollections
+              .filter(collection => collection.id === 'opening')
+              .map((collection) => (
+                <motion.div
+                  key={collection.id}
+                  variants={itemVariants}
+                  onClick={() => setSelectedCollection(collection)}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="border-3 sm:border-4 border-black bg-gray-100 cursor-pointer 
+                    hover:bg-gray-200 active:bg-gray-300 transition-colors
+                    flex flex-col items-center justify-end p-4 sm:p-6 overflow-hidden relative
+                    min-h-[200px] md:min-h-[600px] md:w-1/3"
+                >
+                  <div className="absolute inset-0 w-full h-full">
+                    <img 
+                      src={openingPlaceholder} 
+                      alt={collection.title}
+                      className="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                  </div>
+                  <div className="relative z-10 bg-black/50 backdrop-blur-sm px-4 py-3 w-full text-center">
+                    <h3 className="font-pixel text-base sm:text-lg md:text-xl text-white mb-1 sm:mb-2">
+                      {collection.title}
+                    </h3>
+                    <p className="font-terminal text-xs sm:text-sm text-gray-200">
+                      {collection.count} images
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+
+            {/* Right Section - Other 4 sections in 2x2 grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
+              {populatedCollections
+                .filter(collection => collection.id !== 'opening')
+                .map((collection) => (
+                  <motion.div
+                    key={collection.id}
+                    variants={itemVariants}
+                    onClick={() => setSelectedCollection(collection)}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="border-3 sm:border-4 border-black bg-gray-100 cursor-pointer 
+                      hover:bg-gray-200 active:bg-gray-300 transition-colors
+                      flex flex-col items-center justify-end p-4 sm:p-6 overflow-hidden relative
+                      min-h-[160px] sm:min-h-[180px] md:min-h-[280px]"
+                  >
+                    {(collection.images.length > 0 || collection.id === 'workshop' || collection.id === 'software' || collection.id === 'elite_events' || collection.id === 'robotics') && (
+                      <div className="absolute inset-0 w-full h-full">
+                        <img 
+                          src={
+                            collection.id === 'workshop' ? workshopPlaceholder :
+                            collection.id === 'software' ? softwarePlaceholder :
+                            collection.id === 'elite_events' ? eliteEventsPlaceholder :
+                            collection.id === 'robotics' ? roboticsPlaceholder :
+                            collection.images[0]
+                          } 
+                          alt={collection.title}
+                          className="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                      </div>
+                    )}
+                    <div className="relative z-10 bg-black/50 backdrop-blur-sm px-4 py-2 w-full text-center">
+                      <h3 className="font-pixel text-sm sm:text-base md:text-lg text-white mb-1 sm:mb-2">
+                        {collection.title}
+                      </h3>
+                      <p className="font-terminal text-xs sm:text-sm text-gray-200">
+                        {collection.count} images
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>
@@ -208,19 +280,23 @@ const Gallery = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto"
+            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden"
             onClick={() => setSelectedCollection(null)}
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              className="bg-white border-4 sm:border-8 border-black p-4 sm:p-6 md:p-8 w-full max-w-6xl my-4 sm:my-0 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
+              className="bg-white border-4 sm:border-8 border-black w-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-4 border-b-2 sm:border-b-4 border-black pb-3 sm:pb-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-6 md:p-8 gap-3 sm:gap-4 border-b-2 sm:border-b-4 border-black flex-shrink-0">
                 <div className="w-full sm:w-auto">
                   <h2 className="font-minecraft text-xl sm:text-2xl md:text-3xl text-black">
                     {selectedCollection.title}
@@ -237,24 +313,27 @@ const Gallery = () => {
                 </button>
               </div>
 
-              {/* Image Grid with staggered entrance */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                {selectedCollection.images.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: Math.min(index * 0.05, 0.3) }}
-                    className="border-2 sm:border-4 border-black bg-gray-100 overflow-hidden"
-                  >
-                    <img
-                      src={image}
-                      alt={`${selectedCollection.title} - Image ${index + 1}`}
-                      className="w-full h-48 sm:h-56 md:h-64 object-contain"
-                      loading="lazy"
-                    />
-                  </motion.div>
-                ))}
+              {/* Scrollable Image Grid Container */}
+              <div className="overflow-y-auto p-4 sm:p-6 md:p-8 flex-1">
+                {/* Image Grid with staggered entrance */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                  {selectedCollection.images.map((image, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: Math.min(index * 0.05, 0.3) }}
+                      className="border-2 sm:border-4 border-black bg-gray-100 overflow-hidden"
+                    >
+                      <img
+                        src={image}
+                        alt={`${selectedCollection.title} - Image ${index + 1}`}
+                        className="w-full h-48 sm:h-56 md:h-64 object-contain"
+                        loading="lazy"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
