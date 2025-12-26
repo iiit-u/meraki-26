@@ -9,6 +9,10 @@
  */
 
 import minecraftimg from "../assets/minecraft_dungeons_placeholder.webp";
+import skyCircuitImg from "../assets/SkyCircuit.png";
+import roboDriveImg from "../assets/Robodrive.png";
+import hackTheThroneImg from "../assets/Hack The Throne.png";
+import arenaXImg from "../assets/Esports.jpeg";
 
 /**
  * Elite events array for homepage tabs.
@@ -26,34 +30,34 @@ import minecraftimg from "../assets/minecraft_dungeons_placeholder.webp";
 export const events = [
     {
         id: 1,
-        title: "DRONE EVENT",
-        slug: "drone-event",
-        image: minecraftimg,
-        description: "Capture the Tower by night, and in a whole new light, with these times.",
+        title: "SKYCIRCUIT",
+        slug: "skycircuit",
+        image: skyCircuitImg,
+        description: "SkyCircuit Showcase is a high-energy drone and aeromodelling showcase featuring cutting-edge UAVs, aerobatic RC aircraft, and live flight demonstrations.",
         isElite: true,
     },
     {
         id: 2,
-        title: "ROBO DRIVE",
-        slug: "robo-drive",
-        image: minecraftimg,
-        description: "Experience the ultimate robotics competition with cutting-edge technology.",
+        title: "ROBODRIVE",
+        slug: "robodrive",
+        image: roboDriveImg,
+        description: "RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles demonstrating speed, control, and intelligent navigation.",
         isElite: true,
     },
     {
         id: 3,
-        title: "TECH CHALLENGE",
-        slug: "tech-challenge",
-        image: minecraftimg,
-        description: "Test your technical skills in this exciting challenge event.",
+        title: "HACK-THE-THRONE",
+        slug: "hack-the-throne",
+        image: hackTheThroneImg,
+        description: "24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate to build impactful tech solutions.",
         isElite: true,
     },
     {
         id: 4,
-        title: "INNOVATION QUEST",
-        slug: "innovation-quest",
-        image: minecraftimg,
-        description: "Showcase your innovative ideas and compete for the grand prize.",
+        title: "ARENAX",
+        slug: "arenax",
+        image: arenaXImg,
+        description: "ArenaX Game Carnival is a high-energy esports event featuring competitive battles in BGMI, Clash Royale, and Valorant.",
         isElite: true,
     },
 ];
@@ -78,52 +82,52 @@ export const events = [
  * @property {string} registerLink - Registration URL
  */
 export const eventDetailsData = {
-    'robo-drive': {
-        title: 'ROBO DRIVE',
+    'robodrive': {
+        title: 'ROBODRIVE',
         price: '₹19000/-',
         tags: ['Robotics', 'Engineering', 'Competition', 'Innovation'],
         badge: 'FLAGSHIP EVENT',
-        description: 'Experience the world of Hermitcraft, Season 10 with this Free map. This world was made by a remarkable group of talented people over...',
-        fullDescription: 'Experience the world of Hermitcraft, Season 10 with this Free map. This world was made by a remarkable group of talented people over several months. Join us for an amazing robotics competition where teams compete to build and program the most efficient robots. This event challenges your engineering skills, programming knowledge, and creativity.',
+        description: 'RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles...',
+        fullDescription: 'RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles demonstrating speed, control, and intelligent navigation. The event highlights innovation in robotics, mobility systems, and real-world engineering through thrilling live runs and demos.',
         eventDate: 'February 15-17, 2026',
         teamSize: '2-4 Members',
         venue: 'IIIT Una Campus',
         contact: 'events@meraki.com',
         registerLink: '#'
     },
-    'drone-event': {
-        title: 'DRONE EVENT',
+    'skycircuit': {
+        title: 'SKYCIRCUIT',
         price: '₹15000/-',
-        tags: ['Drones', 'Aerospace', 'Competition', 'Technology'],
+        tags: ['Drones', 'Aerospace', 'Aeromodelling', 'Technology'],
         badge: 'POPULAR EVENT',
-        description: 'Master the skies with our drone racing competition...',
-        fullDescription: 'Master the skies with our drone racing competition. Build, customize, and fly your drones through challenging obstacle courses.',
+        description: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase...',
+        fullDescription: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase featuring cutting-edge UAVs, aerobatic RC aircraft, and live flight demonstrations. The showcase brings together innovation, pilot skill, and next-gen aerial technology in an exciting display of precision and performance.',
         eventDate: 'February 16, 2026',
         teamSize: '1-3 Members',
         venue: 'Open Ground, IIIT Una',
         contact: 'drones@meraki.com',
         registerLink: '#'
     },
-    'tech-challenge': {
-        title: 'TECH CHALLENGE',
+    'hack-the-throne': {
+        title: 'HACK-THE-THRONE',
         price: '₹10000/-',
-        tags: ['Coding', 'Problem Solving', 'Competition', 'Tech'],
+        tags: ['Coding', 'Hackathon', 'Innovation', 'Tech'],
         badge: 'COMPETITIVE',
-        description: 'Put your coding skills to the ultimate test...',
-        fullDescription: 'Put your coding skills to the ultimate test in this intensive programming competition with real-world challenges.',
+        description: '24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate...',
+        fullDescription: '24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate to build impactful tech solutions. Participants compete against time to ideate, design, and prototype bold ideas that challenge the status quo and claim the throne.',
         eventDate: 'February 17, 2026',
         teamSize: '1-2 Members',
         venue: 'Computer Lab, IIIT Una',
         contact: 'tech@meraki.com',
         registerLink: '#'
     },
-    'innovation-quest': {
-        title: 'INNOVATION QUEST',
+    'arenax': {
+        title: 'ARENAX',
         price: '₹12000/-',
-        tags: ['Innovation', 'Entrepreneurship', 'Pitch', 'Startup'],
+        tags: ['Esports', 'Gaming', 'BGMI', 'Valorant'],
         badge: 'SPECIAL EVENT',
-        description: 'Showcase your innovative startup ideas...',
-        fullDescription: 'Showcase your innovative startup ideas to industry experts and investors. Win funding and mentorship for your ventures.',
+        description: 'ArenaX Game Carnival is a high-energy esports event featuring competitive battles...',
+        fullDescription: 'ArenaX Game Carnival is a high-energy esports event featuring competitive battles in BGMI, Clash Royale, and Valorant. Gamers compete across mobile and PC arenas, showcasing strategy, reflexes, and teamwork in an intense, action-packed tournament environment.',
         eventDate: 'February 15-17, 2026',
         teamSize: '2-5 Members',
         venue: 'Auditorium, IIIT Una',

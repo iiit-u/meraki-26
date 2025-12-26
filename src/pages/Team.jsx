@@ -160,7 +160,7 @@ const Team = () => {
               variants={containerVariants}
             >
               {/* Left: First non-director coordinator */}
-              <div className="col-span-1">
+              <div className="col-span-1 pt-12">
                 {coordinators
                   .filter(coord => !coord.isDirector)
                   .slice(0, 1)
@@ -207,7 +207,7 @@ const Team = () => {
                       className="text-center cursor-pointer"
                     >
                       <div
-                        className="w-48 h-48 rounded-full mx-auto mb-4 border-4 border-amber-300 flex items-center justify-center overflow-hidden relative transition-all duration-300 hover:border-cyan-400"
+                        className="w-64 h-64 rounded-full mx-auto mb-4 border-4 border-amber-300 flex items-center justify-center overflow-hidden relative transition-all duration-300 hover:border-cyan-400"
                       >
                         <img
                           src={coord.image || avatarImg}
@@ -232,7 +232,7 @@ const Team = () => {
               </div>
 
               {/* Right: Remaining non-director coordinators */}
-              <div className="col-span-1">
+              <div className="col-span-1 pt-12">
                 {coordinators
                   .filter(coord => !coord.isDirector)
                   .slice(1)
@@ -326,7 +326,7 @@ const Team = () => {
                 whileTap={{ scale: 0.98 }}
                 className="text-center cursor-pointer"
               >
-                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
                   <img
                     src={coord.image || avatarImg}
                     alt={coord.name}
@@ -369,7 +369,7 @@ const Team = () => {
                 whileTap={{ scale: 0.98 }}
                 className="text-center cursor-pointer"
               >
-                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
                   <img
                     src={coord.image || avatarImg}
                     alt={coord.name}
@@ -409,7 +409,7 @@ const Team = () => {
                 whileTap={{ scale: 0.98 }}
                 className="text-center cursor-pointer"
               >
-                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
                   <img
                     src={head.image || avatarImg}
                     alt={head.name}

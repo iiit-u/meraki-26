@@ -74,7 +74,7 @@ const EventDetails = () => {
         <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.2 }}>
           {/* Image */}
           <div className="border-3 sm:border-4 border-white bg-gray-800 order-1 overflow-hidden">
-            {eventImage ? <img src={eventImage} alt={eventData.title} className="w-full aspect-video object-cover" /> : <div className="aspect-video bg-gradient-to-br from-amber-900 via-orange-800 to-yellow-900 flex items-center justify-center"><span className="text-5xl sm:text-6xl md:text-8xl">🎮</span></div>}
+            {eventImage ? <img src={eventImage} alt={eventData.title} className="w-full aspect-video object-cover object-top" /> : <div className="aspect-video bg-gradient-to-br from-amber-900 via-orange-800 to-yellow-900 flex items-center justify-center"><span className="text-5xl sm:text-6xl md:text-8xl">🎮</span></div>}
           </div>
 
           {/* Info */}

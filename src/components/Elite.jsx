@@ -138,7 +138,7 @@ function Elite() {
                 const isActive = activeTab === event.id;
                 const isFirst = index === 0;
                 const isLast = index === eliteEvents.length - 1;
-                
+
                 return (
                   <motion.button
                     key={event.id}
@@ -148,15 +148,15 @@ function Elite() {
                     className={`
                       relative group text-left transition-all duration-200
                       shrink-0 md:shrink w-[200px] sm:w-[240px] md:w-full snap-start
-                      ${isActive 
-                        ? "bg-[#2a2a2a] z-20" 
+                      ${isActive
+                        ? "bg-[#2a2a2a] z-20"
                         : "bg-[#1a1a1a] hover:bg-[#252525] z-10"
                       }
                       ${isFirst ? "rounded-t-lg md:rounded-tl-lg md:rounded-tr-none" : ""}
                       ${isLast && !isActive ? "rounded-b-lg md:rounded-bl-lg md:rounded-br-none" : ""}
                       border-2 border-[#3a3a3a]
-                      ${isActive 
-                        ? "border-r-[#3a3a3a] md:border-r-[#2a2a2a] border-l-cyan-500/50" 
+                      ${isActive
+                        ? "border-r-[#3a3a3a] md:border-r-[#2a2a2a] border-l-cyan-500/50"
                         : "border-l-transparent hover:border-l-cyan-500/30"
                       }
                       ${!isFirst ? "-mt-[2px] md:-mt-0" : ""}
@@ -166,31 +166,30 @@ function Elite() {
                     {isActive && (
                       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-l" />
                     )}
-                    
+
                     {/* Inner content */}
                     <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4">
                       {/* Event thumbnail */}
                       <div className={`
                         w-10 h-10 md:w-12 md:h-12 rounded-md flex items-center justify-center shrink-0 overflow-hidden 
                         transition-all duration-300 group-hover:scale-105
-                        ${isActive 
-                          ? "ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20" 
+                        ${isActive
+                          ? "ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20"
                           : "ring-1 ring-white/10"
                         }
                       `}>
                         <img
                           src={event.image}
                           alt={event.title}
-                          className={`w-full h-full object-cover transition-all duration-300 ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-80"}`}
+                          className={`w-full h-full object-cover object-top transition-all duration-300 ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-80"}`}
                         />
                       </div>
                       {/* Event title */}
                       <span
-                        className={`font-minecraft text-xs sm:text-sm md:text-base transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
-                          isActive
+                        className={`font-minecraft text-xs sm:text-sm md:text-base transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${isActive
                             ? "text-cyan-400"
                             : "text-gray-400 group-hover:text-gray-200"
-                        }`}
+                          }`}
                       >
                         {event.title}
                       </span>
@@ -214,7 +213,7 @@ function Elite() {
                   <img
                     src={activeEvent.image}
                     alt={activeEvent.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Title overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
