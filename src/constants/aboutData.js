@@ -21,11 +21,7 @@ Resource Development (Government of India), the Government of Himachal Pradesh,
 and industry partners such as H.P. Power Corporation and H.P. Power Transmission
 Corporation.
 IIIT Una is dedicated to nurturing bright minds by providing quality education and
-advanced technical skills. The institute plays a crucial role in preparing students for
-real-world challenges, ensuring they are well-equipped to address technical and
-societal issues at both national and global levels. With a focus on innovation, research,
-and holistic development, IIIT Una aims to empower future leaders who can contribute
-to the growth and progress of the country and beyond.`;
+advanced technical skills. `;
 
 /**
  * About Meraki description text.
@@ -34,4 +30,4 @@ to the growth and progress of the country and beyond.`;
  * @constant
  * @type {string}
  */
-export const ABOUT_MERAKI = `MERAKI, the annual Tech Fest of IIIT Una, is a vibrant celebration of creativity, innovation, and passion. Derived from a Greek word meaning to do something with soul, creativity, and love, Meraki truly reflects the spirit of young minds driven by curiosity and excellence. The fest serves as a dynamic platform where students showcase their technical expertise, problem-solving abilities, and creative thinking through a diverse range of technical competitions, hackathons, workshops, and fun events. Alongside technology, Meraki also embraces cultural and informal events that promote teamwork, leadership, and holistic development. MERAKI is more than just a fest—it is an experience that encourages learning beyond classrooms, fosters collaboration among students, and builds a strong sense of community. By bringing together participants from various domains, the fest nurtures innovation, confidence, and enthusiasm, making it one of the most anticipated events at IIIT Una.`;
+export const ABOUT_MERAKI = `MERAKI, the annual Tech Fest of IIIT Una, is a vibrant celebration of creativity, innovation, and passion. Derived from a Greek word meaning to do something with soul, creativity, and love, Meraki truly reflects the spirit of young minds driven by curiosity and excellence. The fest serves as a dynamic platform where students showcase their technical expertise, problem-solving abilities, and creative thinking through a diverse range of technical competitions, hackathons, workshops, and fun events.`;
