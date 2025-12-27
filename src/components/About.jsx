@@ -185,9 +185,10 @@ const About = () => {
                             {/* Card Title */}
                             <motion.h2
                                 variants={appleSlideUp(0.2)}
-                                className="font-terminal text-white tracking-wider uppercase text-center text-lg sm:text-xl md:text-2xl lg:text-3xl mb-6 mt-8 sm:mt-0 relative z-20"
+                                className="font-terminal text-white tracking-wider uppercase text-center mb-6 mt-8 sm:mt-0 relative z-20 flex flex-col items-center gap-1"
                             >
-                                ABOUT IIIT UNA
+                                <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">ABOUT</span>
+                                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl">IIIT UNA</span>
                             </motion.h2>
 
                             {/* Card Content */}

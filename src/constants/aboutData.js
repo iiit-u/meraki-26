@@ -14,7 +14,14 @@
  * @constant
  * @type {string}
  */
-export const ABOUT_IIIT_UNA = `Indian Institute of Information Technology, Una (IIIT Una) is a public-private partnership (PPP) engineering institute established by the Government of India along with the Government of Himachal Pradesh and industry partners like HP Power Corporation & HP Transmission Corporation. It is part of the group of 20 IIITs created to boost IT & tech education in India.`;
+export const ABOUT_IIIT_UNA = `Indian Institute of Information Technology Una (IIIT Una), established in 2014, is an
+Institute of National Importance located in Saloh, Himachal Pradesh. It operates under
+a Public-Private Partnership (PPP) model, with joint funding from the Ministry of Human
+Resource Development (Government of India), the Government of Himachal Pradesh,
+and industry partners such as H.P. Power Corporation and H.P. Power Transmission
+Corporation.
+IIIT Una is dedicated to nurturing bright minds by providing quality education and
+advanced technical skills. `;
 
 /**
  * About Meraki description text.
@@ -23,4 +30,4 @@ export const ABOUT_IIIT_UNA = `Indian Institute of Information Technology, Una (
  * @constant
  * @type {string}
  */
-export const ABOUT_MERAKI = `MERAKI, the annual Tech Fest of IIIT Una, is a vibrant celebration of creativity, innovation, and passion. Derived from a Greek word meaning to do something with soul, creativity, and love, Meraki truly reflects the spirit of young minds driven by curiosity and excellence. The fest serves as a dynamic platform where students showcase their technical expertise, problem-solving abilities, and creative thinking through a diverse range of technical competitions, hackathons, workshops, and fun events. Alongside technology, Meraki also embraces cultural and informal events that promote teamwork, leadership, and holistic development. MERAKI is more than just a fest—it is an experience that encourages learning beyond classrooms, fosters collaboration among students, and builds a strong sense of community. By bringing together participants from various domains, the fest nurtures innovation, confidence, and enthusiasm, making it one of the most anticipated events at IIIT Una.`;
+export const ABOUT_MERAKI = `MERAKI, the annual Tech Fest of IIIT Una, is a vibrant celebration of creativity, innovation, and passion. Derived from a Greek word meaning to do something with soul, creativity, and love, Meraki truly reflects the spirit of young minds driven by curiosity and excellence. The fest serves as a dynamic platform where students showcase their technical expertise, problem-solving abilities, and creative thinking through a diverse range of technical competitions, hackathons, workshops, and fun events.`;

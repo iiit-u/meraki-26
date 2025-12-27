@@ -19,7 +19,12 @@ import jayaniImg from '../assets/coordinators/Jayni.webp';
 import ridhamImg from '../assets/coordinators/Ridham.webp';
 import purusharthImg from '../assets/coordinators/Purusharth Rana.webp';
 import vinitImg from '../assets/coordinators/Vinit.webp';
-import sreekarImg from '../assets/coordinators/sreekar.webp';
+import DeepuImg from '../assets/coordinators/Deepu.jpg';
+
+// Import faculty coordinator photos
+import directorImg from '../assets/coordinators/Director-iiitu.jpeg';
+import tanuImg from '../assets/coordinators/tanu.jpg';
+import madanImg from '../assets/coordinators/madan.jpg';
 
 /**
  * Faculty coordinators (COORDINATORS section)
@@ -39,17 +44,20 @@ export const coordinators = [
         name: 'Prof. Manish Gaur',
         role: 'Director',
         subtitle: 'IIIT UNA',
-        isDirector: true
+        isDirector: true,
+        image: directorImg
     },
     {
         name: 'Dr. Tanu Wadhera',
         role: 'Technical Coordinator',
-        subtitle: 'IIIT UNA'
+        subtitle: 'IIIT UNA',
+        image: tanuImg
     },
     {
         name: 'Dr. Madan Verma',
         role: 'Technical Coordinator',
-        subtitle: 'IIIT UNA'
+        subtitle: 'IIIT UNA',
+        image: madanImg
     }
 ];
 
@@ -91,6 +99,6 @@ export const dayCoordinators = [
  * @type {Array<{name: string, role: string, image?: string}>}
  */
 export const departmentHeads = [
-    { name: 'Deepu', role: 'Decorations Head', image: sreekarImg },
+    { name: 'Deepu', role: 'Decorations Head', image: DeepuImg },
     { name: 'Vinit', role: 'Design Head', image: vinitImg },
 ];

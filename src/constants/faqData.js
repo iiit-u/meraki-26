@@ -46,7 +46,7 @@ export const faqData = [
     {
         id: 6,
         question: "Is there a registration fee?",
-        answer: "Some events are free, while others require a small fee depending on sponsorship."
+        answer: "Major events are free, while others require a small fee for inter-college participants."
     },
     {
         id: 7,
@@ -56,17 +56,17 @@ export const faqData = [
     {
         id: 8,
         question: "What are the flagship events?",
-        answer: "Coding marathon, robotics challenge, battle of bands, and cultural showcase."
+        answer: "Skycircuit showcase, Hack-the-throne, Robo-drive, Robo-Trace are some major attractions."
     },
     {
         id: 9,
         question: "How do I reach IIIT Una campus?",
-        answer: "IIIT Una is located in Saloh, Himachal Pradesh. The nearest railway station is Una Himachal and there is good connectivity by road from Chandigarh."
+        answer: "IIIT Una is located in Saloh, Himachal Pradesh. The nearest railway station is Una Himachal and there is good connectivity by road from Chandigarh. For Details please check Contact us page."
     },
     {
         id: 10,
         question: "Is food provided during the fest?",
-        answer: "Yes, food stalls and a festival canteen will be operational throughout the event."
+        answer: "Yes, food stalls and Cafeteria will be operational throughout the event."
     },
     {
         id: 11,

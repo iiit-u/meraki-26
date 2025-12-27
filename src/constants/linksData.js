@@ -85,7 +85,7 @@ export const footerCoordinators = [
     },
     {
         name: "Tanishq Singh",
-        email: "23364@iiitu.ac.in",
+        email: "23362@iiitu.ac.in",
         phone: "+91 7017488532",
     },
 ];
