@@ -58,7 +58,7 @@ function Elite() {
     <section
       id="events"
       ref={sectionRef}
-      className="relative w-full min-h-screen text-white overflow-hidden flex flex-col"
+      className="relative w-full min-h-[55vh] md:min-h-[60vh] text-white overflow-hidden flex flex-col"
       style={{ paddingTop: "var(--navbar-height, 5rem)" }}
     >
       {/* Background Layer */}
@@ -95,11 +95,11 @@ function Elite() {
       {/* Content Container with scroll-linked transforms */}
       <motion.div
         style={{ y: contentY, scale: contentScale }}
-        className="relative z-10 flex-1 flex flex-col px-4 sm:px-6 md:px-8 py-8"
+        className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 py-4"
       >
         {/* Section Header */}
         <motion.div
-          className="w-full max-w-6xl mx-auto mb-6 md:mb-8 flex justify-start"
+          className="w-full max-w-6xl mx-auto mb-3 md:mb-4 flex justify-start"
           variants={appleSlideUp(0)}
           initial="hidden"
           whileInView="show"
@@ -116,7 +116,7 @@ function Elite() {
         </motion.div>
 
         {/* Events UI Container */}
-        <div className="flex-1 flex justify-center items-center w-full">
+        <div className="w-full flex justify-center">
           <motion.div
             className="flex flex-col md:flex-row w-full max-w-6xl mx-auto overflow-visible"
             variants={sectionTransition}
@@ -207,9 +207,9 @@ function Elite() {
             <div
               className="relative z-20 w-full md:w-2/3 bg-[#2a2a2a] border-2 border-[#3a3a3a] rounded-lg md:rounded-l-none md:rounded-r-lg md:-ml-[2px]"
             >
-              <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-4 md:gap-6 items-center w-full h-full">
+              <div className="p-2 sm:p-3 md:p-4 flex flex-col gap-3 md:gap-4 items-center w-full">
                 {/* Event Image with hover zoom */}
-                <div className="w-full relative group rounded-lg aspect-video overflow-hidden ring-1 ring-white/10">
+                <div className="w-full relative group rounded-lg h-40 sm:h-48 md:h-56 lg:h-64 overflow-hidden ring-1 ring-white/10">
                   <img
                     src={activeEvent.image}
                     alt={activeEvent.title}
