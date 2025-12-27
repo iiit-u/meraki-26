@@ -58,7 +58,21 @@ const EventDetails = () => {
       }} />
       <div className="absolute inset-0 bg-black/70 z-0"></div>
 
-      <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10" style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}>
+      <motion.div className={`max-w-7xl mx-auto px-4 sm:px-6 relative z-10 ${eventInfo?.comingSoon ? 'opacity-70 pointer-events-none select-none' : ''}`} style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}>
+        {/* Coming Soon Floating Badge */}
+        {eventInfo?.comingSoon && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none backdrop-blur-lg">
+            <div className="bg-black/60 backdrop-blur-sm border-4 border-cyan-400/50 p-6 sm:p-10 transform -rotate-3 rounded-sm">
+              <h2 className="font-minecraft text-2xl sm:text-4xl text-cyan-400 tracking-widest text-center animate-pulse">
+                COMING SOON
+              </h2>
+              <p className="font-terminal text-white/70 text-center mt-2 text-xs sm:text-sm tracking-widest">
+                SYSTEM INITIALIZING...
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <motion.div className="text-center mb-8 sm:mb-12 md:mb-16" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0 }}>
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -79,11 +93,10 @@ const EventDetails = () => {
 
           {/* Info */}
           <div className="space-y-4 sm:space-y-6 order-2">
-            <h1 className="font-minecraft text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight">{eventData.title}</h1>
             {eventInfo?.isElite && <div className="inline-block bg-blue-600/20 border-2 border-blue-500 px-4 py-2 mt-2"><span className="font-pixel text-blue-400 text-sm sm:text-base tracking-wider flex items-center gap-2"><span className="animate-pulse">★</span> FLAGSHIP EVENT</span></div>}
             <div className="flex items-center gap-2 sm:gap-3"><span className="text-2xl sm:text-3xl md:text-4xl">💰</span><span className="font-pixel text-xl sm:text-2xl md:text-3xl text-yellow-400">{eventData.price}</span></div>
             <div className="flex flex-wrap gap-2 sm:gap-3">{eventData.tags.map((tag, index) => <span key={index} className="bg-gray-800 border border-gray-600 text-white font-terminal text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">{tag}</span>)}</div>
-            <motion.a href={eventData.registerLink || "#"} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block w-full sm:w-auto bg-gradient-to-r from-orange-600 to-orange-500 text-white font-pixel text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-800 hover:from-orange-500 hover:to-orange-400 transition-all min-h-[48px] text-center">REGISTER NOW!</motion.a>
+            <motion.a href={eventData.registerLink || "#"} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block w-full sm:w-auto bg-gradient-to-r from-orange-600 to-orange-500 text-white font-pixel text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-800 hover:from-orange-500 hover:to-orange-400 transition-all min-h-[48px] text-center">{eventData.buttonText || 'REGISTER NOW!'}</motion.a>
           </div>
         </motion.div>
 

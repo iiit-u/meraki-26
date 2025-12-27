@@ -35,6 +35,7 @@ export const events = [
         image: skyCircuitImg,
         description: "SkyCircuit Showcase is a high-energy drone and aeromodelling showcase featuring cutting-edge UAVs, aerobatic RC aircraft, and live flight demonstrations.",
         isElite: true,
+        comingSoon: false,
     },
     {
         id: 2,
@@ -43,6 +44,7 @@ export const events = [
         image: roboDriveImg,
         description: "RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles demonstrating speed, control, and intelligent navigation.",
         isElite: true,
+        comingSoon: true,
     },
     {
         id: 3,
@@ -51,6 +53,7 @@ export const events = [
         image: hackTheThroneImg,
         description: "24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate to build impactful tech solutions.",
         isElite: true,
+        comingSoon: true,
     },
     {
         id: 4,
@@ -59,6 +62,7 @@ export const events = [
         image: arenaXImg,
         description: "ArenaX Game Carnival is a high-energy esports event featuring competitive battles in BGMI, Clash Royale, and Valorant.",
         isElite: true,
+        comingSoon: true,
     },
 ];
 
@@ -98,15 +102,16 @@ export const eventDetailsData = {
     'skycircuit': {
         title: 'SKYCIRCUIT',
         price: '₹15000/-',
-        tags: ['Drones', 'Aerospace', 'Aeromodelling', 'Technology'],
+        tags: ['Aeromodelling', 'Drones', 'Aircrafts', 'FPVs'],
         badge: 'POPULAR EVENT',
         description: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase...',
         fullDescription: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase featuring cutting-edge UAVs, aerobatic RC aircraft, and live flight demonstrations. The showcase brings together innovation, pilot skill, and next-gen aerial technology in an exciting display of precision and performance.',
-        eventDate: 'February 16, 2026',
-        teamSize: '1-3 Members',
+        eventDate: '5th February 2026',
+        teamSize: 'Open',
         venue: 'Open Ground, IIIT Una',
-        contact: 'drones@meraki.com',
-        registerLink: '#'
+        contact: 'meraki@iiitu.ac.in | +91 7017488532',
+        registerLink: '#',
+        buttonText: 'JOIN US'
     },
     'hack-the-throne': {
         title: 'HACK-THE-THRONE',
