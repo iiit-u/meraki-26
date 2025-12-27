@@ -20,23 +20,28 @@
  */
 export const galleryCollections = [
     {
-        id: 'highlights',
-        title: 'Event Highlights',
-        folder: 'highlights',
+        id: 'elite_events',
+        title: 'Elite Events',
+        folder: 'elite_events',
     },
     {
-        id: 'competitions',
-        title: 'Competitions',
-        folder: 'competitions',
+        id: 'software',
+        title: 'Software',
+        folder: 'software',
     },
     {
-        id: 'workshops',
-        title: 'Workshops',
-        folder: 'workshops',
+        id: 'workshop',
+        title: 'Workshop',
+        folder: 'workshop',
     },
     {
-        id: 'team_fun',
-        title: 'Team Fun',
-        folder: 'team_fun',
+        id: 'opening',
+        title: 'Opening',
+        folder: 'opening',
+    },
+    {
+        id: 'robotics',
+        title: 'Robotics',
+        folder: 'robotics',
     },
 ];
