@@ -3,7 +3,7 @@
  * 
  * Renders the landing section with background parallax effect, animated title sequence,
  * and navigation to subsequent sections. Also composes the main page layout by
- * rendering child sections (About, Elite, Sponsors, FAQ).
+ * rendering child sections (About, FlagshipEvent, Workshops, Sponsors, FAQ).
  * 
  * @see DOCS.md#animation-system for heroSequence timing
  * @see DOCS.md#scroll-linked-animations for parallax implementation
@@ -15,7 +15,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import heroImage from "../assets/hero.webp";
 import About from "./About";
 import Faq from "./Faq";
-import Elite from "./Elite";
+import FlagshipEvent from "./FlagshipEvent";
+import Workshops from "./Workshops";
 import Sponsors from "./Sponsors";
 
 import ScrollProgressBar from "./ScrollProgressBar";
@@ -202,10 +203,11 @@ const Hero = () => {
        * Child Sections
        * 
        * Each section handles its own scroll-linked animations.
-       * Order determines scroll sequence: About → Elite → Sponsors → FAQ
+       * Order determines scroll sequence: About → Workshops → FlagshipEvent → Sponsors → FAQ
        */}
       <About />
-      <Elite />
+      <Workshops />
+      <FlagshipEvent />
       <Sponsors />
       <Faq />
 

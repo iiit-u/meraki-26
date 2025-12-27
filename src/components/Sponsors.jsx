@@ -190,7 +190,7 @@ export default function Sponsors() {
       {/* 
        * Gradient Blending Layers
        * 
-       * Top: Blend from Elite section (#0c0c0c)
+       * Top: Blend from Workshops section (#080808)
        * Bottom: Blend to FAQ section (#0a0a0a)
        */}
       <div className="absolute inset-0 z-[1]">

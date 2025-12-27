@@ -19,6 +19,7 @@ import Schedule from "../pages/Schedule";
 import Team from "../pages/Team";
 import DevTeam from "../pages/DevTeam";
 import EventDetails from "../pages/EventDetails";
+import WorkshopDetails from "../pages/WorkshopDetails";
 import PageWrapper from "./PageWrapper";
 
 /**
@@ -38,6 +39,7 @@ import PageWrapper from "./PageWrapper";
  * - /team → Team members
  * - /devteam → Development team credits
  * - /event/:eventId → Dynamic event details
+ * - /workshop/:workshopSlug → Dynamic workshop details
  */
 const AnimatedRoutes = () => {
   // Track current location for route-based key
@@ -59,6 +61,7 @@ const AnimatedRoutes = () => {
         <Route path="/team" element={<PageWrapper><Team /></PageWrapper>} />
         <Route path="/devteam" element={<PageWrapper><DevTeam /></PageWrapper>} />
         <Route path="/event/:eventId" element={<PageWrapper><EventDetails /></PageWrapper>} />
+        <Route path="/workshop/:workshopSlug" element={<PageWrapper><WorkshopDetails /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   );

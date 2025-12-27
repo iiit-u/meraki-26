@@ -97,8 +97,8 @@ const About = () => {
                 {/* 
                  * Bottom Gradient Blend
                  * 
-                 * Transitions to Elite section background color.
-                 * @color #080808 matches --bg-elite
+                 * Transitions to Flagship Event section background color.
+                 * @color #080808 matches --bg-flagship
                  */}
                 <div
                     className="absolute bottom-0 left-0 right-0 h-[30vh] z-[1]"

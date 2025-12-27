@@ -5,7 +5,7 @@
  * convenient import throughout the application.
  * 
  * @example
- * import { events, faqData, galleryData } from "../constants";
+ * import { events, workshops, faqData, galleryData } from "../constants";
  * 
  * @module constants
  */
@@ -14,6 +14,7 @@ export * from './galleryData';
 export * from './scheduleData';
 export * from './teamData';
 export * from './eventsData';
+export * from './workshopsData';
 export * from './faqData';
 
 export * from './linksData';
