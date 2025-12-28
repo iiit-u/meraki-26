@@ -20,11 +20,9 @@ jobs:
           cache: "npm"
 
       - name: Install Dependencies
-        working-directory: meraki
         run: npm install
 
       - name: Build React App
-        working-directory: meraki
         run: npm run build
 
   deploy:
@@ -41,7 +39,8 @@ jobs:
           script: |
             cd /var/www/meraki
             git pull origin main
+
             npm install
             npm run build
-            
+
             sudo systemctl restart nginx
