@@ -27,12 +27,12 @@ import aryanImg from '../assets/devteam/aryan.webp';
 export const devTeamMembers = [
     {
         name: "Vansh Verma",
-        role: "Fullstack Lead",
+        role: "Website Coordinator",
         photo: vanshImg,
     },
     {
         name: "Pranav Garg",
-        role: "UI/UX Designer and Fullstack Lead",
+        role: "Website Co-Coordinator",
         photo: pranavImg,
     },
     {
