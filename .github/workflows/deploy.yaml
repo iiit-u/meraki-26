@@ -38,6 +38,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /var/www/meraki
+            git checkout -- package-lock.json
             git pull origin main
 
             npm install
