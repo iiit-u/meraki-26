@@ -58,7 +58,7 @@ function FlagshipEvent() {
     <section
       id="events"
       ref={sectionRef}
-      className="relative w-full min-h-screen text-white overflow-hidden flex flex-col"
+      className="relative w-full min-h-[125vh] text-white overflow-hidden flex flex-col"
       style={{ paddingTop: "var(--navbar-height, 5rem)" }}
     >
       {/* Background Layer */}
@@ -95,11 +95,11 @@ function FlagshipEvent() {
       {/* Content Container with scroll-linked transforms */}
       <motion.div
         style={{ y: contentY, scale: contentScale }}
-        className="relative z-10 flex-1 flex flex-col px-4 sm:px-6 md:px-8 py-8"
+        className="relative z-10 flex-1 flex flex-col px-4 sm:px-6 md:px-8 pt-8 pb-24"
       >
         {/* Section Header */}
         <motion.div
-          className="w-full max-w-6xl mx-auto mb-6 md:mb-8 flex justify-start"
+          className="w-full max-w-6xl mx-auto mb-3 md:mb-4 flex justify-start"
           variants={appleSlideUp(0)}
           initial="hidden"
           whileInView="show"
@@ -116,9 +116,9 @@ function FlagshipEvent() {
         </motion.div>
 
         {/* Events UI Container */}
-        <div className="flex-1 flex justify-center items-center w-full">
+        <div className="flex-1 flex items-center justify-center">
           <motion.div
-            className="flex flex-col md:flex-row w-full max-w-6xl mx-auto overflow-visible"
+            className="flex flex-col md:flex-row w-full max-w-6xl mx-auto overflow-visible min-h-[60vh]"
             variants={sectionTransition}
             initial="hidden"
             whileInView="show"
@@ -138,7 +138,7 @@ function FlagshipEvent() {
                 const isActive = activeTab === event.id;
                 const isFirst = index === 0;
                 const isLast = index === flagshipEvents.length - 1;
-                
+
                 return (
                   <motion.button
                     key={event.id}
@@ -148,15 +148,15 @@ function FlagshipEvent() {
                     className={`
                       relative group text-left transition-all duration-200
                       shrink-0 md:shrink w-[200px] sm:w-[240px] md:w-full snap-start
-                      ${isActive 
-                        ? "bg-[#2a2a2a] z-20" 
+                      ${isActive
+                        ? "bg-[#2a2a2a] z-20"
                         : "bg-[#1a1a1a] hover:bg-[#252525] z-10"
                       }
                       ${isFirst ? "rounded-t-lg md:rounded-tl-lg md:rounded-tr-none" : ""}
                       ${isLast && !isActive ? "rounded-b-lg md:rounded-bl-lg md:rounded-br-none" : ""}
                       border-2 border-[#3a3a3a]
-                      ${isActive 
-                        ? "border-r-[#3a3a3a] md:border-r-[#2a2a2a] border-l-cyan-500/50" 
+                      ${isActive
+                        ? "border-r-[#3a3a3a] md:border-r-[#2a2a2a] border-l-cyan-500/50"
                         : "border-l-transparent hover:border-l-cyan-500/30"
                       }
                       ${!isFirst ? "-mt-[2px] md:-mt-0" : ""}
@@ -166,15 +166,15 @@ function FlagshipEvent() {
                     {isActive && (
                       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-l" />
                     )}
-                    
+
                     {/* Inner content */}
                     <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4">
                       {/* Event thumbnail */}
                       <div className={`
                         w-10 h-10 md:w-12 md:h-12 rounded-md flex items-center justify-center shrink-0 overflow-hidden 
                         transition-all duration-300 group-hover:scale-105
-                        ${isActive 
-                          ? "ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20" 
+                        ${isActive
+                          ? "ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20"
                           : "ring-1 ring-white/10"
                         }
                       `}>
@@ -186,11 +186,10 @@ function FlagshipEvent() {
                       </div>
                       {/* Event title */}
                       <span
-                        className={`font-minecraft text-xs sm:text-sm md:text-base transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
-                          isActive
-                            ? "text-cyan-400"
-                            : "text-gray-400 group-hover:text-gray-200"
-                        }`}
+                        className={`font-minecraft text-xs sm:text-sm md:text-base transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${isActive
+                          ? "text-cyan-400"
+                          : "text-gray-400 group-hover:text-gray-200"
+                          }`}
                       >
                         {event.title}
                       </span>
@@ -206,40 +205,34 @@ function FlagshipEvent() {
              * No fade animation - content switches immediately for snappy feel
              */}
             <div
-              className="relative z-20 w-full md:w-2/3 bg-[#2a2a2a] border-2 border-[#3a3a3a] rounded-lg md:rounded-l-none md:rounded-r-lg md:-ml-[2px]"
+              className="relative z-20 w-full md:w-2/3 bg-[#2a2a2a] border-2 border-[#3a3a3a] rounded-lg md:rounded-l-none md:rounded-r-lg md:-ml-[2px] overflow-hidden group cursor-pointer"
+              onClick={() => navigate(`/event/${activeEvent.slug}`)}
             >
-              <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-4 md:gap-6 items-center w-full h-full">
-                {/* Event Image with hover zoom */}
-                <div className="w-full relative group rounded-lg aspect-video overflow-hidden ring-1 ring-white/10">
-                  <img
-                    src={activeEvent.image}
-                    alt={activeEvent.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Title overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                    <h3 className="font-minecraft text-white text-lg sm:text-xl md:text-2xl tracking-wide">
-                      {activeEvent.title}
-                    </h3>
-                  </div>
-                </div>
+              {/* Full Enclosing Image */}
+              <div className="absolute inset-0 w-full h-full">
+                <img
+                  src={activeEvent.image}
+                  alt={activeEvent.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
 
-                {/* Description and CTA */}
-                <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                  <div className="lg:w-2/3">
-                    <p className="font-minecraft text-gray-300 text-xs sm:text-sm leading-relaxed">
+                {/* Base Overlay - Always visible for text contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80" />
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                  {/* Title - Always visible */}
+                  <h3 className="font-minecraft text-white text-2xl sm:text-3xl md:text-4xl tracking-wide mb-2 drop-shadow-lg transform transition-all duration-300 group-hover:-translate-y-2">
+                    {activeEvent.title}
+                  </h3>
+
+                  {/* Description - Appears on Hover */}
+                  <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100">
+                    <p className="font-minecraft text-gray-200 text-sm sm:text-base leading-relaxed drop-shadow-md border-l-2 border-cyan-500 pl-3 mb-4">
                       {activeEvent.description}
                     </p>
+
                   </div>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(215, 153, 40, 0.4)" }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate(`/event/${activeEvent.slug}`)}
-                    className="self-start lg:self-center px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-[#D79928] to-[#C57135] border-2 border-[#E5A935] text-black font-minecraft text-xs sm:text-sm hover:from-[#E5A935] hover:to-[#D17E42] transition-all duration-300 rounded cursor-pointer shadow-lg shadow-orange-500/20"
-                  >
-                    VIEW DETAILS →
-                  </motion.button>
                 </div>
               </div>
             </div>

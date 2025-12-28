@@ -19,3 +19,4 @@ export * from './faqData';
 
 export * from './linksData';
 export * from './devTeamData';
+export * from './expertTalkData';

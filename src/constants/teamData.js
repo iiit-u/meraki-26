@@ -19,12 +19,12 @@ import jayaniImg from '../assets/coordinators/Jayni.webp';
 import ridhamImg from '../assets/coordinators/Ridham.webp';
 import purusharthImg from '../assets/coordinators/Purusharth Rana.webp';
 import vinitImg from '../assets/coordinators/Vinit.webp';
-import DeepuImg from '../assets/coordinators/Deepu.jpg';
+import DeepuImg from '../assets/coordinators/Deepu.webp';
 
 // Import faculty coordinator photos
-import directorImg from '../assets/coordinators/Director-iiitu.jpeg';
-import tanuImg from '../assets/coordinators/tanu.jpg';
-import madanImg from '../assets/coordinators/madan.jpg';
+import directorImg from '../assets/coordinators/Director-iiitu.webp';
+import tanuImg from '../assets/coordinators/tanu.webp';
+import madanImg from '../assets/coordinators/madan.webp';
 
 /**
  * Faculty coordinators (COORDINATORS section)

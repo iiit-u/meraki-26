@@ -9,10 +9,12 @@
  */
 
 import minecraftimg from "../assets/minecraft_dungeons_placeholder.webp";
-import skyCircuitImg from "../assets/SkyCircuit.png";
-import roboDriveImg from "../assets/itsRoboDrive.png";
-import hackTheThroneImg from "../assets/Hack The Throne.png";
-import arenaXImg from "../assets/Esports.jpeg";
+import skyCircuitImg from "../assets/skycircuit.webp";
+import roboDriveImg from "../assets/itsRoboDrive.webp";
+import hackTheThroneImg from "../assets/hack_the_throne.webp";
+import arenaXImg from "../assets/Esports.webp";
+import cairLogo from "../assets/sponsors/iitlogo.webp";
+import aerostarLogo from "../assets/sponsors/aerostar.webp";
 
 /**
  * Elite events array for homepage tabs.
@@ -111,7 +113,11 @@ export const eventDetailsData = {
         venue: 'Open Ground, IIIT Una',
         contact: 'meraki@iiitu.ac.in | +91 7017488532',
         registerLink: '#',
-        buttonText: 'JOIN US'
+        buttonText: 'JOIN US',
+        sponsors: [
+            { name: "CAIR, IIT Mandi", logo: cairLogo, type: "Title Sponsor" },
+            { name: "AEROSTAR", logo: aerostarLogo, type: "Co-Sponsor" }
+        ]
     },
     'hack-the-throne': {
         title: 'HACK-THE-THRONE',

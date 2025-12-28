@@ -326,7 +326,7 @@ const Team = () => {
                 whileTap={{ scale: 0.98 }}
                 className="text-center cursor-pointer"
               >
-                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
+                <div className="w-[125px] h-[125px] sm:w-32 sm:h-32 md:w-52 md:h-52 lg:w-52 lg:h-52 rounded-full border-3 sm:border-4 border-gray-300 hover:border-cyan-400 transition-all overflow-hidden mx-auto mb-2 sm:mb-3">
                   <img
                     src={coord.image || avatarImg}
                     alt={coord.name}

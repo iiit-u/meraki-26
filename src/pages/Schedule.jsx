@@ -13,6 +13,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Link } from "react-router-dom";
 import dashboardBg from "../assets/dashboard.webp";
 import avatarImg from "../assets/avatar_pixel.webp";
+import minecraftSignComingSoon from "../assets/minecraft_sign_coming_soon.webp";
 import { scheduleData, showSchedule } from "../constants";
 
 /**
@@ -137,52 +138,51 @@ const Schedule = () => {
          */}
         {!showSchedule ? (
           /* Coming Soon Skeleton UI */
-          <motion.div
-            className="flex flex-col lg:grid lg:grid-cols-4 gap-6 lg:gap-8 opacity-70 pointer-events-none select-none relative"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="relative min-h-[50vh]">
             {/* Floating "Coming Soon" Badge */}
-            <div className="absolute inset-0 z-20 flex items-center justify-center">
-              <div className="bg-black/60 backdrop-blur-sm border-4 border-cyan-400/50 p-6 sm:p-10 transform -rotate-3 rounded-sm">
-                <h2 className="font-minecraft text-2xl sm:text-4xl text-cyan-400 tracking-widest text-center animate-pulse">
-                  COMING SOON
-                </h2>
-                <p className="font-terminal text-white/70 text-center mt-2 text-xs sm:text-sm tracking-widest">
-                  SYSTEM INITIALIZING...
-                </p>
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none select-none">
+              <div className="relative w-[400px] sm:w-[500px] md:w-[600px] aspect-[4/3] flex items-center justify-center transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+                <img src={minecraftSignComingSoon} alt="Coming Soon" className="absolute inset-0 w-full h-full object-contain drop-shadow-2xl opacity-100" />
               </div>
             </div>
 
-            {/* Skeleton Sidebar */}
-            <div className="lg:col-span-1 order-2 lg:order-1 space-y-4">
-              <div className="bg-gray-800/50 border-2 border-gray-700/50 p-4 sm:p-6">
-                <div className="flex lg:flex-col items-center gap-4 lg:gap-0">
-                  <SkeletonBlock className="w-20 h-20 sm:w-24 sm:h-24 lg:w-full lg:aspect-square shrink-0" />
-                  <div className="flex-1 lg:w-full lg:mt-4 space-y-2">
-                    <SkeletonBlock className="h-20 w-full" />
-                    <SkeletonBlock className="h-4 w-1/2 mx-auto" />
+            {/* Skeleton Background Content */}
+            <motion.div
+              className="flex flex-col lg:grid lg:grid-cols-4 gap-6 lg:gap-8 opacity-30 pointer-events-none select-none filter blur-[1px]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{ duration: 0.8 }}
+            >
+              {/* Skeleton Sidebar */}
+              <div className="lg:col-span-1 order-2 lg:order-1 space-y-4">
+                <div className="bg-gray-800/50 border-2 border-gray-700/50 p-4 sm:p-6">
+                  <div className="flex lg:flex-col items-center gap-4 lg:gap-0">
+                    <SkeletonBlock className="w-20 h-20 sm:w-24 sm:h-24 lg:w-full lg:aspect-square shrink-0" />
+                    <div className="flex-1 lg:w-full lg:mt-4 space-y-2">
+                      <SkeletonBlock className="h-20 w-full" />
+                      <SkeletonBlock className="h-4 w-1/2 mx-auto" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Skeleton Schedule */}
-            <div className="lg:col-span-3 order-1 lg:order-2">
-              <div className="flex gap-2 sm:gap-3 mb-6 sm:mb-8">
-                {[1, 2, 3].map(i => (
-                  <SkeletonBlock key={i} className="h-10 sm:h-12 w-24 sm:w-32" />
-                ))}
+              {/* Skeleton Schedule */}
+              <div className="lg:col-span-3 order-1 lg:order-2">
+                <div className="flex gap-2 sm:gap-3 mb-6 sm:mb-8">
+                  {[1, 2, 3].map(i => (
+                    <SkeletonBlock key={i} className="h-10 sm:h-12 w-24 sm:w-32" />
+                  ))}
+                </div>
+                <SkeletonBlock className="h-8 w-40 mb-4 sm:mb-6" />
+                <div className="space-y-2 sm:space-y-3">
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <SkeletonCard key={i} />
+                  ))}
+                </div>
               </div>
-              <SkeletonBlock className="h-8 w-40 mb-4 sm:mb-6" />
-              <div className="space-y-2 sm:space-y-3">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <SkeletonCard key={i} />
-                ))}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
+
         ) : (
           /* Full Schedule Content */
           <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 lg:gap-8">

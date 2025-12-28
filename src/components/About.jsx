@@ -16,6 +16,7 @@ import aboutImage from "../assets/about_underground_bg.webp";
 import aboutImage1 from "../assets/about_image1.webp";
 import aboutImage2 from "../assets/about_image2.webp";
 import merakiLogo from "../assets/meraki_minecraft.webp";
+import iiitunaLogo from "../assets/iiitunaLogo.webp";
 import { ABOUT_IIIT_UNA, ABOUT_MERAKI } from "../constants/aboutData";
 import { appleSlideUp, sectionTransition } from "../utils/motion";
 
@@ -185,11 +186,23 @@ const About = () => {
                             {/* Card Title */}
                             <motion.h2
                                 variants={appleSlideUp(0.2)}
-                                className="font-terminal text-white tracking-wider uppercase text-center mb-6 mt-8 sm:mt-0 relative z-20 flex flex-col items-center gap-1"
+                                className="font-terminal text-white tracking-wider uppercase text-center text-lg sm:text-xl md:text-2xl lg:text-3xl mb-2 mt-8 sm:mt-0 relative z-20"
                             >
-                                <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">ABOUT</span>
-                                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl">IIIT UNA</span>
+                                ABOUT
                             </motion.h2>
+
+                            {/* IIIT Una Logo */}
+                            <motion.div
+                                variants={appleSlideUp(0.25)}
+                                className="flex justify-center mb-6 relative z-20"
+                            >
+                                <img
+                                    src={iiitunaLogo}
+                                    alt="IIIT UNA"
+                                    className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+                                    style={{ imageRendering: "pixelated" }}
+                                />
+                            </motion.div>
 
                             {/* Card Content */}
                             <motion.div

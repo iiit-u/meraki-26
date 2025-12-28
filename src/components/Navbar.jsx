@@ -95,7 +95,7 @@ const Navbar = () => {
     { type: "link", to: "/schedule", label: "SCHEDULE" },
     { type: "link", to: "/gallery", label: "GALLERY" },
     { type: "link", to: "/team", label: "TEAM" },
-    { type: "button", action: () => handleNavigation("sponsors"), label: "SPONSORS" },
+    { type: "button", action: () => handleNavigation("partners"), label: "PARTNERS" },
     { type: "link", to: "/contact", label: "CONTACT" },
   ];
 

@@ -16,7 +16,7 @@ import heroImage from "../assets/hero.webp";
 import About from "./About";
 import Faq from "./Faq";
 import FlagshipEvent from "./FlagshipEvent";
-import Workshops from "./Workshops";
+import ExpertTalk from "./ExpertTalk";
 import Sponsors from "./Sponsors";
 
 import ScrollProgressBar from "./ScrollProgressBar";
@@ -206,13 +206,13 @@ const Hero = () => {
        * Order determines scroll sequence: About → Workshops → FlagshipEvent → Sponsors → FAQ
        */}
       <About />
-      <Workshops />
+      <ExpertTalk />
       <FlagshipEvent />
       <Sponsors />
       <Faq />
 
       {/* Scroll progress indicator for desktop */}
-      <ScrollModelContainer/>
+      <ScrollModelContainer />
       <ScrollProgressBar />
     </>
   );
