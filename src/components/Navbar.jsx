@@ -67,10 +67,10 @@ const Navbar = () => {
    * - Default: Subtle gradient
    */
   const getNavBackground = () => {
-    if (isOpen) return "bg-black/95 backdrop-blur-md";
-    if (isAtHero) return "bg-gradient-to-b from-black/60 via-black/30 to-transparent";
-    if (isScrolled) return "bg-black/90 backdrop-blur-xl border-b border-white/10";
-    return "bg-gradient-to-b from-black/50 to-transparent";
+    if (isOpen) return "bg-dark/95 backdrop-blur-md";
+    if (isAtHero) return "bg-gradient-to-b from-dark/60 via-dark/30 to-transparent";
+    if (isScrolled) return "bg-dark/90 backdrop-blur-xl border-b border-white/10";
+    return "bg-gradient-to-b from-dark/50 to-transparent";
   };
 
   /**
@@ -212,7 +212,7 @@ const Navbar = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={toggleMenu}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-dark/60 backdrop-blur-sm z-40 lg:hidden"
             />
 
             {/* 
@@ -226,7 +226,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
-              className="fixed top-0 right-0 h-full w-[280px] sm:w-[320px] bg-[#1a1a1a] z-40 lg:hidden shadow-2xl"
+              className="fixed top-0 right-0 h-full w-[280px] sm:w-[320px] bg-dark-100 z-40 lg:hidden shadow-2xl"
               style={{
                 borderLeft: "3px solid",
                 /* Cyan-to-purple gradient border */

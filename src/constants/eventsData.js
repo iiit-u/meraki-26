@@ -8,11 +8,10 @@
  * @module constants/eventsData
  */
 
-import minecraftimg from "../assets/minecraft_dungeons_placeholder.webp";
-import skyCircuitImg from "../assets/skycircuit.webp";
-import roboDriveImg from "../assets/itsRoboDrive.webp";
+import skyCircuitImg from "../assets/sky_circuit.webp";
+import roboDriveImg from "../assets/robo_drive.webp";
 import hackTheThroneImg from "../assets/hack_the_throne.webp";
-import arenaXImg from "../assets/Esports.webp";
+import arenaXImg from "../assets/arena_x.webp";
 import cairLogo from "../assets/sponsors/iitlogo.webp";
 import aerostarLogo from "../assets/sponsors/aerostar.webp";
 
@@ -106,8 +105,8 @@ export const eventDetailsData = {
         price: '',
         tags: ['Aeromodelling', 'Drones', 'Aircrafts', 'FPVs'],
         badge: 'POPULAR EVENT',
-        description: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase...',
-        fullDescription: 'SkyCircuit Showcase is a high-energy drone and aeromodelling showcase featuring cutting-edge UAVs, aerobatic RC aircraft, and live flight demonstrations. The showcase brings together innovation, pilot skill, and next-gen aerial technology in an exciting display of precision and performance.',
+        description: 'SkyCircuit is a high-impact technical exhibition designed to bring together institute drone teams, research groups, and drone technology startups on a single platform...',
+        fullDescription: 'SkyCircuit is a high-impact technical exhibition designed to bring together institute drone teams, research groups, and drone technology startups on a single platform. The event aims to highlight the rapid advancements in UAV technology, foster knowledge exchange between academia and industry, and inspire students through real-world applications of drones. Participating institute drone teams will present their indigenously developed drones and aircrafts , covering areas such as autonomous navigation, swarm technology, computer vision, payload delivery, surveillance, and disaster management. Drone tech startups will showcase cutting-edge products, R&D breakthroughs, and commercial use cases in sectors like defense, agriculture, mapping, logistics, and smart infrastructure. Beyond static displays, the showcase emphasizes live pilot skill demonstrations, where expert pilots and student teams execute precision maneuvers . The event also features experience-sharing sessions, allowing participants to gain insights into drone design, regulations, startup journeys, challenges in field deployment, and future trends in UAV ecosystems.',
         eventDate: '5th February 2026',
         teamSize: 'Open',
         venue: 'Open Ground, IIIT Una',

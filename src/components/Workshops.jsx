@@ -71,10 +71,10 @@ function Workshops() {
         onClick={() => navigate(`/workshop/${workshop.slug}`)}
       >
         {/* Card Container */}
-        <div className="relative w-full h-full bg-[#1a1a1a] border-2 border-[#3a3a3a] rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 group-hover:shadow-lg group-hover:shadow-cyan-500/10 flex flex-col">
-          
+        <div className="relative w-full h-full bg-dark-100 border-2 border-dark-300 rounded-lg overflow-hidden transition-all duration-300 hover:border-cyan-500/50 group-hover:shadow-lg group-hover:shadow-cyan-500/10 flex flex-col">
+
           {/* Image Section - Smaller, more proportional */}
-          <div className="relative w-full h-28 sm:h-32 md:h-36 overflow-hidden bg-[#0a0a0a] flex-shrink-0">
+          <div className="relative w-full h-28 sm:h-32 md:h-36 overflow-hidden bg-dark flex-shrink-0">
             <img
               src={workshop.image}
               alt={workshop.title}
@@ -86,7 +86,7 @@ function Workshops() {
 
           {/* Content Section - Optimized spacing */}
           <div className="p-3 sm:p-4 md:p-4 flex flex-col gap-3 flex-grow">
-            
+
             {/* Title */}
             <h3 className="font-minecraft text-white text-xs sm:text-sm md:text-base tracking-wider uppercase line-clamp-2 group-hover:text-cyan-400 transition-colors duration-300">
               {workshop.title}
@@ -143,13 +143,13 @@ function Workshops() {
         <div
           className="absolute top-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to bottom, #080808, transparent)",
+            background: "linear-gradient(to bottom, var(--bg-elite), transparent)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to top, #080808, transparent)",
+            background: "linear-gradient(to top, var(--bg-elite), transparent)",
           }}
         />
         {/* Dark overlay for text contrast */}
