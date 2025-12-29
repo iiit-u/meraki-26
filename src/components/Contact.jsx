@@ -207,7 +207,7 @@ export default function ContactMinecraft() {
               }}
             >
               <div className="bg-black/60 p-5 md:p-6 rounded border border-gray-700">
-                <h2 className="text-[#e6e6e6] font-minecraft text-lg mb-4">
+                <h2 className="text-gray-200 font-minecraft text-lg mb-4">
                   Write to Admin
                 </h2>
 
@@ -229,7 +229,7 @@ export default function ContactMinecraft() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                     {/* Name Field */}
                     <div>
-                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-gray-300 mb-1">
                         Username
                       </label>
                       <input
@@ -238,7 +238,7 @@ export default function ContactMinecraft() {
                           minLength: { value: 2, message: "Too short" },
                         })}
                         placeholder="Steve"
-                        className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] min-h-[44px]"
+                        className="w-full p-2 sm:p-2.5 bg-dark/60 border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-dark/80 min-h-[44px]"
                         name="name"
                       />
                       {errors.name && (
@@ -250,7 +250,7 @@ export default function ContactMinecraft() {
 
                     {/* Email Field */}
                     <div>
-                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                      <label className="block text-[10px] sm:text-[11px] font-minecraft text-gray-300 mb-1">
                         Email
                       </label>
                       <input
@@ -262,7 +262,7 @@ export default function ContactMinecraft() {
                           },
                         })}
                         placeholder="steve@minecraft.net"
-                        className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] min-h-[44px]"
+                        className="w-full p-2 sm:p-2.5 bg-dark/60 border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-dark/80 min-h-[44px]"
                         name="email"
                       />
                       {errors.email && (
@@ -275,7 +275,7 @@ export default function ContactMinecraft() {
 
                   {/* Subject Field */}
                   <div>
-                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-gray-300 mb-1">
                       Subject
                     </label>
                     <input
@@ -296,7 +296,7 @@ export default function ContactMinecraft() {
 
                   {/* Message Field */}
                   <div>
-                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-[#ccc] mb-1">
+                    <label className="block text-[10px] sm:text-[11px] font-minecraft text-gray-300 mb-1">
                       Message
                     </label>
                     <textarea
@@ -306,7 +306,7 @@ export default function ContactMinecraft() {
                       })}
                       rows={4}
                       placeholder="Type your message here..."
-                      className="w-full p-2 sm:p-2.5 bg-[rgba(0,0,0,0.6)] border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-[rgba(0,0,0,0.8)] resize-none"
+                      className="w-full p-2 sm:p-2.5 bg-dark/60 border-2 border-gray-600 rounded text-white outline-none text-sm transition-all duration-300 hover:border-cyan-500/50 focus:border-cyan-400 focus:bg-dark/80 resize-none"
                       name="message"
                     />
                     {errors.message && (
@@ -318,7 +318,7 @@ export default function ContactMinecraft() {
 
                   {/* Submit Button */}
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-                    <p className="text-[rgba(255,255,255,0.6)] text-[9px] sm:text-[10px] font-minecraft w-full sm:max-w-[55%] text-center sm:text-left hidden sm:block">
+                    <p className="text-white/60 text-[9px] sm:text-[10px] font-minecraft w-full sm:max-w-[55%] text-center sm:text-left hidden sm:block">
                       *All fields required
                     </p>
                     <div className="w-full sm:w-auto">
@@ -397,11 +397,11 @@ export default function ContactMinecraft() {
             >
               <div className="bg-black/30 p-4 rounded border border-gray-700">
                 <ul className="text-xs font-minecraft text-gray-300 space-y-2">
-                  <li className="flex items-start gap-2 p-2 rounded bg-[rgba(0,0,0,0.2)]">
+                  <li className="flex items-start gap-2 p-2 rounded bg-white/20">
                     <span className="text-green-400">📍</span>
                     <span>IIIT Una, Saloh, Una, H.P. 177209</span>
                   </li>
-                  <li className="flex items-start gap-2 p-2 rounded bg-[rgba(0,0,0,0.2)]">
+                  <li className="flex items-start gap-2 p-2 rounded bg-white/20">
                     <span className="text-purple-400">✉️</span>
                     <span>meraki@iiitu.ac.in</span>
                   </li>

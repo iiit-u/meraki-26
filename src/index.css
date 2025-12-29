@@ -43,7 +43,7 @@ body,
 html {
     margin: 0 !important;
     padding: 0 !important;
-    background-color: #050505;  /* Near-black for deep contrast */
+    background-color: theme('colors.dark.50');  /* Deepest dark */
     color: white;
 }
 
@@ -60,14 +60,14 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;           /* Dark track background */
-    border-left: 2px solid #333;   /* Subtle left border */
+    background: theme('colors.dark.100');           /* Dark track background */
+    border-left: 2px solid theme('colors.dark.300');   /* Subtle left border */
 }
 
 ::-webkit-scrollbar-thumb {
     /* Vertical gradient simulates 3D bevel effect */
-    background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
-    border: 2px solid #1a1a1a;
+    background: linear-gradient(180deg, theme('colors.dark.400') 0%, theme('colors.dark.200') 100%);
+    border: 2px solid theme('colors.dark.100');
     border-radius: 0;              /* Square corners for pixel aesthetic */
 }
 
@@ -79,7 +79,7 @@ html {
 /* Firefox Scrollbar (scrollbar-width/scrollbar-color) */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #4a4a4a #1a1a1a;  /* thumb track */
+    scrollbar-color: theme('colors.dark.400') theme('colors.dark.100');  /* thumb track */
 }
 
 /* ============================================
@@ -96,12 +96,12 @@ html {
      * Used for gradient blending between sections.
      * Each section's bottom gradient fades to next section's top.
      */
-    --bg-hero: #050505;      /* Darkest - night sky */
-    --bg-about: #4a4a4a;     /* Gray - underground stone */
-    --bg-elite: #080808;     /* Near-black */
-    --bg-sponsors: #0c0c0c;  /* Slightly lighter */
-    --bg-faq: #0a0a0a;       /* Match sponsors */
-    --bg-footer: #242424;    /* Lighter gray for contrast */
+    --bg-hero: theme('colors.dark.50');      /* Darkest - night sky */
+    --bg-about: theme('colors.dark.400');    /* Gray - underground stone */
+    --bg-elite: theme('colors.dark.DEFAULT');     /* Near-black */
+    --bg-sponsors: theme('colors.dark.DEFAULT');  /* Slightly lighter */
+    --bg-faq: theme('colors.dark.DEFAULT');       /* Match sponsors */
+    --bg-footer: #242424;    /* Lighter gray for contrast - kept unique */
 
     /* 
      * Easing Functions

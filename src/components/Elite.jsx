@@ -79,13 +79,13 @@ function Elite() {
         <div
           className="absolute top-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to bottom, #080808, transparent)",
+            background: "linear-gradient(to bottom, var(--bg-elite), transparent)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to top, #0c0c0c, transparent)",
+            background: "linear-gradient(to top, var(--bg-elite), transparent)",
           }}
         />
         {/* Dark overlay for text contrast */}
@@ -149,14 +149,14 @@ function Elite() {
                       relative group text-left transition-all duration-200
                       shrink-0 md:shrink w-[200px] sm:w-[240px] md:w-full snap-start
                       ${isActive
-                        ? "bg-[#2a2a2a] z-20"
-                        : "bg-[#1a1a1a] hover:bg-[#252525] z-10"
+                        ? "bg-dark-200 z-20"
+                        : "bg-dark-100 hover:bg-dark-200 z-10"
                       }
                       ${isFirst ? "rounded-t-lg md:rounded-tl-lg md:rounded-tr-none" : ""}
                       ${isLast && !isActive ? "rounded-b-lg md:rounded-bl-lg md:rounded-br-none" : ""}
-                      border-2 border-[#3a3a3a]
+                      border-2 border-dark-300
                       ${isActive
-                        ? "border-r-[#3a3a3a] md:border-r-[#2a2a2a] border-l-cyan-500/50"
+                        ? "border-r-dark-300 md:border-r-dark-200 border-l-cyan-500/50"
                         : "border-l-transparent hover:border-l-cyan-500/30"
                       }
                       ${!isFirst ? "-mt-[2px] md:-mt-0" : ""}
@@ -187,8 +187,8 @@ function Elite() {
                       {/* Event title */}
                       <span
                         className={`font-minecraft text-xs sm:text-sm md:text-base transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${isActive
-                            ? "text-cyan-400"
-                            : "text-gray-400 group-hover:text-gray-200"
+                          ? "text-cyan-400"
+                          : "text-gray-400 group-hover:text-gray-200"
                           }`}
                       >
                         {event.title}
@@ -205,7 +205,7 @@ function Elite() {
              * No fade animation - content switches immediately for snappy feel
              */}
             <div
-              className="relative z-20 w-full md:w-2/3 bg-[#2a2a2a] border-2 border-[#3a3a3a] rounded-lg md:rounded-l-none md:rounded-r-lg md:-ml-[2px]"
+              className="relative z-20 w-full md:w-2/3 bg-dark-200 border-2 border-dark-300 rounded-lg md:rounded-l-none md:rounded-r-lg md:-ml-[2px]"
             >
               <div className="p-2 sm:p-3 md:p-4 flex flex-col gap-3 md:gap-4 items-center w-full">
                 {/* Event Image with hover zoom */}

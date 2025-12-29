@@ -79,13 +79,13 @@ function FlagshipEvent() {
         <div
           className="absolute top-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to bottom, #080808, transparent)",
+            background: "linear-gradient(to bottom, var(--bg-elite), transparent)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 right-0 h-[30vh] z-[1]"
           style={{
-            background: "linear-gradient(to top, #080808, transparent)",
+            background: "linear-gradient(to top, var(--bg-elite), transparent)",
           }}
         />
         {/* Dark overlay for text contrast */}
@@ -149,15 +149,15 @@ function FlagshipEvent() {
                       relative group text-left transition-all duration-200 touch-manipulation
                       w-full min-h-[56px] md:min-h-0
                       ${isActive
-                        ? "bg-[#2a2a2a] z-20"
-                        : "bg-[#1a1a1a] hover:bg-[#252525] z-10"
+                        ? "bg-dark-200 z-20"
+                        : "bg-dark-100 hover:bg-dark-200 z-10"
                       }
                       ${isFirst ? "rounded-bl-lg md:rounded-tl-lg md:rounded-bl-none" : ""}
                       ${index === 1 ? "rounded-br-lg md:rounded-none" : ""}
                       ${isLast && !isActive ? "md:rounded-bl-lg" : ""}
-                      border-2 border-[#3a3a3a]
+                      border-2 border-dark-300
                       ${isActive
-                        ? "md:border-r-[#2a2a2a] border-t-cyan-500/50 md:border-t-[#3a3a3a] md:border-l-cyan-500/50"
+                        ? "md:border-r-dark-200 border-t-cyan-500/50 md:border-t-dark-300 md:border-l-cyan-500/50"
                         : "border-t-transparent md:border-l-transparent hover:border-t-cyan-500/30 md:hover:border-l-cyan-500/30"
                       }
                       ${index % 2 === 1 ? "-ml-[2px]" : ""}
@@ -212,11 +212,11 @@ function FlagshipEvent() {
              * No fade animation - content switches immediately for snappy feel
              */}
             <div
-              className="relative z-20 w-full md:w-2/3 bg-[#2a2a2a] border-2 border-[#3a3a3a] rounded-t-lg rounded-b-none md:rounded-l-none md:rounded-r-lg md:rounded-tl-lg mb-0 md:mt-0 md:-ml-[2px] overflow-hidden group cursor-pointer min-h-[320px] xs:min-h-[360px] sm:min-h-[400px] md:min-h-[450px]"
+              className="relative z-20 w-full md:w-2/3 bg-dark-200 border-2 border-dark-300 rounded-t-lg rounded-b-none md:rounded-l-none md:rounded-r-lg md:rounded-tl-lg mb-0 md:mt-0 md:-ml-[2px] overflow-hidden group cursor-pointer min-h-[320px] xs:min-h-[360px] sm:min-h-[400px] md:min-h-[450px]"
               onClick={() => navigate(`/event/${activeEvent.slug}`)}
             >
               {/* Full Enclosing Image */}
-              <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-[#1a1a1a]">
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-dark-100">
                 <img
                   src={activeEvent.image}
                   alt={activeEvent.title}

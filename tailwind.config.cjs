@@ -34,9 +34,12 @@ module.exports = {
           900: "#164E63",
         },
         dark: {
-          DEFAULT: "#0A0A0A",
-          100: "#1A1A1A",
-          200: "#2A2A2A",
+          50: "#050505", // Body background
+          DEFAULT: "#0A0A0A", // Main background (merged 080808/0c0c0c)
+          100: "#1A1A1A", // Card background
+          200: "#2A2A2A", // Interactive/Hover
+          300: "#3A3A3A", // Borders
+          400: "#4A4A4A", // Secondary backgrounds
         },
       },
       fontFamily: {

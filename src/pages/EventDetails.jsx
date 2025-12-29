@@ -133,7 +133,7 @@ const EventDetails = () => {
               </div>
 
               {/* Skeleton Details Panel */}
-              <div className="lg:col-span-2 bg-gray-800/50 border-2 border-gray-700/50 p-8 mt-8">
+              <div className="lg:col-span-2 bg-dark-100/50 border-2 border-dark-300/50 p-8 mt-8">
                 <SkeletonBlock className="h-8 w-32 mb-6" />
                 <div className="space-y-3">
                   <SkeletonBlock className="h-4 w-full" />
@@ -153,7 +153,7 @@ const EventDetails = () => {
             {/* Content Grid */}
             <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.2 }}>
               {/* Image */}
-              <div className="border-3 sm:border-4 border-white bg-gray-800 order-1 overflow-hidden">
+              <div className="border-3 sm:border-4 border-white bg-dark-100 order-1 overflow-hidden">
                 {eventImage ? <img src={eventImage} alt={eventData.title} className="w-full aspect-video object-cover object-top" /> : <div className="aspect-video bg-gradient-to-br from-amber-900 via-orange-800 to-yellow-900 flex items-center justify-center"><span className="text-5xl sm:text-6xl md:text-8xl">🎮</span></div>}
               </div>
 
@@ -225,7 +225,7 @@ const EventDetails = () => {
             )}
 
             {/* Details Panel */}
-            <motion.div className="bg-gray-800/80 border-2 border-gray-600 p-4 sm:p-6 md:p-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.6 }}>
+            <motion.div className="bg-dark-100/80 border-2 border-dark-300 p-4 sm:p-6 md:p-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.6 }}>
               <h2 className="font-pixel text-lg sm:text-xl md:text-2xl text-white mb-4 sm:mb-6">DETAILS</h2>
               <div className="mb-4 sm:mb-6">
                 <h3 className="font-pixel text-sm sm:text-base text-cyan-400 mb-2 sm:mb-3">DESCRIPTION</h3>
