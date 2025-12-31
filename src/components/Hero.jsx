@@ -5,25 +5,28 @@
  * and navigation to subsequent sections. Also composes the main page layout by
  * rendering child sections (About, FlagshipEvent, Workshops, Sponsors, FAQ).
  * 
+ * Code-splitting is implemented using React.lazy() for below-the-fold sections.
+ * 
  * @see DOCS.md#animation-system for heroSequence timing
  * @see DOCS.md#scroll-linked-animations for parallax implementation
  * @component
  */
 
-import React, { useRef } from "react";
+import React, { useRef, Suspense } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import heroImage from "../assets/hero.webp";
-import About from "./About";
-import Faq from "./Faq";
-import FlagshipEvent from "./FlagshipEvent";
-import ExpertTalk from "./ExpertTalk";
-import Sponsors from "./Sponsors";
 
 import ScrollProgressBar from "./ScrollProgressBar";
 import { scrollToSection } from "../utils/scrollToSection";
 import { heroSequence } from "../utils/motion";
 
-import ScrollModelContainer from "./ScrollModel"
+// Lazy-loaded below-the-fold sections for code-splitting
+const About = React.lazy(() => import("./About"));
+const Faq = React.lazy(() => import("./Faq"));
+const FlagshipEvent = React.lazy(() => import("./FlagshipEvent"));
+const ExpertTalk = React.lazy(() => import("./ExpertTalk"));
+const Sponsors = React.lazy(() => import("./Sponsors"));
+const ScrollModelContainer = React.lazy(() => import("./ScrollModel"));
 
 /**
  * Hero section with full-viewport landing and scroll-linked opacity.
@@ -203,16 +206,21 @@ const Hero = () => {
        * Child Sections
        * 
        * Each section handles its own scroll-linked animations.
-       * Order determines scroll sequence: About → Workshops → FlagshipEvent → Sponsors → FAQ
+       * Order determines scroll sequence: About → ExpertTalk → FlagshipEvent → Sponsors → FAQ
+       * Single Suspense boundary prevents layout shifts from cascading loads.
        */}
-      <About />
-      <ExpertTalk />
-      <FlagshipEvent />
-      <Sponsors />
-      <Faq />
+      <Suspense fallback={<SectionLoader />}>
+        <About />
+        <ExpertTalk />
+        <FlagshipEvent />
+        <Sponsors />
+        <Faq />
+      </Suspense>
 
       {/* Scroll progress indicator for desktop */}
-      <ScrollModelContainer />
+      <Suspense fallback={null}>
+        <ScrollModelContainer />
+      </Suspense>
       <ScrollProgressBar />
     </>
   );

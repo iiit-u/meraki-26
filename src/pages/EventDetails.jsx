@@ -185,7 +185,7 @@ const EventDetails = () => {
                   <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent flex-1 opacity-30"></div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 justify-items-center gap-8 sm:gap-12 pb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 pb-8 justify-items-center max-w-fit mx-auto">
                   {eventData.sponsors.map((sponsor, index) => (
                     <div key={index} className="group relative">
                       {/* Item Frame Background */}
@@ -193,7 +193,7 @@ const EventDetails = () => {
                       <div className="absolute -inset-3 bg-[#8b5e34] border-t-4 border-l-4 border-[#a67c52] border-b-4 border-r-4 border-[#3d2616] shadow-xl"></div>
 
                       {/* Inner Content Area */}
-                      <div className="relative bg-[#201c1c] p-6 w-[240px] sm:w-[280px] h-[280px] sm:h-[320px] flex flex-col items-center gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
+                      <div className="relative bg-[#201c1c] p-6 w-[240px] sm:w-[280px] min-h-[280px] sm:min-h-[320px] flex flex-col items-center gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
                         {/* Leather Background Texture Overlay */}
                         <div className="absolute inset-0 bg-[#3d2616] opacity-10 pointer-events-none"></div>
 

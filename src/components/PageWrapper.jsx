@@ -3,13 +3,15 @@
  * 
  * Wraps page content to provide consistent entrance and exit transitions
  * when navigating between routes. Works with AnimatePresence in AnimatedRoutes.
+ * Includes Suspense boundary for lazy-loaded route components.
  * 
  * @see DOCS.md#animation-system for animation timing
  * @component
  */
 
-import React from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
+import { PageLoader } from "./MinecraftLoader";
 
 /**
  * Page transition animation variants.
@@ -58,6 +60,7 @@ const pageVariants = {
  * @param {Object} props
  * @param {React.ReactNode} props.children - Page content to wrap
  * @param {string} [props.className=""] - Additional CSS classes
+ * @param {boolean} [props.suspense=true] - Whether to wrap in Suspense
  * @returns {JSX.Element} Motion-wrapped page content
  * 
  * @example
@@ -65,7 +68,7 @@ const pageVariants = {
  *   <HomePage />
  * </PageWrapper>
  */
-const PageWrapper = ({ children, className = "" }) => {
+const PageWrapper = ({ children, className = "", suspense = true }) => {
     return (
         <motion.div
             variants={pageVariants}
@@ -74,7 +77,13 @@ const PageWrapper = ({ children, className = "" }) => {
             exit="exit"
             className={`w-full min-h-screen ${className}`}
         >
-            {children}
+            {suspense ? (
+                <Suspense fallback={<PageLoader />}>
+                    {children}
+                </Suspense>
+            ) : (
+                children
+            )}
         </motion.div>
     );
 };
