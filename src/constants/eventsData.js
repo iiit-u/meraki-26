@@ -14,6 +14,8 @@ import hackTheThroneImg from "../assets/hack_the_throne.webp";
 import arenaXImg from "../assets/arena_x.webp";
 import cairLogo from "../assets/sponsors/iitlogo.webp";
 import aerostarLogo from "../assets/sponsors/aerostar.webp";
+import agastyaLogo from "../assets/agastya.jpg";
+import teamShaktiLogo from "../assets/team_shakti.png";
 
 /**
  * Elite events array for homepage tabs.
@@ -114,8 +116,10 @@ export const eventDetailsData = {
         registerLink: 'mailto:meraki@iiitu.ac.in?subject=Sky Circuit Registration&body=Hello, I would like to showcase something cool at Sky Circuit event',
         buttonText: 'JOIN US',
         sponsors: [
-            { name: "CAIR, IIT Mandi", logo: cairLogo, type: "Title Sponsor" },
-            { name: "AEROSTAR", logo: aerostarLogo, type: "Co-Sponsor" }
+            { name: "CAIR", institution: "IIT Mandi", logo: cairLogo, type: "Title Sponsor" },
+            { name: "AEROSTAR", logo: aerostarLogo, type: "Co-Sponsor" },
+            { name: "Agastya Club", institution: "NIT Jalandhar", logo: agastyaLogo, type: "Event Patron" },
+            { name: "Team Shakti", institution: "Chitkara University", logo: teamShaktiLogo, type: "Event Patron" }
         ]
     },
     'hack-the-throne': {

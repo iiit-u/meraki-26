@@ -185,7 +185,7 @@ const EventDetails = () => {
                   <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent flex-1 opacity-30"></div>
                 </div>
 
-                <div className="flex flex-wrap justify-center gap-8 sm:gap-16 pb-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 justify-items-center gap-8 sm:gap-12 pb-8">
                   {eventData.sponsors.map((sponsor, index) => (
                     <div key={index} className="group relative">
                       {/* Item Frame Background */}
@@ -193,7 +193,7 @@ const EventDetails = () => {
                       <div className="absolute -inset-3 bg-[#8b5e34] border-t-4 border-l-4 border-[#a67c52] border-b-4 border-r-4 border-[#3d2616] shadow-xl"></div>
 
                       {/* Inner Content Area */}
-                      <div className="relative bg-[#201c1c] p-6 min-w-[240px] sm:min-w-[280px] flex flex-col items-center gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
+                      <div className="relative bg-[#201c1c] p-6 w-[240px] sm:w-[280px] h-[280px] sm:h-[320px] flex flex-col items-center gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
                         {/* Leather Background Texture Overlay */}
                         <div className="absolute inset-0 bg-[#3d2616] opacity-10 pointer-events-none"></div>
 
@@ -207,9 +207,11 @@ const EventDetails = () => {
                         </div>
 
                         {/* Text Info */}
-                        <div className="text-center relative z-10">
-                          <p className="font-pixel text-yellow-400 text-lg sm:text-xl md:text-2xl mb-2 drop-shadow-md">{sponsor.name}</p>
-
+                        <div className="text-center relative z-10 flex-1 flex flex-col justify-center">
+                          <p className="font-pixel text-yellow-400 text-lg sm:text-xl md:text-2xl mb-1 drop-shadow-md">{sponsor.name}</p>
+                          {sponsor.institution && sponsor.institution.trim() && (
+                            <p className="font-terminal text-cyan-400 text-sm sm:text-base">{sponsor.institution}</p>
+                          )}
                         </div>
                       </div>
 

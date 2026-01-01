@@ -22,25 +22,31 @@ import unstopLogo from '../assets/sponsors/unstop_logo.svg';
 import aerostarLogo from '../assets/sponsors/aerostar.webp';
 import devfolioLogo from '../assets/sponsors/devfolio_logo.webp';
 import whosNextLogo from '../assets/sponsors/whosnext.webp';
+import mioartaiLogo from '../assets/mioartai.jpg';
+import dopamineStoreLogo from '../assets/dopamine_store.avif';
+import ethindiaLogo from '../assets/ethindia.svg';
 
 /**
  * Partner data array.
  * @constant
- * @type {Array<{name: string, firm: string, designation: string, logo: string}>}
+ * @type {Array<{name: string, firm: string, designation: string, logo: string, url?: string}>}
  */
 const partners = [
-  { name: "InterviewBuddy", firm: "InterviewBuddy", designation: "Silver sponsor", logo: interviewBuddyLogo },
-  { name: "Devfolio", firm: "Devfolio", designation: "Platform partner", logo: devfolioLogo },
-  { name: "AEROSTAR", firm: "AEROSTAR", designation: "Technology and Innovation Partner", logo: aerostarLogo },
-  { name: "Unstop", firm: "Unstop", designation: "Platform Partner", logo: unstopLogo },
-  { name: "Who's Next?", firm: "YOU?", designation: "JOIN US!", logo: whosNextLogo }
+  { name: "mioArtAI", firm: "mioArtAI", designation: "Theme Partner", logo: mioartaiLogo, url: "https://www.instagram.com/mioartai/" },
+  { name: "Dopamine Store", firm: "Dopamine Store", designation: "Merchandise and Lifestyle Partner", logo: dopamineStoreLogo, url: "https://thedopaminestore.in" },
+  { name: "ETHindia", firm: "ETHindia", designation: "Silver Sponsor", logo: ethindiaLogo, url: "https://www.instagram.com/ethindiaco/" },
+  { name: "Devfolio", firm: "Devfolio", designation: "Platform Partner", logo: devfolioLogo, url: "https://devfolio.co" },
+  { name: "Unstop", firm: "Unstop", designation: "Platform Partner", logo: unstopLogo, url: "https://unstop.com" },
+  { name: "AEROSTAR", firm: "AEROSTAR", designation: "Technology and Innovation Partner", logo: aerostarLogo, url: "https://www.instagram.com/aerostar007/" },
+  { name: "InterviewBuddy", firm: "InterviewBuddy", designation: "Silver Sponsor", logo: interviewBuddyLogo, url: "https://interviewbuddy.net" },
+  { name: "Who's Next?", firm: "YOU?", designation: "JOIN US!", logo: whosNextLogo, url: "mailto:meraki@iiitu.ac.in" }
 ];
 
 /**
  * Poster frame component styled as wooden picture frame.
  * 
  * @param {Object} props
- * @param {Object} props.partner - Partner data with name, firm, designation, logo
+ * @param {Object} props.partner - Partner data with name, firm, designation, logo, url
  * @param {number} props.index - Index for staggered animation delay
  * @returns {JSX.Element} Framed partner logo with details
  * 
@@ -55,6 +61,12 @@ const partners = [
  * - Hover: scale(1.05), y(-8px) with spring physics
  */
 const PosterFrame = ({ partner, index }) => {
+  const handleClick = () => {
+    if (partner.url) {
+      window.open(partner.url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <motion.div
       className="relative cursor-pointer group"
@@ -65,6 +77,10 @@ const PosterFrame = ({ partner, index }) => {
         transition: { type: "spring", stiffness: 200, damping: 15 }
       }}
       style={{ perspective: "1000px" }}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
     >
       {/* 
        * Drop Shadow
