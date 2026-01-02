@@ -162,7 +162,12 @@ const EventDetails = () => {
                 {eventInfo?.isElite && <div className="inline-block bg-blue-600/20 border-2 border-blue-500 px-4 py-2 mt-2"><span className="font-pixel text-blue-400 text-sm sm:text-base tracking-wider flex items-center gap-2"><span className="animate-pulse">★</span> FLAGSHIP EVENT</span></div>}
                 {eventData.price && <div className="flex items-center gap-2 sm:gap-3"><span className="text-2xl sm:text-3xl md:text-4xl">💰</span><span className="font-pixel text-xl sm:text-2xl md:text-3xl text-yellow-400">{eventData.price}</span></div>}
                 <div className="flex flex-wrap gap-2 sm:gap-3">{eventData.tags.map((tag, index) => <span key={index} className="bg-gray-800 border border-gray-600 text-white font-terminal text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">{tag}</span>)}</div>
-                <motion.a href={eventData.registerLink || "#"} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block w-full sm:w-auto bg-gradient-to-r from-orange-600 to-orange-500 text-white font-pixel text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-800 hover:from-orange-500 hover:to-orange-400 transition-all min-h-[48px] text-center">{eventData.buttonText || 'REGISTER NOW!'}</motion.a>
+                <div className="flex flex-col gap-3 sm:gap-4">
+                  {eventData.brochureLink && (
+                    <motion.a href={eventData.brochureLink} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block w-full sm:w-auto bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-pixel text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 border-2 border-cyan-800 hover:from-cyan-500 hover:to-cyan-400 transition-all min-h-[48px] text-center">VIEW BROCHURE</motion.a>
+                  )}
+                  <motion.a href={eventData.registerLink || "#"} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block w-full sm:w-auto bg-gradient-to-r from-orange-600 to-orange-500 text-white font-pixel text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-800 hover:from-orange-500 hover:to-orange-400 transition-all min-h-[48px] text-center">{eventData.buttonText || 'REGISTER NOW!'}</motion.a>
+                </div>
               </div>
             </motion.div>
 
@@ -185,20 +190,20 @@ const EventDetails = () => {
                   <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent flex-1 opacity-30"></div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 justify-items-center gap-8 sm:gap-12 pb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-y-12 sm:gap-y-16 lg:gap-y-10 gap-x-6 sm:gap-x-8 lg:gap-x-10 pb-8 max-w-7xl mx-auto">
                   {eventData.sponsors.map((sponsor, index) => (
-                    <div key={index} className="group relative">
+                    <div key={index} className="group relative w-full max-w-[280px] mb-4 sm:mb-6 lg:mb-0">
                       {/* Item Frame Background */}
                       <div className="absolute -inset-3 bg-[#5c3a21] rounded-sm transform rotate-3 transition-transform duration-300 group-hover:rotate-6"></div>
                       <div className="absolute -inset-3 bg-[#8b5e34] border-t-4 border-l-4 border-[#a67c52] border-b-4 border-r-4 border-[#3d2616] shadow-xl"></div>
 
                       {/* Inner Content Area */}
-                      <div className="relative bg-[#201c1c] p-6 w-[240px] sm:w-[280px] h-[280px] sm:h-[320px] flex flex-col items-center gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
+                      <div className="relative bg-[#201c1c] p-4 sm:p-6 w-full aspect-[4/5] flex flex-col items-center gap-3 sm:gap-4 border-4 border-[#1a1616] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
                         {/* Leather Background Texture Overlay */}
                         <div className="absolute inset-0 bg-[#3d2616] opacity-10 pointer-events-none"></div>
 
                         {/* Logo Box */}
-                        <div className="relative w-full h-32 sm:h-40 bg-white border-2 border-[#3d2616] flex items-center justify-center p-4 rounded-sm overflow-hidden group-hover:border-[#a67c52] transition-colors">
+                        <div className="relative w-full h-24 sm:h-32 md:h-36 bg-white border-2 border-[#3d2616] flex items-center justify-center p-3 sm:p-4 rounded-sm overflow-hidden group-hover:border-[#a67c52] transition-colors">
                           <img
                             src={sponsor.logo}
                             alt={sponsor.name}
@@ -207,10 +212,10 @@ const EventDetails = () => {
                         </div>
 
                         {/* Text Info */}
-                        <div className="text-center relative z-10 flex-1 flex flex-col justify-center">
-                          <p className="font-pixel text-yellow-400 text-lg sm:text-xl md:text-2xl mb-1 drop-shadow-md">{sponsor.name}</p>
+                        <div className="text-center relative z-10 flex-1 flex flex-col justify-center px-2">
+                          <p className="font-pixel text-yellow-400 text-base sm:text-lg md:text-xl mb-1 drop-shadow-md break-words">{sponsor.name}</p>
                           {sponsor.institution && sponsor.institution.trim() && (
-                            <p className="font-terminal text-cyan-400 text-sm sm:text-base">{sponsor.institution}</p>
+                            <p className="font-terminal text-cyan-400 text-xs sm:text-sm md:text-base break-words">{sponsor.institution}</p>
                           )}
                         </div>
                       </div>
@@ -231,7 +236,7 @@ const EventDetails = () => {
               <h2 className="font-pixel text-lg sm:text-xl md:text-2xl text-white mb-4 sm:mb-6">DETAILS</h2>
               <div className="mb-4 sm:mb-6">
                 <h3 className="font-pixel text-sm sm:text-base text-cyan-400 mb-2 sm:mb-3">DESCRIPTION</h3>
-                <AnimatePresence mode="wait"><motion.p key={showMore ? "full" : "short"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="font-terminal text-sm sm:text-base text-gray-300 leading-relaxed mb-2 sm:mb-3">{showMore ? eventData.fullDescription : eventData.description}</motion.p></AnimatePresence>
+                <AnimatePresence mode="wait"><motion.p key={showMore ? "full" : "short"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="font-terminal text-sm sm:text-base text-gray-300 leading-relaxed mb-2 sm:mb-3 whitespace-pre-line">{showMore ? eventData.fullDescription : eventData.description}</motion.p></AnimatePresence>
                 <button onClick={() => setShowMore(!showMore)} className="font-terminal text-sm text-cyan-400 hover:text-cyan-300 flex items-center gap-2 min-h-[44px]">{showMore ? "Show less ▲" : "Show more ▼"}</button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
