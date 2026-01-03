@@ -47,7 +47,7 @@ const TeamMemberCard = ({ member, index }) => (
                 </div>
                 <div className="p-3 sm:p-4 bg-[#474747] flex-grow flex flex-col justify-center min-h-[60px] sm:min-h-[80px]">
                     <h3 className="font-minecraft text-xs sm:text-sm md:text-base text-white mb-0.5 sm:mb-1 tracking-wide break-words text-center leading-tight" style={{ textShadow: "2px 2px 0px #000" }}>{member.name}</h3>
-                    {member.role && <p className="font-pixel text-[10px] sm:text-xs text-cyan-400 tracking-wide truncate">{member.role}</p>}
+                    {member.role && <p className="font-pixel text-[10px] sm:text-xs text-cyan-400 tracking-wide truncate text-center">{member.role}</p>}
                 </div>
             </div>
         </motion.div>
