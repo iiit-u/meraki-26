@@ -45,9 +45,9 @@ export const events = [
         title: "ROBODRIVE",
         slug: "robodrive",
         image: roboDriveImg,
-        description: "RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles demonstrating speed, control, and intelligent navigation.",
+        description: "Robo Drive is a robotics competition where teams design and manually control a robot car to complete a predefined track in the shortest possible time.",
         isElite: true,
-        comingSoon: true,
+        comingSoon: false,
     },
     {
         id: 3,
@@ -56,7 +56,7 @@ export const events = [
         image: hackTheThroneImg,
         description: "24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate to build impactful tech solutions.",
         isElite: true,
-        comingSoon: true,
+        comingSoon: false,
     },
     {
         id: 4,
@@ -91,16 +91,17 @@ export const events = [
 export const eventDetailsData = {
     'robodrive': {
         title: 'ROBODRIVE',
-        price: '₹19000/-',
+        price: '₹20000/-',
         tags: ['Robotics', 'Engineering', 'Competition', 'Innovation'],
         badge: 'FLAGSHIP EVENT',
-        description: 'RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles...',
-        fullDescription: 'RoboDrive is an action-packed robotics showcase featuring autonomous and remote-controlled vehicles demonstrating speed, control, and intelligent navigation. The event highlights innovation in robotics, mobility systems, and real-world engineering through thrilling live runs and demos.',
-        eventDate: 'February 15-17, 2026',
+        description: 'Robo Drive is a robotics competition where teams design and manually control a robot car to complete a predefined track in the shortest possible time...',
+        fullDescription: 'Robo Drive is a robotics competition where teams design and manually control a robot car to complete a predefined track in the shortest possible time. The track includes sharp turns, obstacles, and checkpoints that must be navigated strictly according to the event rules. Evaluation is purely time-based, and final rankings are decided solely by the total time taken, including any applicable penalties. Serious rule violations may result in immediate disqualification. The event emphasizes practical application of robot design, motor control, basic Arduino usage, and real-time driving decisions under competitive conditions.',
+        eventDate: 'February 7, 2026',
         teamSize: '2-4 Members',
         venue: 'IIIT Una Campus',
-        contact: 'events@meraki.com',
-        registerLink: '#'
+        contact: 'meraki@iiitu.ac.in | +91 6283746751',
+        brochureLink: '/brochures/Event Brochure - Robo Drive.pdf',
+        registerLink: 'https://unstop.com/p/robodrive-meraki-2026-indian-institute-of-information-technology-iiit-una-1617278'
     },
     'skycircuit': {
         title: 'SKYCIRCUIT',
@@ -124,16 +125,17 @@ export const eventDetailsData = {
     },
     'hack-the-throne': {
         title: 'HACK-THE-THRONE',
-        price: '₹10000/-',
+        price: '₹48000/-',
         tags: ['Coding', 'Hackathon', 'Innovation', 'Tech'],
         badge: 'COMPETITIVE',
-        description: '24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate...',
-        fullDescription: '24-hour high-intensity hackathon where innovators, coders, and problem-solvers collaborate to build impactful tech solutions. Participants compete against time to ideate, design, and prototype bold ideas that challenge the status quo and claim the throne.',
-        eventDate: 'February 17, 2026',
-        teamSize: '1-2 Members',
+        description: 'Hack-The-Throne is a national-level inter-college hackathon organized under Meraki 2026, the Annual Tech Fest...',
+        fullDescription: 'Hack-The-Throne is a national-level inter-college hackathon organized under Meraki 2026, the Annual Tech Fest. It is exclusively designed for students who want to move beyond theoretical learning and apply their technical knowledge to solve real-world problems. The hackathon provides a structured and competitive environment where teams ideate, pitch, and build practical solutions under strict time and evaluation constraints, closely simulating real industry hackathons and startup ecosystems. Participants experience the complete innovation lifecycle, from problem identification and proposal submission to rapid prototyping and final evaluation.\n\nHackathon Themes:\n\n• Sustainability & Green Technology: Solutions focused on climate change mitigation, renewable energy, waste management, pollution control, and sustainable resource utilization.\n\n• FinTech & Digital Innovation: Innovations in digital payments, financial inclusion, fraud detection, blockchain applications, and modern banking systems.\n\n• Health Technology: Technology-driven healthcare solutions including telemedicine, digital diagnostics, mental health tools, and patient monitoring systems.\n\n• Smart Automation: Software-driven automation using AI, machine learning, data pipelines, APIs, and intelligent systems to streamline workflows, optimize decision-making, and reduce manual effort across digital platforms.\n\n• Digital Security Systems: Cybersecurity-focused solutions covering authentication, secure data handling, threat detection, and privacy protection.',
+        eventDate: 'February 5-6, 2026',
+        teamSize: '2-4 Members',
         venue: 'Computer Lab, IIIT Una',
-        contact: 'tech@meraki.com',
-        registerLink: '#'
+        contact: 'meraki@iiitu.ac.in | +91 9721234663',
+        brochureLink: '/brochures/hackathone.pdf',
+        registerLink: 'https://hack-the-throne.devfolio.co/overview'
     },
     'arenax': {
         title: 'ARENAX',
