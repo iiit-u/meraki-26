@@ -12,6 +12,11 @@ import pranavImg from '../assets/coordinators/pranav.webp';
 import yuvrajImg from '../assets/devteam/yuvraj.webp';
 import deepImg from '../assets/devteam/deep.webp';
 import aryanImg from '../assets/devteam/aryan.webp';
+import adityaImg from '../assets/devteam/aditya.webp';
+import nikhilImg from '../assets/devteam/nikhil.webp';
+import pulkitImg from '../assets/devteam/pulkit.webp';
+import sundaramImg from '../assets/devteam/sundaram.webp';
+import ayushImg from '../assets/devteam/ayush.webp';
 
 /**
  * Development team members array.
@@ -29,26 +34,56 @@ export const devTeamMembers = [
         name: "Vansh Verma",
         role: "Website Coordinator",
         photo: vanshImg,
+        tier: 1,
     },
     {
         name: "Pranav Garg",
-        role: "Website Co-Coordinator",
+        role: "Website Coordinator",
         photo: pranavImg,
+        tier: 1,
     },
     {
         name: "Yuvraj Singh Chauhan",
         role: "Fullstack Developer",
         photo: yuvrajImg,
+        tier: 2,
     },
     {
         name: "Deep Shekhar Singh",
         role: "Fullstack Developer",
         photo: deepImg,
+        tier: 2,
     },
     {
         name: "Aryan Sheoran",
         role: "Fullstack Developer",
         photo: aryanImg,
+        tier: 2,
+    },
+    {
+        name: "Aditya Raman",
+        photo: adityaImg,
+        tier: 3,
+    },
+    {
+        name: "Nikhil Mishra",
+        photo: nikhilImg,
+        tier: 3,
+    },
+    {
+        name: "Pulkit Sujaan",
+        photo: pulkitImg,
+        tier: 3,
+    },
+    {
+        name: "Sundaram Gupta",
+        photo: sundaramImg,
+        tier: 3,
+    },
+    {
+        name: "Ayush Arya",
+        photo: ayushImg,
+        tier: 3,
     },
 ];
 

@@ -94,7 +94,7 @@ export default function ScrollModelContainer() {
       left: 0,
       width: '100%',
       height: '200px', 
-      zIndex: 10,
+      zIndex: 15,
       pointerEvents: 'none'
     }}>
       <Canvas 

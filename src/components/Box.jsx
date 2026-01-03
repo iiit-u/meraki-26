@@ -143,7 +143,7 @@ export default function Box({ question, answer }) {
               minHeight: "120px",
             }}
           >
-            <p className="font-terminal text-sm md:text-base text-gray-300 leading-relaxed text-center">
+            <p className="font-terminal text-sm md:text-base text-gray-50 leading-relaxed text-center">
               {answer}
             </p>
           </div>

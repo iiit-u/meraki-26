@@ -46,8 +46,8 @@ const TeamMemberCard = ({ member, index }) => (
                     <motion.div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" initial={{ opacity: 0 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                 </div>
                 <div className="p-3 sm:p-4 bg-[#474747] flex-grow flex flex-col justify-center min-h-[60px] sm:min-h-[80px]">
-                    <h3 className="font-minecraft text-xs sm:text-sm md:text-base text-white mb-0.5 sm:mb-1 tracking-wide truncate" style={{ textShadow: "2px 2px 0px #000" }}>{member.name}</h3>
-                    <p className="font-pixel text-[10px] sm:text-xs text-cyan-400 tracking-wide truncate">{member.role}</p>
+                    <h3 className="font-minecraft text-xs sm:text-sm md:text-base text-white mb-0.5 sm:mb-1 tracking-wide break-words text-center leading-tight" style={{ textShadow: "2px 2px 0px #000" }}>{member.name}</h3>
+                    {member.role && <p className="font-pixel text-[10px] sm:text-xs text-cyan-400 tracking-wide truncate">{member.role}</p>}
                 </div>
             </div>
         </motion.div>
@@ -96,12 +96,34 @@ const DevTeam = () => {
                     </motion.div>
 
                     {/* Team Grid */}
-                    <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-                        {devTeamMembers.map((member, index) => (
-                            <div key={index} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-[200px] sm:max-w-[220px] md:max-w-[260px] lg:max-w-[280px]">
-                                <TeamMemberCard member={member} index={index} />
-                            </div>
-                        ))}
+                    {/* Team Grid */}
+                    <div className="space-y-12 sm:space-y-16">
+                        {/* Tier 1: Coordinator (100% Size) */}
+                        <div className="flex flex-wrap justify-center gap-6">
+                            {devTeamMembers.filter(m => m.tier === 1).map((member, index) => (
+                                <div key={index} className="w-full max-w-[280px]">
+                                    <TeamMemberCard member={member} index={index} />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Tier 2: Core Team (90% Size) */}
+                        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+                            {devTeamMembers.filter(m => m.tier === 2).map((member, index) => (
+                                <div key={index} className="w-[calc(50%-1rem)] sm:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-[250px]">
+                                    <TeamMemberCard member={member} index={index + 1} />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Tier 3: Contributors (75% Size, More Dense) */}
+                        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+                            {devTeamMembers.filter(m => m.tier === 3).map((member, index) => (
+                                <div key={index} className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(25%-1rem)] lg:w-[calc(20%-1rem)] max-w-[200px]">
+                                    <TeamMemberCard member={member} index={index + 4} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Footer */}
