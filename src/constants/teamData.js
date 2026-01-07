@@ -11,7 +11,7 @@
 import pranavImg from '../assets/coordinators/pranav.webp';
 import rishavImg from '../assets/coordinators/Rishav.webp';
 import tanishqImg from '../assets/coordinators/Tanishq.webp';
-import awadhImg from '../assets/coordinators/Avadh.webp';
+import avadhImg from '../assets/coordinators/Avadh.webp';
 import sheenaImg from '../assets/coordinators/sheena.webp';
 import adityaImg from '../assets/coordinators/AdityaPandey.webp';
 import aryanImg from '../assets/coordinators/Aryan.webp';
@@ -82,7 +82,7 @@ export const coreCoordinators = [
  * @type {Array<{name: string, role: string, image?: string}>}
  */
 export const dayCoordinators = [
-    { name: 'Awadh', role: 'Co-Coordinator', image: awadhImg },
+    { name: 'Avadh Agarwal', role: 'Co-Coordinator', image: avadhImg },
     { name: 'Sheena', role: 'Co-Coordinator', image: sheenaImg },
     { name: 'Aditya Pandey', role: 'Co-Coordinator', image: adityaImg },
     { name: 'Aryan Raj', role: 'Co-Coordinator', image: aryanImg },
