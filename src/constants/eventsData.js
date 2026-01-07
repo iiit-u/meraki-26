@@ -15,7 +15,7 @@ import arenaXImg from "../assets/arena_x.webp";
 import cairLogo from "../assets/sponsors/iitlogo.webp";
 import aerostarLogo from "../assets/sponsors/aerostar.webp";
 import agastyaLogo from "../assets/agastya.jpg";
-import teamShaktiLogo from "../assets/team_shakti.png";
+import teamShaktiLogo from "../assets/team_shakti.webp";
 
 /**
  * Elite events array for homepage tabs.
