@@ -20,6 +20,8 @@ import Team from "../pages/Team";
 import DevTeam from "../pages/DevTeam";
 import EventDetails from "../pages/EventDetails";
 import WorkshopDetails from "../pages/WorkshopDetails";
+import MerchandisePage from "../pages/MerchandisePage";
+import Partners from "../pages/Partners";
 import PageWrapper from "./PageWrapper";
 
 /**
@@ -58,6 +60,8 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
         <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
         <Route path="/schedule" element={<PageWrapper><Schedule /></PageWrapper>} />
+        <Route path="/merchandise" element={<PageWrapper><MerchandisePage /></PageWrapper>} />
+        <Route path="/partners" element={<PageWrapper><Partners /></PageWrapper>} />
         <Route path="/team" element={<PageWrapper><Team /></PageWrapper>} />
         <Route path="/devteam" element={<PageWrapper><DevTeam /></PageWrapper>} />
         <Route path="/event/:eventId" element={<PageWrapper><EventDetails /></PageWrapper>} />

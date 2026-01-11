@@ -47,6 +47,7 @@ module.exports = {
         minecraft: ['"Press Start 2P"', 'cursive'],
         terminal: ['"VT323"', 'monospace'],
         pixel: ['"Silkscreen"', 'cursive'],
+        playball: ['"Playball"', 'cursive'],
       },
       backdropBlur: {
         xs: "2px",

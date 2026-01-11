@@ -164,25 +164,27 @@ const PosterFrame = ({ partner, index }) => {
         }}
       />
 
-      {/* Partner Details Plaque */}
-      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 text-center w-64 z-20">
-        <p className="font-terminal text-lg sm:text-2xl text-gray-300 mt-1">
-          {partner.firm}
-        </p>
-        <p className="font-terminal text-sm sm:text-lg text-cyan-400">
-          {partner.designation}
-        </p>
+      {/* Partner Details Tooltip on Hover */}
+      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 text-center w-64 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        <div className="bg-black/90 border-2 border-gray-600 px-3 py-2 rounded shadow-lg">
+          <p className="font-terminal text-sm sm:text-base text-gray-300">
+            {partner.firm}
+          </p>
+          <p className="font-terminal text-xs sm:text-sm text-cyan-400 mt-1">
+            {partner.designation}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
 };
 
 /**
- * Sponsors section component.
+ * Sponsors section component with infinite scrolling carousel.
  * 
- * @returns {JSX.Element} Sponsors section with poster grid
+ * @returns {JSX.Element} Sponsors section with infinite sliding row
  * 
- * @layout CSS Grid: 2 columns on mobile, 3 columns on desktop
+ * @layout Infinite horizontal scroll with duplicated items
  */
 export default function Sponsors() {
   const sectionRef = useRef(null);
@@ -198,6 +200,9 @@ export default function Sponsors() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.2], [60, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 0.2], [0.98, 1]);
+
+  // Duplicate partners array for seamless infinite loop
+  const duplicatedPartners = [...partners, ...partners, ...partners];
 
   return (
     <section
@@ -291,29 +296,66 @@ export default function Sponsors() {
         </div>
 
         {/* 
-         * Sponsor Poster Grid
+         * Infinite Scrolling Sponsor Row
          * 
-         * @layout grid-cols-2 (mobile) → grid-cols-3 (lg)
-         * @animation sectionTransition orchestrates staggered children
+         * Two rows of sponsors sliding in opposite directions
          */}
-        <div className="flex-1 flex items-center justify-center">
-          <motion.div
-            variants={sectionTransition}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="flex flex-wrap justify-center gap-8 sm:gap-10 md:gap-12 lg:gap-14 max-w-5xl mx-auto px-4"
-          >
-            {partners.map((partner, idx) => (
-              <motion.div
-                key={idx}
-                className="flex items-center justify-center mb-12" // Added margin bottom for text
-                variants={appleScaleIn(idx * 0.08)}
-              >
-                <PosterFrame partner={partner} index={idx} />
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="flex-1 flex flex-col items-center justify-center gap-8 sm:gap-12 md:gap-16 overflow-hidden">
+          {/* First Row - Scrolling Left */}
+          <div className="relative w-full overflow-hidden">
+            <motion.div
+              className="flex gap-8 sm:gap-12 md:gap-16"
+              animate={{
+                x: [0, -100 * partners.length / 3 + "%"],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 30,
+                  ease: "linear",
+                },
+              }}
+            >
+              {duplicatedPartners.map((partner, idx) => (
+                <div key={`row1-${idx}`} className="flex-shrink-0">
+                  <PosterFrame partner={partner} index={0} />
+                </div>
+              ))}
+            </motion.div>
+            
+            {/* Fade gradients for smooth edges */}
+            <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-black/80 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-black/80 to-transparent pointer-events-none z-10" />
+          </div>
+
+          {/* Second Row - Scrolling Right */}
+          <div className="relative w-full overflow-hidden">
+            <motion.div
+              className="flex gap-8 sm:gap-12 md:gap-16"
+              animate={{
+                x: [-100 * partners.length / 3 + "%", 0],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 30,
+                  ease: "linear",
+                },
+              }}
+            >
+              {duplicatedPartners.map((partner, idx) => (
+                <div key={`row2-${idx}`} className="flex-shrink-0">
+                  <PosterFrame partner={partner} index={0} />
+                </div>
+              ))}
+            </motion.div>
+            
+            {/* Fade gradients for smooth edges */}
+            <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-black/80 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-black/80 to-transparent pointer-events-none z-10" />
+          </div>
         </div>
       </motion.div>
     </section>

@@ -14,6 +14,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import heroImage from "../assets/hero.webp";
 import About from "./About";
+import Merchandise from "./Merchandise";
 import Faq from "./Faq";
 import FlagshipEvent from "./FlagshipEvent";
 import ExpertTalk from "./ExpertTalk";
@@ -203,9 +204,10 @@ const Hero = () => {
        * Child Sections
        * 
        * Each section handles its own scroll-linked animations.
-       * Order determines scroll sequence: About → Workshops → FlagshipEvent → Sponsors → FAQ
+       * Order determines scroll sequence: About → Merchandise → ExpertTalk → FlagshipEvent → Sponsors → FAQ
        */}
       <About />
+      <Merchandise />
       <ExpertTalk />
       <FlagshipEvent />
       <Sponsors />
