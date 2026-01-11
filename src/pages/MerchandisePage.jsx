@@ -15,25 +15,42 @@ import { useLocation } from "react-router-dom";
 import { appleSlideUp, sectionTransition } from "../utils/motion";
 
 // Merchandise images from public folder
-const doonHoodie = "/merchendise/doon.png";
-const dopamineHoodie = "/merchendise/dopamine.png";
+const doonHoodie = "/merchendise/doon.webp";
+const dopamineHoodie = "/merchendise/dopamine.webp";
 const skullIcon = "/merchendise/skull.png";
 
-// Sample product data for each brand
+// Doon product images from public/merchendise/doon/
+const blackHoodieImg = "/merchendise/doon/Meraki Official Black Hoodie.webp";
+const whiteHoodieImg = "/merchendise/doon/Meraki Official White Hoodie.webp";
+const blackTeeImg = "/merchendise/doon/Meraki Official Black T-Shirt.webp";
+const whiteTeeImg = "/merchendise/doon/Meraki Official White T-Shirt.webp";
+const oversizedTeeImg = "/merchendise/doon/404 Not Found Oversized T-Shirt.webp";
+
+// Product data for Doon Merchandise - All hoodies and t-shirts from doonmerch.odoo.com
 const doonProducts = [
-    { id: 1, name: "GLORIOUS PURPOSE", type: "PREMIUM HOODIE", price: "₹1,299", image: doonHoodie, featured: true },
-    { id: 2, name: "LOKI VARIANT", type: "OVERSIZED TEE", price: "₹699", image: doonHoodie },
-    { id: 3, name: "TVA COLLECTION", type: "PREMIUM SWEATSHIRT", price: "₹999", image: doonHoodie },
-    { id: 4, name: "XPECTO EDITION", type: "GRAPHIC TEE", price: "₹599", image: doonHoodie },
-    { id: 5, name: "MERAKI SPECIAL", type: "TOTE BAG", price: "₹399", image: doonHoodie },
+    { id: 1, name: "Meraki Official Black Hoodie", type: "PREMIUM HOODIE", price: "₹1,299", image: blackHoodieImg, featured: true, buyLink: "https://doonmerch.odoo.com/shop/meraki-iiit-una-17/meraki-official-black-hoodie-132" },
+    { id: 2, name: "Meraki Official White Hoodie", type: "PREMIUM HOODIE", price: "₹1,299", image: whiteHoodieImg, buyLink: "https://doonmerch.odoo.com/shop/meraki-iiit-una-17/meraki-official-white-hoodie-133" },
+    { id: 3, name: "Meraki Official Black T-Shirt", type: "PREMIUM TEE", price: "₹549", image: blackTeeImg, buyLink: "https://doonmerch.odoo.com/shop/meraki-iiit-una-17/meraki-official-black-t-shirt-111" },
+    { id: 4, name: "Meraki Official White T-Shirt", type: "PREMIUM TEE", price: "₹549", image: whiteTeeImg, buyLink: "https://doonmerch.odoo.com/shop/meraki-iiit-una-17/meraki-official-white-t-shirt-130" },
+    { id: 5, name: "404 Not Found Oversized T-Shirt", type: "OVERSIZED TEE", price: "₹649", image: oversizedTeeImg, buyLink: "https://doonmerch.odoo.com/shop/meraki-iiit-una-17/404-not-found-oversized-t-shirt-134" },
 ];
 
+// Dopamine product images from public/merchendise/dopamine/
+const isItOverHoodieImg = "/merchendise/dopamine/it-is-over-hoodie.webp";
+const gridHoodieImg = "/merchendise/dopamine/meraki-grid.webp";
+const gameIsOnHoodieImg = "/merchendise/dopamine/gameison-hoodiestogo.webp";
+const beezyBeeCopyImg = "/merchendise/dopamine/beezy-bee-210-gsm-copy.webp";
+const beezyBeeImg = "/merchendise/dopamine/beezy-bee.webp";
+const gameIsOnTeeImg = "/merchendise/dopamine/gameison-240gsm.webp";
+
+// Product data for Dopamine Store - All products from thedopaminestore.in/collections/iiit-una
 const dopamineProducts = [
-    { id: 1, name: "DR. STRANGE", type: "PREMIUM HOODIE", price: "₹1,499", image: dopamineHoodie, featured: true },
-    { id: 2, name: "MULTIVERSE", type: "OVERSIZED TEE", price: "₹799", image: dopamineHoodie },
-    { id: 3, name: "MYSTIC ARTS", type: "PREMIUM SWEATSHIRT", price: "₹1,099", image: dopamineHoodie },
-    { id: 4, name: "XPECTO '25", type: "GRAPHIC TEE", price: "₹649", image: dopamineHoodie },
-    { id: 5, name: "STRANGE VIBES", type: "TOTE BAG", price: "₹449", image: dopamineHoodie },
+    { id: 1, name: "MERAKI - IS IT OVER - Hoodie", type: "HOODIES TO GO", image: isItOverHoodieImg, featured: true, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-grid-hoodies-to-go-copy" },
+    { id: 2, name: "MERAKI - GRID - Hoodie", type: "HOODIES TO GO", image: gridHoodieImg, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-game-is-on-hoodies-to-go-copy" },
+    { id: 3, name: "MERAKI - GAME IS ON - Hoodie", type: "HOODIES TO GO", image: gameIsOnHoodieImg, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-game-is-on-240-gsm-copy" },
+    { id: 4, name: "MERAKI - BEEZY BEE", type: "240 GSM (Copy)", image: beezyBeeCopyImg, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-beezy-bee-240-gsm-copy" },
+    { id: 5, name: "MERAKI - BEEZY BEE", type: "240 GSM", image: beezyBeeImg, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-game-is-on-240-gsm" },
+    { id: 6, name: "MERAKI - GAME IS ON", type: "240 GSM", image: gameIsOnTeeImg, buyLink: "https://thedopaminestore.in/products/iiit-una-meraki-240-gsm" },
 ];
 
 /**
@@ -88,7 +105,6 @@ const BrandSelectionPopup = ({ onSelectBrand, onClose }) => {
                             <h3 className="font-minecraft text-white text-lg tracking-wide uppercase">
                                 Doon Merchandise
                             </h3>
-                            <img src={skullIcon} alt="" className="w-6 h-6" style={{ imageRendering: "pixelated" }} />
                         </div>
                         <p className="font-playball text-cyan-400 text-base italic">
                             Explore Collection →
@@ -108,7 +124,6 @@ const BrandSelectionPopup = ({ onSelectBrand, onClose }) => {
                             className="w-full h-48 object-contain mb-4 group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="flex items-center justify-center gap-2 mb-2">
-                            <img src={skullIcon} alt="" className="w-6 h-6" style={{ imageRendering: "pixelated" }} />
                             <h3 className="font-minecraft text-white text-lg tracking-wide uppercase">
                                 Dopamine Store
                             </h3>
@@ -130,7 +145,7 @@ const ProductCard = ({ product, brandColor }) => {
     return (
         <motion.div
             whileHover={{ scale: 1.02 }}
-            className="bg-neutral-800/50 border border-neutral-700 overflow-hidden cursor-pointer group"
+            className="bg-neutral-800/50 border border-neutral-700 overflow-hidden group cursor-pointer"
         >
             <div className="relative overflow-hidden">
                 <img
@@ -143,14 +158,8 @@ const ProductCard = ({ product, brandColor }) => {
                         {product.type}
                     </span>
                 </div>
-                <div className="absolute top-4 right-4">
-                    <span className={`font-minecraft text-sm ${brandColor} uppercase tracking-wide`}>
-                        BUY
-                    </span>
-                </div>
             </div>
             <div className="p-5 border-t border-neutral-700">
-                <p className="text-white/60 font-terminal text-sm mb-2">{product.price}</p>
                 <h4 className="font-minecraft text-white text-lg tracking-wide uppercase truncate">
                     {product.name}
                 </h4>
@@ -450,25 +459,24 @@ const MerchandisePage = () => {
                                                             {featuredProduct.name}
                                                         </h2>
                                                     </div>
-                                                    <p className={`font-playball ${brandColor} text-xl md:text-2xl`}>
-                                                        {featuredProduct.price}
-                                                    </p>
                                                 </div>
 
                                                 {/* Buy Button */}
-                                                <motion.a
-                                                    href={selectedBrand === "doon" ? "#" : "https://www.dopamineofficial.in/"}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                <motion.button
+                                                    onClick={() => {
+                                                        if (featuredProduct.buyLink) {
+                                                            window.open(featuredProduct.buyLink, '_blank', 'noopener,noreferrer');
+                                                        }
+                                                    }}
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
-                                                    className={`block w-full py-3 text-center font-minecraft text-white tracking-widest uppercase ${selectedBrand === "doon"
+                                                    className={`block w-full py-3 text-center font-minecraft text-white tracking-widest uppercase cursor-pointer ${selectedBrand === "doon"
                                                         ? "bg-cyan-600 hover:bg-cyan-500"
                                                         : "bg-red-700 hover:bg-red-600"
                                                         } transition-colors duration-300`}
                                                 >
                                                     BUY
-                                                </motion.a>
+                                                </motion.button>
                                             </div>
                                         </>
                                     )}
@@ -482,7 +490,7 @@ const MerchandisePage = () => {
                                 animate="show"
                             >
                                 <div className="grid grid-cols-2 gap-16">
-                                    {products.filter(p => !p.featured).map((product, index) => (
+                                    {products.map((product, index) => (
                                         <motion.div
                                             key={product.id}
                                             variants={appleSlideUp(0.1 * index)}

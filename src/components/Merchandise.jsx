@@ -10,15 +10,20 @@
  * @component
  */
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { appleSlideUp, sectionTransition } from "../utils/motion";
 
 // Merchandise images from public folder
-const doonHoodie = "/merchendise/doon.png";
-const dopamineHoodie = "/merchendise/dopamine.png";
+const doonHoodie = "/merchendise/doon.webp";
+const dopamineHoodie = "/merchendise/dopamine.webp";
 const skullIcon = "/merchendise/skull.png";
+const doonMerchLogo = "/doonmerch.webp";
+
+// External store links
+const doonStoreLink = "https://doonmerch.odoo.com/shop/category/meraki-iiit-una-17";
+const dopamineStoreLink = "https://thedopaminestore.in/collections/iiit-una";
 
 /**
  * Merchandise section with scroll-linked animations.
@@ -35,6 +40,7 @@ const skullIcon = "/merchendise/skull.png";
  */
 const Merchandise = () => {
     const sectionRef = useRef(null);
+    const [showPopup, setShowPopup] = useState(false);
 
     /**
      * Scroll progress tracking for parallax effects.
@@ -107,44 +113,48 @@ const Merchandise = () => {
                         >
                             {/* Store Header */}
                             <div className="flex flex-col items-center gap-2 mb-4 bg-transparent">
-                                <motion.img
-                                    src={skullIcon}
-                                    alt="Skull Icon"
-                                    className="w-12 h-12 md:w-16 md:h-16 mb-2"
-                                    style={{ imageRendering: "pixelated" }}
-                                    whileHover={{ rotate: 360 }}
-                                    transition={{ duration: 0.5 }}
-                                />
+                                <motion.div
+                                    className="w-16 h-16 md:w-20 md:h-20 mb-2 rounded-lg overflow-hidden bg-white p-2"
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <img
+                                        src={doonMerchLogo}
+                                        alt="Doon Merchandise Logo"
+                                        className="w-full h-full object-contain"
+                                    />
+                                </motion.div>
                                 <h3 className="font-minecraft text-white text-base sm:text-lg md:text-xl tracking-wide uppercase text-center leading-tight drop-shadow-[2px_2px_0_rgba(0,0,0,0.8)]">
                                     Doon Merchandise
                                 </h3>
                             </div>
 
-                            {/* Hoodie Image */}
-                            <motion.div
-                                className="relative w-full max-w-[280px] md:max-w-[320px] mb-6"
-                                whileHover={{ scale: 1.03 }}
-                                transition={{ type: "spring", stiffness: 200 }}
-                            >
-                                <img
-                                    src={doonHoodie}
-                                    alt="Doon Merchandise Hoodie"
-                                    className="w-full h-auto object-contain"
-                                    style={{
-                                        filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.5))"
-                                    }}
-                                />
-                            </motion.div>
-
-                            {/* Visit Button */}
+                            {/* Hoodie Image - Links to internal merchandise page */}
                             <Link to="/merchandise" state={{ brand: "doon" }}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-6 py-2 border border-cyan-400/40 bg-black/30 backdrop-blur-sm text-cyan-400 font-minecraft text-sm uppercase hover:bg-cyan-400/10 transition-colors"
+                                <motion.div
+                                    className="relative w-full max-w-[340px] md:max-w-[400px] mb-6 cursor-pointer group"
+                                    whileHover={{ scale: 1.03 }}
+                                    transition={{ type: "spring", stiffness: 200 }}
                                 >
-                                    Visit Store
-                                </motion.button>
+                                    <img
+                                        src={doonHoodie}
+                                        alt="Doon Merchandise Hoodie"
+                                        className="w-full h-auto object-contain"
+                                        style={{
+                                            filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.5))"
+                                        }}
+                                    />
+                                    {/* Floating Explore Button */}
+                                    <a
+                                        href={doonStoreLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/80 backdrop-blur-sm border border-cyan-400/60 text-cyan-400 font-minecraft text-xs uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-cyan-400/20 hover:scale-105 z-10"
+                                    >
+                                        Explore Store
+                                    </a>
+                                </motion.div>
                             </Link>
                         </motion.div>
 
@@ -193,20 +203,19 @@ const Merchandise = () => {
                                     </p>
                                 </div>
 
-                                {/* Explore Button */}
-                                <Link to="/merchandise">
-                                    <motion.div
-                                        whileHover={{
-                                            scale: 1.05,
-                                            borderColor: "rgba(34, 211, 238, 0.8)",
-                                            backgroundColor: "rgba(34, 211, 238, 0.1)"
-                                        }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="inline-block px-8 py-3 border-2 border-cyan-400/40 bg-black/30 backdrop-blur-sm text-white text-base md:text-lg font-minecraft tracking-widest uppercase transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-400/20"
-                                    >
-                                        ▶ Explore Merch
-                                    </motion.div>
-                                </Link>
+                                {/* Explore Button - Opens popup to choose store */}
+                                <motion.div
+                                    onClick={() => setShowPopup(true)}
+                                    whileHover={{
+                                        scale: 1.05,
+                                        borderColor: "rgba(34, 211, 238, 0.8)",
+                                        backgroundColor: "rgba(34, 211, 238, 0.1)"
+                                    }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className="inline-block px-8 py-3 border-2 border-cyan-400/40 bg-black/30 backdrop-blur-sm text-white text-base md:text-lg font-minecraft tracking-widest uppercase transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-400/20"
+                                >
+                                    ▶ Explore Merch
+                                </motion.div>
                             </div>
                         </motion.div>
 
@@ -220,7 +229,7 @@ const Merchandise = () => {
                                 <motion.img
                                     src={skullIcon}
                                     alt="Skull Icon"
-                                    className="w-12 h-12 md:w-16 md:h-16 mb-2"
+                                    className="w-16 h-16 md:w-20 md:h-20 mb-2"
                                     style={{ imageRendering: "pixelated" }}
                                     whileHover={{ rotate: -360 }}
                                     transition={{ duration: 0.5 }}
@@ -230,36 +239,98 @@ const Merchandise = () => {
                                 </h3>
                             </div>
 
-                            {/* Hoodie Image */}
-                            <motion.div
-                                className="relative w-full max-w-[280px] md:max-w-[320px] mb-6"
-                                whileHover={{ scale: 1.03 }}
-                                transition={{ type: "spring", stiffness: 200 }}
-                            >
-                                <img
-                                    src={dopamineHoodie}
-                                    alt="Dopamine Store Hoodie"
-                                    className="w-full h-auto object-contain"
-                                    style={{
-                                        filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.5))"
-                                    }}
-                                />
-                            </motion.div>
-
-                            {/* Visit Button */}
+                            {/* Hoodie Image - Links to internal merchandise page */}
                             <Link to="/merchandise" state={{ brand: "dopamine" }}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-6 py-2 border border-red-500/40 bg-black/30 backdrop-blur-sm text-red-500 font-minecraft text-sm uppercase hover:bg-red-500/10 transition-colors"
+                                <motion.div
+                                    className="relative w-full max-w-[280px] md:max-w-[320px] mb-6 cursor-pointer group"
+                                    whileHover={{ scale: 1.03 }}
+                                    transition={{ type: "spring", stiffness: 200 }}
                                 >
-                                    Visit Store
-                                </motion.button>
+                                    <img
+                                        src={dopamineHoodie}
+                                        alt="Dopamine Store Hoodie"
+                                        className="w-full h-auto object-contain"
+                                        style={{
+                                            filter: "drop-shadow(4px 4px 8px rgba(0,0,0,0.5))"
+                                        }}
+                                    />
+                                    {/* Floating Explore Button */}
+                                    <a
+                                        href={dopamineStoreLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/80 backdrop-blur-sm border border-red-500/60 text-red-500 font-minecraft text-xs uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500/20 hover:scale-105 z-10"
+                                    >
+                                        Explore Store
+                                    </a>
+                                </motion.div>
                             </Link>
                         </motion.div>
                     </div>
                 </motion.div>
             </motion.div>
+
+            {/* Store Selection Popup */}
+            <AnimatePresence>
+                {showPopup && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center"
+                        onClick={() => setShowPopup(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            className="bg-neutral-900 border border-white/10 p-8 rounded-lg max-w-md w-full mx-4"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h3 className="font-minecraft text-white text-xl text-center mb-6">Choose Store</h3>
+                            <div className="flex flex-col gap-4">
+                                <a
+                                    href={doonStoreLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-4 p-4 border border-cyan-400/40 bg-black/50 hover:bg-cyan-400/10 transition-colors rounded-lg"
+                                >
+                                    <div className="w-12 h-12 bg-white rounded-lg p-1 flex-shrink-0">
+                                        <img src={doonMerchLogo} alt="Doon" className="w-full h-full object-contain" />
+                                    </div>
+                                    <div>
+                                        <p className="font-minecraft text-cyan-400 text-sm">Doon Merchandise</p>
+                                        <p className="font-terminal text-white/60 text-xs">Official Meraki Tees</p>
+                                    </div>
+                                    <span className="ml-auto text-cyan-400">↗</span>
+                                </a>
+                                <a
+                                    href={dopamineStoreLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-4 p-4 border border-red-500/40 bg-black/50 hover:bg-red-500/10 transition-colors rounded-lg"
+                                >
+                                    <div className="w-12 h-12 flex-shrink-0">
+                                        <img src={skullIcon} alt="Dopamine" className="w-full h-full object-contain" style={{ imageRendering: 'pixelated' }} />
+                                    </div>
+                                    <div>
+                                        <p className="font-minecraft text-red-500 text-sm">Dopamine Store</p>
+                                        <p className="font-terminal text-white/60 text-xs">Premium Hoodies</p>
+                                    </div>
+                                    <span className="ml-auto text-red-500">↗</span>
+                                </a>
+                            </div>
+                            <button
+                                onClick={() => setShowPopup(false)}
+                                className="mt-6 w-full py-2 border border-white/20 text-white/60 font-minecraft text-sm hover:bg-white/10 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
