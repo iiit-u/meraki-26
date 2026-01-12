@@ -19,7 +19,7 @@ import { appleSlideUp, sectionTransition } from "../utils/motion";
 const doonHoodie = "/merchendise/doom bg removed.png";
 const dopamineHoodie = "/merchendise/dopamine-bg removed.png";
 const skullIcon = "/merchendise/skull.png";
-const doonMerchLogo = "/doonmerch.webp";
+const doonMerchLogo = "/merchendise/Doon Merchandise New Logo With BG.png";
 
 // External store links
 const doonStoreLink = "https://doonmerch.odoo.com/shop/category/meraki-iiit-una-17";

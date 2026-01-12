@@ -15,8 +15,8 @@ import { useLocation } from "react-router-dom";
 import { appleSlideUp, sectionTransition } from "../utils/motion";
 
 // Merchandise images from public folder
-const doonHoodie = "/merchendise/doon.webp";
-const dopamineHoodie = "/merchendise/dopamine.webp";
+const doonHoodie = "/merchendise/doom bg removed.png";
+const dopamineHoodie = "/merchendise/dopamine-bg removed.png";
 const skullIcon = "/merchendise/skull.png";
 
 // Doon product images from public/merchendise/doon/
