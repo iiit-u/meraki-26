@@ -40,8 +40,11 @@ const abhibusLogo = "/abhibus.png";
 const plutoDronesLogo = "/pluto drones.webp";
 
 const goldPartners = [
-    { name: "Abhibus", firm: "Abhibus", designation: "Gold Partner", logo: abhibusLogo, url: "https://www.abhibus.com/" },
-    { name: "Pluto Drones", firm: "Pluto Drones", designation: "Gold Partner", logo: plutoDronesLogo, url: "https://www.plutodrones.com/", whiteBg: true }
+    { name: "Pluto Drones", firm: "Pluto Drones", designation: "Gold Sponsor", logo: plutoDronesLogo, url: "https://www.plutodrones.com/", whiteBg: true }
+];
+
+const travelPartners = [
+    { name: "Abhibus", firm: "Abhibus", designation: "Travel Partner", logo: abhibusLogo, url: "https://www.abhibus.com/" }
 ];
 
 const merchLifestylePartners = [
@@ -166,6 +169,14 @@ const getFrameStyles = (tier) => {
                 innerBorder: "#11998e",
                 pinGradient: "radial-gradient(circle at 30% 30%, #fff 0%, #11998e 100%)",
                 bgColor: "rgba(17, 153, 142, 0.05)"
+            };
+        case 'travel':
+            return {
+                border: "linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)",
+                shadow: "0 0 25px rgba(255, 126, 95, 0.3)",
+                innerBorder: "#ff7e5f",
+                pinGradient: "radial-gradient(circle at 30% 30%, #fff 0%, #ff7e5f 100%)",
+                bgColor: "rgba(255, 126, 95, 0.05)"
             };
         default:
             return {
@@ -373,14 +384,26 @@ const Partners = () => {
                 </div>
                 */}
 
-                {/* Gold Tier - Abhibus, Pluto Drones */}
+                {/* Gold Tier - Pluto Drones */}
                 <div className="mb-32 relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500/5 blur-[100px] rounded-full pointer-events-none" />
 
-                    <SectionHeading title="Gold Partners" color="text-yellow-400" icon="◈" />
+                    <SectionHeading title="Gold Sponsors" color="text-yellow-400" icon="◈" />
                     <div className="flex flex-wrap justify-center gap-12 sm:gap-20 relative z-10">
                         {goldPartners.map((p, i) => (
                             <PartnerCard key={i} partner={p} index={i} size="default" tier="gold" />
+                        ))}
+                    </div>
+                </div>
+
+                {/* Travel Partner - Abhibus */}
+                <div className="mb-32 relative">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-orange-500/5 blur-[100px] rounded-full pointer-events-none" />
+
+                    <SectionHeading title="Travel Partner" color="text-orange-400" icon="✈" />
+                    <div className="flex flex-wrap justify-center gap-12 sm:gap-20 relative z-10">
+                        {travelPartners.map((p, i) => (
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="travel" />
                         ))}
                     </div>
                 </div>
