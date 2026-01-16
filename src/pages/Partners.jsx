@@ -181,7 +181,7 @@ const getFrameStyles = (tier) => {
 /**
  * Minecraft-styled Poster Frame Component with 3D Tilt
  */
-const PartnerCard = ({ partner, index, size = "medium", tier = "wood" }) => {
+const PartnerCard = ({ partner, index, size = "default", tier = "wood" }) => {
     // Removed 3D tilt/wobble logic (useMotionValue, useSpring, useTransform, onMouseMove, etc.)
 
     const handleClick = () => {
@@ -192,9 +192,7 @@ const PartnerCard = ({ partner, index, size = "medium", tier = "wood" }) => {
 
     const styles = getFrameStyles(tier);
     const sizeClasses = {
-        large: "w-64 h-64 sm:w-80 sm:h-80",
-        medium: "w-48 h-48 sm:w-60 sm:h-60",
-        small: "w-36 h-36 sm:w-44 sm:h-44"
+        default: "w-44 h-44 sm:w-52 sm:h-52"
     };
 
     return (
@@ -369,7 +367,7 @@ const Partners = () => {
                     <SectionHeading title="Platinum Partners" color="text-cyan-300" icon="❖" />
                     <div className="flex flex-wrap justify-center gap-16 sm:gap-24 relative z-10">
                         {platinumPartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="large" tier="platinum" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="platinum" />
                         ))}
                     </div>
                 </div>
@@ -382,7 +380,7 @@ const Partners = () => {
                     <SectionHeading title="Gold Partners" color="text-yellow-400" icon="◈" />
                     <div className="flex flex-wrap justify-center gap-12 sm:gap-20 relative z-10">
                         {goldPartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="medium" tier="gold" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="gold" />
                         ))}
                     </div>
                 </div>
@@ -393,7 +391,7 @@ const Partners = () => {
                     <SectionHeading title="Merchandise & Lifestyle" color="text-red-400" icon="⚡" />
                     <div className="flex flex-wrap justify-center gap-16 relative z-10">
                         {merchLifestylePartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="medium" tier="merch" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="merch" />
                         ))}
                     </div>
                 </div>
@@ -404,7 +402,7 @@ const Partners = () => {
                     <SectionHeading title="Platform Partners" color="text-blue-400" icon="⌬" />
                     <div className="flex flex-wrap justify-center gap-12 sm:gap-16 relative z-10">
                         {platformPartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="medium" tier="platform" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="platform" />
                         ))}
                     </div>
                 </div>
@@ -414,7 +412,7 @@ const Partners = () => {
                     <SectionHeading title="Silver Sponsors" color="text-slate-300" icon="◇" />
                     <div className="flex flex-wrap justify-center gap-10 sm:gap-16">
                         {silverPartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="small" tier="silver" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="silver" />
                         ))}
                     </div>
                 </div>
@@ -424,7 +422,7 @@ const Partners = () => {
                     <SectionHeading title="Other Partners" color="text-emerald-400" icon="✳" />
                     <div className="flex flex-wrap justify-center gap-10 sm:gap-16">
                         {otherPartners.map((p, i) => (
-                            <PartnerCard key={i} partner={p} index={i} size="small" tier="other" />
+                            <PartnerCard key={i} partner={p} index={i} size="default" tier="other" />
                         ))}
                     </div>
                 </div>
