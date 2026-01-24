@@ -41,7 +41,7 @@ const Gallery = () => {
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -203,8 +203,8 @@ const Gallery = () => {
                     min-h-[200px] md:min-h-[600px] md:w-1/3"
                 >
                   <div className="absolute inset-0 w-full h-full">
-                    <img 
-                      src={openingPlaceholder} 
+                    <img
+                      src={openingPlaceholder}
                       alt={collection.title}
                       className="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity"
                     />
@@ -239,15 +239,16 @@ const Gallery = () => {
                   >
                     {(collection.images.length > 0 || collection.id === 'workshop' || collection.id === 'software' || collection.id === 'elite_events' || collection.id === 'robotics') && (
                       <div className="absolute inset-0 w-full h-full">
-                        <img 
+                        <img
                           src={
                             collection.id === 'workshop' ? workshopPlaceholder :
-                            collection.id === 'software' ? softwarePlaceholder :
-                            collection.id === 'elite_events' ? eliteEventsPlaceholder :
-                            collection.id === 'robotics' ? roboticsPlaceholder :
-                            collection.images[0]
-                          } 
+                              collection.id === 'software' ? softwarePlaceholder :
+                                collection.id === 'elite_events' ? eliteEventsPlaceholder :
+                                  collection.id === 'robotics' ? roboticsPlaceholder :
+                                    collection.images[0]
+                          }
                           alt={collection.title}
+                          loading="lazy"
                           className="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>

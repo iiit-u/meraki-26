@@ -8,16 +8,18 @@
  */
 
 /* ============================================
- * Typography Imports
+ * Typography
  * 
+ * Fonts are loaded asynchronously via index.html with preload hints.
+ * This eliminates render-blocking requests and improves LCP.
+ * 
+ * Fonts used:
  * - Inter: Modern sans-serif for body text
  * - Press Start 2P: 8-bit pixel font for Minecraft aesthetic
  * - VT323: Monospace terminal font for secondary text
  * - Silkscreen: Pixel font for headings
+ * - Playball: Decorative cursive font
  * ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
 
 /* Tailwind CSS base layers */
 @tailwind base;
@@ -154,14 +156,14 @@ html {
 }
 
 /* 
- * will-change Optimization
+ * will-change Note
  * 
- * Hints browser to pre-allocate resources for animated properties.
- * Applied to all sections for smooth scroll-linked animations.
+ * Removed global will-change on sections as it can hurt performance
+ * by creating excessive compositing layers. Apply will-change only
+ * to specific elements that are actively animating.
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
  */
-section {
-    will-change: transform, opacity;
-}
 
 /* ============================================
  * Accessibility: Reduced Motion
