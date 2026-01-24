@@ -10,7 +10,7 @@
 
 // import colSubhajeetImg from "../assets/experts/ColSubhajeetNahaRetd.jpg";
 import drAmitShuklaImg from "../assets/experts/DrAmitShukla.jpg";
-import skPandeyImg from "../assets/experts/ShShyamKrishnaPandey.jpg";
+// import skPandeyImg from "../assets/experts/ShShyamKrishnaPandey.jpg";
 
 /**
  * Expert talks array for speaker cards.
@@ -49,15 +49,15 @@ export const expertTalks = [
             "Cyber Security & Electric Vehicles",
         ]
     },
-    {
-        id: 3,
-        name: "Shri SK Pandey",
-        title: "Scientist/Engineer - SG, ISTRAC ISRO",
-        image: skPandeyImg,
-        highlights: [
-            "Satcom",
-            "TTC Ground Stations",
-            "Control Engineering"
-        ]
-    },
+    // {
+    //     id: 3,
+    //     name: "Shri SK Pandey",
+    //     title: "Scientist/Engineer - SG, ISTRAC ISRO",
+    //     image: skPandeyImg,
+    //     highlights: [
+    //         "Satcom",
+    //         "TTC Ground Stations",
+    //         "Control Engineering"
+    //     ]
+    // },
 ];
