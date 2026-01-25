@@ -16,45 +16,24 @@ import wallBg from "../assets/sponsors_minecraft_bg.webp";
 import charArt from "../assets/sponsors_character_art.webp";
 import { appleSlideUp, appleScaleIn, sectionTransition } from "../utils/motion";
 
-import iiituLogo from '../assets/sponsors/iiitu_logo.webp';
-import interviewBuddyLogo from '../assets/sponsors/interview_buddy.webp';
-import unstopLogo from '../assets/sponsors/unstop_logo.svg';
-import aerostarLogo from '../assets/sponsors/aerostar.webp';
-import devfolioLogo from '../assets/sponsors/devfolio_logo.webp';
-import whosNextLogo from '../assets/sponsors/whosnext.webp';
-import mioartaiLogo from '../assets/mioartai.jpg';
-import dopamineStoreLogo from '../assets/dopamine_store.avif';
-import ethindiaLogo from '../assets/ethindia.svg';
+// Import shared partner data
+import {
+  goldPartners,
+  travelPartners,
+  merchLifestylePartners,
+  platformPartners,
+  silverPartners,
+  otherPartners
+} from "../constants/partnersData";
 
-// Additional sponsor logos from Partners page
-const abhibusLogo = "/abhibus.png";
-const doonLogo = "/doonmerch.webp";
-const gfgLogo = "/gfg-gg-logo.svg";
-const codechefLogo = "/codechef.jpeg";
-
-/**
- * Partner data array - combining all sponsors from different categories.
- * @constant
- * @type {Array<{name: string, firm: string, designation: string, logo: string, url?: string}>}
- */
+// Combine all partners for the scrolling display
 const partners = [
-  // Gold Partners
-  { name: "Abhibus", firm: "Abhibus", designation: "Gold Partner", logo: abhibusLogo, url: "https://www.abhibus.com/" },
-  // Merch Lifestyle Partners
-  { name: "Dopamine Store", firm: "Dopamine Store", designation: "Merchandise Partner", logo: dopamineStoreLogo, url: "https://thedopaminestore.in" },
-  { name: "Doon Merchandise", firm: "Doon Merchandise", designation: "Merchandise Partner", logo: doonLogo, url: "/merchandise", whiteBg: true },
-  // Platform Partners
-  { name: "Unstop", firm: "Unstop", designation: "Platform Partner", logo: unstopLogo, url: "https://unstop.com" },
-  { name: "GeeksforGeeks", firm: "GeeksforGeeks", designation: "Platform Partner", logo: gfgLogo, url: "https://www.geeksforgeeks.org/" },
-  { name: "CodeChef", firm: "CodeChef", designation: "Platform Partner", logo: codechefLogo, url: "https://www.codechef.com/" },
-  { name: "Devfolio", firm: "Devfolio", designation: "Platform Partner", logo: devfolioLogo, url: "https://devfolio.co" },
-  // Silver Partners
-  { name: "InterviewBuddy", firm: "InterviewBuddy", designation: "Silver Sponsor", logo: interviewBuddyLogo, url: "https://interviewbuddy.net" },
-  { name: "ETHindia", firm: "ETHindia", designation: "Silver Sponsor", logo: ethindiaLogo, url: "https://www.instagram.com/ethindiaco/" },
-  // Other Partners
-  { name: "mioArtAI", firm: "mioArtAI", designation: "Theme Partner", logo: mioartaiLogo, url: "https://www.instagram.com/mioartai/" },
-  { name: "AEROSTAR", firm: "AEROSTAR", designation: "Technology Partner", logo: aerostarLogo, url: "https://www.instagram.com/aerostar007/" },
-  { name: "Who's Next?", firm: "YOU?", designation: "JOIN US!", logo: whosNextLogo, url: "mailto:meraki@iiitu.ac.in" }
+  ...goldPartners,
+  ...travelPartners,
+  ...merchLifestylePartners,
+  ...platformPartners,
+  ...silverPartners,
+  ...otherPartners
 ];
 
 /**
@@ -216,8 +195,15 @@ export default function Sponsors() {
   const contentY = useTransform(scrollYProgress, [0, 0.2], [60, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 0.2], [0.98, 1]);
 
-  // Duplicate partners array for seamless infinite loop
-  const duplicatedPartners = [...partners, ...partners, ...partners];
+  // Remove "Who's Next?" and split into two rows
+  const activePartners = partners.filter(p => p.name !== "Who's Next?");
+  const half = Math.ceil(activePartners.length / 2);
+  const row1Partners = activePartners.slice(0, half);
+  const row2Partners = activePartners.slice(half);
+
+  // Duplicate for seamless infinite loop
+  const duplicatedRow1 = [...row1Partners, ...row1Partners, ...row1Partners];
+  const duplicatedRow2 = [...row2Partners, ...row2Partners, ...row2Partners];
 
   return (
     <section
@@ -315,13 +301,13 @@ export default function Sponsors() {
          * 
          * Two rows of sponsors sliding in opposite directions
          */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-8 sm:gap-12 md:gap-16 overflow-hidden">
+        <div className="flex-1 flex flex-col items-center justify-center gap-4 sm:gap-8 overflow-hidden">
           {/* First Row - Scrolling Left */}
-          <div className="relative w-full overflow-hidden">
+          <div className="relative w-full overflow-hidden pt-10 pb-28">
             <motion.div
               className="flex gap-8 sm:gap-12 md:gap-16"
               animate={{
-                x: [0, -100 * partners.length / 3 + "%"],
+                x: [0, -100 * row1Partners.length / 3 + "%"],
               }}
               transition={{
                 x: {
@@ -332,7 +318,7 @@ export default function Sponsors() {
                 },
               }}
             >
-              {duplicatedPartners.map((partner, idx) => (
+              {duplicatedRow1.map((partner, idx) => (
                 <div key={`row1-${idx}`} className="flex-shrink-0">
                   <PosterFrame partner={partner} index={0} />
                 </div>
@@ -345,22 +331,22 @@ export default function Sponsors() {
           </div>
 
           {/* Second Row - Scrolling Right */}
-          <div className="relative w-full overflow-hidden">
+          <div className="relative w-full overflow-hidden pt-10 pb-28">
             <motion.div
               className="flex gap-8 sm:gap-12 md:gap-16"
               animate={{
-                x: [-100 * partners.length / 3 + "%", 0],
+                x: [-100 * row2Partners.length / 3 + "%", 0],
               }}
               transition={{
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: 30,
+                  duration: 35, // Slightly different duration for visual variety
                   ease: "linear",
                 },
               }}
             >
-              {duplicatedPartners.map((partner, idx) => (
+              {duplicatedRow2.map((partner, idx) => (
                 <div key={`row2-${idx}`} className="flex-shrink-0">
                   <PosterFrame partner={partner} index={0} />
                 </div>
@@ -374,5 +360,6 @@ export default function Sponsors() {
         </div>
       </motion.div>
     </section>
+
   );
 }
