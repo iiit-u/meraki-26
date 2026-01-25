@@ -3,7 +3,7 @@
  * 
  * Provides a reusable image component that:
  * - Uses native lazy loading for below-the-fold images
- * - Shows a blur placeholder during load
+ * - Shows a solid-color placeholder during load
  * - Fades in smoothly when loaded
  * - Supports aspect ratio containers
  * 
