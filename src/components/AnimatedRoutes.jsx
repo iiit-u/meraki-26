@@ -82,8 +82,8 @@ const AnimatedRoutes = () => {
      * @key location.pathname - Unique key triggers remount on route change
      */
     <AnimatePresence mode="wait">
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes location={location} key={location.pathname}>
+      <Suspense fallback={<LoadingFallback />} key={location.pathname}>
+        <Routes location={location}>
           {/* Critical routes - synchronous */}
           <Route path="/" element={<PageWrapper><Hero /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
