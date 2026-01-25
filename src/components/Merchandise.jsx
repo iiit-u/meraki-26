@@ -163,7 +163,7 @@ const Merchandise = () => {
                                 </p>
                                 <h3 className="font-minecraft text-white text-3xl md:text-4xl lg:text-5xl tracking-wide mb-3">
                                     MERCH
-                                </h3 >
+                                </h3>
                                 <p className="font-minecraft text-white text-lg md:text-xl tracking-wide mb-2">
                                     for
                                 </p>
