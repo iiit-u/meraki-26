@@ -28,7 +28,6 @@ import ethindiaLogo from '../assets/ethindia.svg';
 
 // Additional sponsor logos from Partners page
 const abhibusLogo = "/abhibus.png";
-const plutoDronesLogo = "/pluto drones.webp";
 const doonLogo = "/doonmerch.webp";
 const gfgLogo = "/gfg-gg-logo.svg";
 const codechefLogo = "/codechef.jpeg";
